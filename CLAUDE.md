@@ -57,6 +57,12 @@ PBS API → pbs-fetcher (analyze) → data/schemas/*.json + data/relationships.j
 **Hand-written** (committed to git):
 - `site/src/content/docs/getting-started/` — overview, auth, rate limiting
 - `site/src/content/docs/concepts/` — data model, entity relationships, schedules, programs, restrictions
+- `site/src/content/docs/listing-process/` — how listing works, timeline & cycles, stakeholders
+- `site/src/content/docs/pbac/` — overview, submission types, evaluation criteria, outcomes
+- `site/src/content/docs/pricing/` — pricing overview, price types, copayment structure, price disclosure
+- `site/src/content/docs/prescribing/` — authority prescribing, streamlined authority, Section 100
+- `site/src/content/docs/data-integration/` — migration guide, XML-to-API mapping, AMT, data consumers
+- `site/src/content/docs/glossary/` — terms, acronyms
 - `site/src/content/docs/workflows/` — 6 recipe guides (find medicine, check listing, compare brands, etc.)
 - `site/src/content/docs/errors/` — error codes and troubleshooting
 - `packages/content-generator/src/templates/` — Handlebars templates for doc generation

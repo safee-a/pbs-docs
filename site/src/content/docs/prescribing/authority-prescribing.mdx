@@ -1,0 +1,96 @@
+---
+title: "Authority Prescribing"
+description: "How PBS authority prescribing works — restriction levels, approval methods, and how to query authority requirements via the API."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Authority Prescribing
+
+Some PBS items require **prior approval** before they can be prescribed at the subsidized price. This system ensures expensive or high-risk medicines are used appropriately and in line with clinical guidelines.
+
+## Restriction Levels
+
+PBS items fall into three levels of prescribing restriction, from least to most restrictive:
+
+| Restriction Level | Prior Approval? | How to Prescribe |
+|-------------------|----------------|-----------------|
+| **Unrestricted** | No | Any approved prescriber can prescribe freely |
+| **Restricted** | No (but must meet criteria) | Prescriber must satisfy clinical criteria; no approval step |
+| **Authority Required** | Yes | Prescriber must obtain approval before or at time of prescribing |
+
+### Unrestricted
+
+The prescriber writes the prescription with no additional requirements. The medicine is fully subsidized for any indication.
+
+### Restricted
+
+The prescriber must ensure the patient meets the stated clinical criteria (e.g., "for the treatment of hypertension"), but does not need to seek external approval. The prescriber self-certifies that the criteria are met.
+
+### Authority Required
+
+The prescriber must obtain approval from Services Australia before prescribing. The method of approval varies by item.
+
+## Authority Required Subdivisions
+
+Authority Required items are further divided by how the prescriber obtains approval:
+
+| Method | Description | Complexity |
+|--------|-------------|-----------|
+| **Streamlined** | No prior contact needed; prescriber writes a streamlined code on the script | Simplest |
+| **Telephone/HPOS** | Prescriber contacts Services Australia via phone or the HPOS online portal | Moderate |
+| **Written** | Prescriber submits a written application (rare, complex cases) | Most complex |
+
+<Aside type="tip">
+**Agent tip:** Streamlined authority items are the most common type of Authority Required listing. They require no phone call or application — just a 4-digit code on the prescription. See [Streamlined Authority](/prescribing/streamlined-authority/) for details on how to find these codes via the API.
+</Aside>
+
+## How Authority Approval Works
+
+### Streamlined Authority
+1. Prescriber confirms the patient meets clinical criteria
+2. Prescriber writes the **streamlined authority code** on the prescription
+3. No phone call or written application required
+4. Pharmacist dispenses based on the code
+
+### Telephone/HPOS Authority
+1. Prescriber contacts Services Australia (phone: 1800 888 333, or via HPOS portal)
+2. Provides patient details and clinical justification
+3. Receives an **authority approval number**
+4. Writes the approval number on the prescription
+
+### Written Authority
+1. Prescriber completes a written authority application form
+2. Submits to Services Australia with clinical evidence
+3. Waits for approval (can take days to weeks)
+4. Receives written approval before prescribing
+
+<Aside type="note">
+Written authority is reserved for the most complex or expensive medicines. Most authority items use either streamlined or telephone approval.
+</Aside>
+
+## Querying Authority Requirements
+
+Use the restriction hierarchy to determine what authority is needed for a specific item:
+
+```bash
+# Get restrictions for a PBS item
+curl "https://data-api.health.gov.au/pbs/api/v3/restrictions?schedule_code=2026-02-01&pbs_code=12345A"
+
+# Get parameters (condition groups) for a restriction
+curl "https://data-api.health.gov.au/pbs/api/v3/parameters?schedule_code=2026-02-01&res_code=1234"
+
+# Get criteria (specific requirements) for a parameter
+curl "https://data-api.health.gov.au/pbs/api/v3/criteria?schedule_code=2026-02-01&parameter_id=5678"
+```
+
+The restriction response includes the `authority_method` field indicating which type of authority applies.
+
+## Related Resources
+
+- [Streamlined Authority](/prescribing/streamlined-authority/) — how streamlined codes work
+- [Restriction System](/concepts/restriction-system/) — the full restriction hierarchy explained
+- [Section 100 Programs](/prescribing/section-100/) — alternative supply programs
+- [`restrictions`](/endpoints/restrictions/) — restriction data per item
+- [`criteria`](/endpoints/criteria/) — leaf-level clinical requirements
+- [`parameters`](/endpoints/parameters/) — condition groups within restrictions

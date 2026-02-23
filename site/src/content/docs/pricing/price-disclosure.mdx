@@ -1,0 +1,77 @@
+---
+title: "Price Disclosure"
+description: "How the PBS Price Disclosure policy uses generic competition to reduce medicine prices over time."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Price Disclosure
+
+The Price Disclosure policy, introduced in 2007, is the primary mechanism by which the PBS captures savings from generic competition. When multiple brands of a medicine are listed on the PBS, actual market prices are collected and used to progressively reduce the PBS-listed price.
+
+## Why Price Disclosure Exists
+
+When a medicine comes off patent and generic competitors enter the market, pharmacies can negotiate lower prices from manufacturers. Without Price Disclosure, the PBS would continue paying the original (higher) listed price even though the market price has dropped.
+
+## How It Works
+
+The Price Disclosure cycle follows a predictable pattern:
+
+### The Cycle
+
+1. **Generic enters the market** — a second (or third) brand is listed on the PBS for the same molecule
+2. **Price competition begins** — manufacturers compete for pharmacy business, offering discounts
+3. **Transaction data collected** — actual prices paid between manufacturers and pharmacies are reported to the government
+4. **WADP calculated** — the Weighted Average Disclosed Price is computed from real transaction data
+5. **PBS price adjusted** — if the WADP is materially below the current PBS price, the listed price is reduced
+6. **New price takes effect** — the reduced price appears in the next applicable schedule
+
+<Aside type="note">
+Price Disclosure only applies to medicines with multiple brands listed on the PBS. Single-brand medicines (still under patent or without generic competition) are not subject to disclosure cycles.
+</Aside>
+
+## WADP — Weighted Average Disclosed Price
+
+The **WADP** is the key metric in Price Disclosure:
+
+- Calculated from actual transaction prices between manufacturers and pharmacies
+- Weighted by volume (brands with higher sales volumes have more influence)
+- Compared against the current PBS-listed ex-manufacturer price
+- If the WADP is sufficiently below the listed price, a price reduction is triggered
+
+## Impact on Patients
+
+Price Disclosure can benefit patients directly:
+
+- As the dispensed price drops, more medicines fall **below the copayment threshold**
+- General patients end up paying the (lower) dispensed price instead of the full copayment
+- Concessional patients already pay less than most dispensed prices, so the impact is smaller
+- Lower prices also mean the Safety Net threshold is reached more slowly
+
+## Impact on the Supply Chain
+
+| Stakeholder | Effect |
+|-------------|--------|
+| **Manufacturers** | Must compete on price; revenue per unit decreases over time |
+| **Pharmacies** | Reduced margins as PBS price converges with actual cost |
+| **Government** | Lower PBS expenditure on off-patent medicines |
+| **Patients** | Potentially lower out-of-pocket costs for below-copayment items |
+
+<Aside type="tip">
+**Agent tip:** To identify medicines likely affected by Price Disclosure, query the [`items`](/endpoints/items/) endpoint for a specific drug name and look for multiple brands (different `li_drug_name` or `brand_name` values) with the same active ingredient. Price variation between brands suggests an active disclosure cycle.
+</Aside>
+
+## Checking Prices via the API
+
+```bash
+# Compare prices across brands for the same molecule
+curl "https://data-api.health.gov.au/pbs/api/v3/items?schedule_code=2026-02-01&drug_name=atorvastatin"
+```
+
+Look for differences in `dispensed_price` and `manufacturer_ex_price` across brands to understand the current state of price competition.
+
+## Related Resources
+
+- [Pricing Overview](/pricing/pricing-overview/) — how PBS pricing works end-to-end
+- [Price Types](/pricing/price-types/) — understanding AEMP, DPMQ, and other price measures
+- [`items`](/endpoints/items/) — item-level pricing data for brand comparison

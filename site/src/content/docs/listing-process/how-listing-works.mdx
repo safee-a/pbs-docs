@@ -1,0 +1,87 @@
+---
+title: "How PBS Listing Works"
+description: "End-to-end journey of how a medicine gets listed on the PBS — from TGA registration to schedule publication."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# How PBS Listing Works
+
+Getting a medicine listed on the PBS is a multi-stage process involving regulatory approval, clinical evaluation, price negotiation, and ministerial decision. The entire journey typically takes 6 to 17 months.
+
+## The Listing Pipeline
+
+```
+TGA Registration
+       ↓
+PBAC Submission
+       ↓
+PBAC Evaluation (meets 3x/year)
+       ↓
+PBPA Price Negotiation
+       ↓
+Minister Approval
+       ↓
+PBS Schedule Listing (1st of month)
+```
+
+## Stage-by-Stage Breakdown
+
+### 1. TGA Registration
+
+Before a medicine can be considered for the PBS, the sponsor (pharmaceutical company) must obtain registration from the **Therapeutic Goods Administration (TGA)**. TGA evaluates safety, quality, and efficacy. This is a prerequisite — no TGA registration means no PBS listing.
+
+### 2. PBAC Submission
+
+Once TGA-approved, the sponsor submits an application to the **Pharmaceutical Benefits Advisory Committee (PBAC)**. The submission includes clinical trial data, economic modelling, and a proposed price. See [submission types](/pbac/submission-types/) for the different application categories.
+
+### 3. PBAC Evaluation
+
+PBAC meets **three times per year** (March, July, November) to evaluate submissions. The committee assesses clinical effectiveness, cost-effectiveness, and budget impact. See [evaluation criteria](/pbac/evaluation-criteria/) for details on how PBAC makes its decisions.
+
+<Aside type="note">
+The Health Minister **cannot override** a negative PBAC recommendation. If PBAC rejects a submission, the medicine cannot be listed on the PBS unless the sponsor resubmits with new evidence and receives a positive recommendation.
+</Aside>
+
+### 4. PBPA Price Negotiation
+
+After a positive PBAC recommendation, the **Pharmaceutical Benefits Pricing Authority (PBPA)** negotiates the final price with the sponsor. This includes the ex-manufacturer price, any risk-sharing arrangements, and special pricing agreements.
+
+### 5. Minister Approval
+
+The Health Minister makes the **final listing decision** based on the PBAC recommendation and agreed pricing. In practice, the Minister almost always approves positively recommended medicines once pricing is agreed.
+
+### 6. PBS Schedule Publication
+
+The medicine appears in the next available **PBS schedule update**, published on the **1st of each month**. The listing includes the item's PBS code, pricing, restrictions, and program assignment.
+
+<Aside type="tip">
+**Agent tip:** Use the [`summary-of-changes`](/endpoints/summary-of-changes/) endpoint to detect newly listed medicines each month. Cross-reference with the [`items`](/endpoints/items/) endpoint to get full details of new listings.
+</Aside>
+
+## What Happens After Listing
+
+Once listed, a medicine's PBS entry can change over time:
+
+- **Price reductions** — mandatory price disclosure cycles or voluntary reductions
+- **Restriction changes** — PBAC may recommend broadening or narrowing access criteria
+- **New indications** — sponsor submits for additional clinical uses
+- **Delisting** — sponsor withdraws, or medicine is removed for safety/commercial reasons
+
+All changes appear in the monthly [schedule updates](/concepts/schedule-lifecycle/).
+
+## Key Takeaways
+
+| Aspect | Detail |
+|--------|--------|
+| Prerequisite | TGA registration required before PBS submission |
+| Decision maker | PBAC recommends; Minister decides |
+| Veto power | Minister cannot list without positive PBAC recommendation |
+| Update frequency | Monthly, on the 1st |
+| Typical duration | 6-17 months from submission to listing |
+
+## Related Pages
+
+- [Timeline and Cycles](/listing-process/timeline-and-cycles/) — PBAC meeting schedule and submission deadlines
+- [Stakeholders](/listing-process/stakeholders/) — who does what in the listing process
+- [Schedule Lifecycle](/concepts/schedule-lifecycle/) — how monthly schedule updates work

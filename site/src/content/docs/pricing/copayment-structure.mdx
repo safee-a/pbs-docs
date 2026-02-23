@@ -1,0 +1,82 @@
+---
+title: "Copayment Structure"
+description: "How PBS patient copayments work — general vs concessional, Safety Net thresholds, and brand premiums."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Copayment Structure
+
+PBS patients contribute a capped copayment towards the cost of their prescriptions. The copayment amount depends on the patient's category and whether they have reached the annual Safety Net threshold.
+
+## Patient Categories
+
+There are two main patient categories:
+
+| Category | Who Qualifies | Standard Copayment | Safety Net Copayment | Annual Threshold |
+|----------|--------------|-------------------|---------------------|-----------------|
+| **General** | All Medicare-eligible patients | ~$31.60 | Reduced rate | ~$1,563.50 |
+| **Concessional** | Pensioners, healthcare card holders | ~$7.70 | Free ($0.00) | ~$262.00 |
+
+<Aside type="note">
+Copayment amounts and Safety Net thresholds are indexed annually on 1 January. The figures above are approximate. Always fetch current values from the [`copayments`](/endpoints/copayments/) endpoint rather than hardcoding.
+</Aside>
+
+## How Copayments Work
+
+The patient pays the **lesser** of:
+- The applicable copayment amount for their category, OR
+- The full dispensed price (if the dispensed price is below the copayment)
+
+For example, if a medicine's dispensed price is $12.00 and the general copayment is $31.60, the patient pays just $12.00 — the government does not subsidize the difference.
+
+## Safety Net
+
+After a patient (or family) accumulates enough copayments in a calendar year, they reach the **Safety Net threshold**:
+
+### General Safety Net
+- Triggered after the patient's household reaches ~$1,563.50 in copayments
+- Once reached, the copayment drops to a reduced rate for the remainder of the year
+- The patient receives a Safety Net Concession Card
+
+### Concessional Safety Net
+- Triggered after ~$262.00 in copayments (approximately 34 prescriptions)
+- Once reached, all PBS prescriptions are **free** for the remainder of the year
+- The patient receives a Safety Net Entitlement Card
+
+<Aside type="tip">
+**Agent tip:** The PBS API does not track individual patient Safety Net status. Your application must track copayments per patient to determine if thresholds have been reached. The [`copayments`](/endpoints/copayments/) endpoint provides the current threshold amounts.
+</Aside>
+
+### Safety Net Reset
+
+Safety Net thresholds **reset on 1 January** each year. Patients must re-accumulate copayments from zero in the new year.
+
+## Brand Premiums
+
+When a patient chooses a **brand-name medicine** and a cheaper generic (bioequivalent) alternative exists:
+
+- The patient pays the standard copayment **plus** a brand premium
+- The brand premium is the difference between the chosen brand's price and the benchmark price
+- Pharmacists must inform patients when a cheaper alternative is available
+- If the patient accepts the generic, no brand premium applies
+
+## Below-Copayment Items
+
+Some medicines have a dispensed price below the general copayment. For these items:
+- **General patients** pay the full dispensed price (no government subsidy)
+- **Concessional patients** still pay only the concessional copayment (or the dispensed price if even lower)
+- These items still count towards the Safety Net threshold
+
+## Querying Copayment Data
+
+```bash
+# Get current copayment amounts and thresholds
+curl "https://data-api.health.gov.au/pbs/api/v3/copayments?schedule_code=2026-02-01"
+```
+
+## Related Resources
+
+- [`copayments`](/endpoints/copayments/) — current copayment amounts and thresholds
+- [Pricing Overview](/pricing/pricing-overview/) — how PBS pricing works
+- [Calculate Patient Cost](/workflows/calculate-cost/) — step-by-step cost calculation

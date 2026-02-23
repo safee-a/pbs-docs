@@ -1,0 +1,162 @@
+---
+title: "PBS Glossary"
+description: "Key terms and definitions used in the Australian Pharmaceutical Benefits Scheme."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# PBS Glossary
+
+Definitions for key terms used throughout PBS documentation and the API.
+
+<Aside type="tip">
+**Agent tip:** Use this glossary to resolve unfamiliar PBS terminology. For acronym expansions, see the [acronym reference](/glossary/acronyms/).
+</Aside>
+
+### Authority Required
+
+A PBS listing category where the prescriber must obtain prior approval (from Services Australia or DVA) before prescribing. Authority may be obtained by phone, HPOS, or streamlined annotation. See [restrictions](/concepts/restriction-system/).
+
+### Brand Premium
+
+The additional amount a patient pays when choosing a more expensive brand over the benchmark (reference-priced) brand in the same therapeutic group.
+
+### Closed Formulary
+
+A formulary that only covers specific listed medicines. The PBS is a closed formulary — only medicines evaluated and recommended by PBAC are eligible for subsidy.
+
+### Comparator
+
+The existing treatment PBAC compares a new medicine against when evaluating cost-effectiveness.
+
+### Concessional Patient
+
+A patient holding a valid concession card (Pensioner, Seniors, or Health Care Card), entitled to a lower copayment. See [copayments](/endpoints/copayments/).
+
+### Copayment
+
+The amount a patient pays out-of-pocket for a PBS prescription. Copayment amounts differ for general and concessional patients and are updated annually on 1 January.
+
+### DPMQ
+
+Dispensed Price for Maximum Quantity. The total dispensed price for a standard pack, including wholesale markup and dispensing fee.
+
+### Dispensing Rule
+
+Rules governing how a pharmacy can dispense a PBS item (repeat intervals, quantities, brand substitution). See [dispensing-rules](/endpoints/dispensing-rules/).
+
+### Ex-Manufacturer Price
+
+The price the manufacturer charges before wholesale markups and dispensing fees. Also known as Approved Ex-Manufacturer Price (AEMP).
+
+### Formulary
+
+A list of medicines approved for subsidy under a specific scheme. The PBS Schedule is Australia's national formulary.
+
+### General Patient
+
+A PBS patient without a concession card. General patients pay the standard (higher) copayment amount.
+
+### ICER
+
+Incremental Cost-Effectiveness Ratio. The cost per additional QALY gained versus the comparator. PBAC's primary value-for-money metric.
+
+### Indication
+
+The specific medical condition or disease that a medicine is approved and listed to treat under the PBS.
+
+### Interchangeable Brand
+
+Brands of the same medicine that a pharmacist can substitute without seeking prescriber approval. These are flagged as "a-flagged" brands in the PBS Schedule.
+
+### LEMI
+
+Lowest Expected Market Indicator. A reference price benchmark derived from price disclosure data, used by the government to set PBS reimbursement prices.
+
+### Listing
+
+Inclusion of a medicine on the PBS Schedule, making it eligible for government subsidy.
+
+### Maximum Quantity
+
+The largest amount of a medicine dispensable on a single PBS prescription. See `max_prescribable_unit_of_use` in [items](/endpoints/items/).
+
+### MPCPP
+
+Maximum Premium Claimable by Premium-Free Pharmacists. A markup limit for certain pharmacy categories.
+
+### Number of Repeats
+
+How many times a PBS prescription can be re-dispensed after the original supply. See [items](/endpoints/items/).
+
+### PBS Code
+
+Unique alphanumeric identifier for a PBS item listing (e.g., `2163B`). The primary key across all endpoints.
+
+### PBAC
+
+Pharmaceutical Benefits Advisory Committee. Independent body that evaluates medicines and recommends which should be listed on the PBS.
+
+### PBPA
+
+Pharmaceutical Benefits Pricing Authority. Negotiates PBS medicine prices with pharmaceutical companies.
+
+### Prescriber Type
+
+Category of healthcare professional authorized to prescribe a PBS item (e.g., medical practitioner, dentist). See [prescribers](/endpoints/prescribers/).
+
+### Program
+
+A PBS supply arrangement (General Schedule, Repatriation, Section 100, etc.). See [programs](/concepts/pbs-programs/).
+
+### Public Summary Document (PSD)
+
+PBAC's published reasoning for recommending or rejecting a medicine for PBS listing. Available on the PBS website.
+
+### QALY
+
+Quality-Adjusted Life Year. A health outcome measure combining survival duration and quality of life, used by PBAC in cost-effectiveness analysis.
+
+### Reference Pricing
+
+A pricing policy where interchangeable medicines in a therapeutic group are reimbursed at the price of the lowest-cost member. Patients choosing a more expensive brand pay the difference as a brand premium.
+
+### Restriction
+
+Conditions under which a PBS item can be prescribed. Restrictions define the clinical criteria a patient must meet to be eligible for subsidized supply. See [restrictions](/endpoints/restrictions/) and [restriction system](/concepts/restriction-system/).
+
+### Rule of Rescue
+
+A PBAC principle that allows acceptance of a higher ICER for medicines treating life-threatening conditions where no alternative treatments exist and the patient population is small.
+
+### Safety Net
+
+A threshold system where patient copayments are reduced (general patients) or eliminated (concessional patients) after the patient or family reaches a cumulative spending threshold within a calendar year.
+
+### Schedule
+
+A monthly snapshot of all PBS listings and associated data, effective from the 1st of each month. Each schedule is identified by a unique `schedule_code`. See [schedule lifecycle](/concepts/schedule-lifecycle/).
+
+### Schedule Code
+
+A numeric identifier for a specific monthly PBS schedule (e.g., `4604`). Used as a filter parameter across all API endpoints to pin queries to a single month's data. See [schedules](/endpoints/schedules/).
+
+### Section 100
+
+Section of the National Health Act 1953 enabling alternative supply arrangements outside community pharmacy. Includes HSD, EFC, and other programs.
+
+### Sponsor
+
+The pharmaceutical company that applies for PBS listing of a medicine and is responsible for pricing negotiations and ongoing supply.
+
+### Streamlined Authority
+
+Authority-required items where the prescriber annotates the prescription with a four-digit code instead of contacting Services Australia.
+
+### Therapeutic Group
+
+Grouping of clinically interchangeable medicines reimbursed at the same benchmark price under reference pricing.
+
+### TGA
+
+Therapeutic Goods Administration. Australia's regulatory authority for medicine safety, quality, and efficacy. TGA registration is a prerequisite for PBS listing.

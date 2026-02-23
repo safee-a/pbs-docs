@@ -1,0 +1,105 @@
+---
+title: "Section 100 Programs"
+description: "Section 100 of the National Health Act — alternative PBS supply arrangements including Highly Specialised Drugs, chemotherapy, and remote health services."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Section 100 Programs
+
+Section 100 of the *National Health Act 1953* enables alternative pharmaceutical supply arrangements outside the standard community pharmacy PBS model. These programs address situations where medicines require specialist oversight, hospital administration, or special access pathways.
+
+## Overview
+
+Standard PBS medicines are dispensed through community pharmacies. Section 100 programs provide alternative channels for medicines that:
+
+- Are too complex or risky for standard dispensing
+- Require hospital administration or monitoring
+- Serve populations with access barriers
+- Need special funding arrangements
+
+## Key Programs
+
+### Highly Specialised Drugs (HSD) Program
+
+The largest Section 100 program, covering complex and expensive medicines for serious conditions.
+
+| Attribute | Detail |
+|-----------|--------|
+| **Program code** | `HB` |
+| **Dispensing** | Approved hospital pharmacies only |
+| **Prescribers** | Specialists at approved centres |
+| **Examples** | Biologics, oncology agents, immunosuppressants, antivirals |
+| **Patient cost** | Standard PBS copayments apply |
+
+Patients must attend an approved hospital or outpatient clinic to collect their medicines. Community pharmacies cannot dispense HSD items.
+
+### Efficient Funding of Chemotherapy (EFC)
+
+Covers hospital-administered chemotherapy and related supportive medicines.
+
+| Attribute | Detail |
+|-----------|--------|
+| **Program code** | `CA` |
+| **Dispensing** | Hospital pharmacies and day oncology units |
+| **Prescribers** | Oncologists and haematologists |
+| **Funding** | Direct to hospitals based on usage |
+
+<Aside type="note">
+EFC items are funded directly to hospitals rather than through the standard PBS claim process. The pricing and dispensing rules differ from community pharmacy items.
+</Aside>
+
+### Aboriginal and Torres Strait Islander Health Services
+
+Provides PBS access through Aboriginal Medical Services (AMS) and remote area health clinics.
+
+- Addresses pharmaceutical access barriers in remote and very remote communities
+- Medicines supplied directly through health service clinics
+- Removes the need for patients to visit a community pharmacy
+- Particularly important where the nearest pharmacy may be hundreds of kilometres away
+
+### Growth Hormone Program
+
+- Subsidized growth hormone for eligible patients (primarily children with growth hormone deficiency)
+- Requires specialist authorization and ongoing monitoring
+- Administered through approved hospital pharmacies and specialist clinics
+
+### Opiate Dependence Treatment Program
+
+- Covers methadone and buprenorphine (including buprenorphine/naloxone combination products)
+- For treatment of opioid dependence
+- Dispensed through approved pharmacies and clinics with specific dosing supervision requirements
+
+## Querying Section 100 Programs via the API
+
+### List All Programs
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/programs?schedule_code=2026-02-01"
+```
+
+### Filter Items by Program
+
+```bash
+# Get all Highly Specialised Drugs
+curl "https://data-api.health.gov.au/pbs/api/v3/items?schedule_code=2026-02-01&program_code=HB"
+```
+
+### Get Program-Level Dispensing Rules
+
+Each program may have specific dispensing rules that apply to all items within it:
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/program-dispensing-rules?schedule_code=2026-02-01&program_code=HB"
+```
+
+<Aside type="tip">
+**Agent tip:** When checking dispensing rules for an item in a Section 100 program, query both the item-level [`dispensing-rules`](/endpoints/dispensing-rules/) endpoint and the [`program-dispensing-rules`](/endpoints/program-dispensing-rules/) endpoint. Program-level rules set defaults that item-level rules may override.
+</Aside>
+
+## Related Resources
+
+- [`programs`](/endpoints/programs/) — list all PBS programs
+- [`program-dispensing-rules`](/endpoints/program-dispensing-rules/) — program-level dispensing rules
+- [PBS Programs](/concepts/pbs-programs/) — overview of all program types
+- [Authority Prescribing](/prescribing/authority-prescribing/) — how authority requirements interact with programs

@@ -1,0 +1,119 @@
+---
+title: "PBAC Outcomes and Recommendations"
+description: "What happens after PBAC evaluates a submission — recommendation types, restrictions, and the path to PBS listing."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# PBAC Outcomes and Recommendations
+
+After evaluating a submission, PBAC issues one of four outcomes. Each outcome has different implications for the sponsor and for what eventually appears in the PBS API.
+
+## Outcome Types
+
+### Recommended
+
+A straightforward positive recommendation. PBAC is satisfied that the medicine is clinically effective and cost-effective. The submission proceeds to:
+
+1. **PBPA** for price negotiation
+2. **Minister** for final approval
+3. **PBS schedule** listing on the next available monthly update
+
+### Recommended with Restrictions
+
+PBAC recommends listing, but only for **specific patient groups or conditions**. This is the most common positive outcome.
+
+Restrictions may specify:
+- The clinical indication (e.g., "for treatment of moderate to severe rheumatoid arthritis")
+- Prior treatment requirements (e.g., "patient must have tried and failed first-line therapy")
+- Prescriber limitations (e.g., "must be prescribed by a specialist")
+- Authority method (streamlined, telephone, written, or electronic)
+
+<Aside type="note">
+Most PBS items have restrictions. Unrestricted listings are the exception, not the rule. The restrictions that PBAC recommends become the prescribing rules published in the PBS schedule.
+</Aside>
+
+### Deferred
+
+PBAC has concerns but is not ready to reject the submission outright. Common reasons for deferral:
+
+- Insufficient clinical evidence — PBAC wants additional data
+- Uncertainty in the economic model — key assumptions need validation
+- Need for a risk-sharing arrangement — PBAC wants pricing conditions
+- Comparator disagreement — PBAC and sponsor disagree on the appropriate comparator
+
+The sponsor addresses PBAC's concerns and the submission is reconsidered at the **next meeting** (4-8 months later).
+
+### Not Recommended (Rejected)
+
+PBAC concludes the medicine does not provide acceptable value. Common reasons:
+
+- Clinical benefit is not demonstrated vs the comparator
+- ICER is too high and cannot be justified
+- Uncertainty in evidence is too great
+- Budget impact is unacceptable relative to the benefit
+
+The sponsor can prepare a **resubmission** with new evidence, a revised economic model, or a lower price. See [submission types](/pbac/submission-types/) for resubmission details.
+
+## From Recommendation to API Data
+
+After a positive PBAC recommendation, the following sequence occurs:
+
+```
+PBAC Recommendation
+       ↓
+PBPA Price Negotiation (1-4 months)
+       ↓
+Minister Approval (1-2 months)
+       ↓
+PBS Schedule Update (1st of month)
+       ↓
+Data available in API
+```
+
+<Aside type="tip">
+**Agent tip:** New listings appear in the API on the 1st of each month. Use the [`summary-of-changes`](/endpoints/summary-of-changes/) endpoint to detect them. New items will have a `schedule_code` matching the month they were added.
+</Aside>
+
+## How Restrictions Map to API Data
+
+PBAC's recommended restrictions translate directly into the API's restriction hierarchy:
+
+| PBAC Recommendation | API Representation |
+|--------------------|--------------------|
+| Clinical indication text | `RESTRICTION_TEXT` in [`restrictions`](/endpoints/restrictions/) |
+| Condition groups | Parameters in [`parameters`](/endpoints/parameters/) |
+| Specific clinical requirements | Criteria in [`criteria`](/endpoints/criteria/) |
+| Authority method (streamlined, phone, written) | `AUTHORITY_METHOD` in [`restrictions`](/endpoints/restrictions/) |
+| Prescriber type limitations | `PRESCRIBER_CODE` linking to [`prescribers`](/endpoints/prescribers/) |
+
+For a complete picture of an item's restrictions, use the [`item-overview`](/endpoints/item-overview/) endpoint which returns the full restriction hierarchy in a single response.
+
+See [Restriction System](/concepts/restriction-system/) for details on navigating the three-level hierarchy.
+
+## Public Summary Documents
+
+PBAC publishes a **Public Summary Document (PSD)** for every decision, including rejections. PSDs are the primary public record of PBAC's reasoning and contain:
+
+- Summary of the submission
+- Clinical evidence reviewed
+- Economic evaluation results
+- PBAC's deliberation and reasoning
+- The final recommendation
+
+PSDs are available on [pbac.pbs.gov.au](https://pbac.pbs.gov.au) and are published after each meeting round. They are not available through the PBS API.
+
+## Tracking Outcomes Over Time
+
+To monitor how PBAC decisions flow into the PBS:
+
+1. Check PBAC outcome publications after each meeting (March, July, November)
+2. Watch for new items in the API 2-4 months after positive recommendations
+3. Compare [`items`](/endpoints/items/) across consecutive schedule codes to spot new listings
+4. Use [`summary-of-changes`](/endpoints/summary-of-changes/) for a structured view of additions and modifications
+
+## Related Pages
+
+- [Evaluation Criteria](/pbac/evaluation-criteria/) — how PBAC assesses cost-effectiveness
+- [Restriction System](/concepts/restriction-system/) — the three-level restriction hierarchy in the API
+- [How PBS Listing Works](/listing-process/how-listing-works/) — the full end-to-end listing process

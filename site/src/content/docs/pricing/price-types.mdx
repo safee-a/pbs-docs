@@ -1,0 +1,81 @@
+---
+title: "Price Types"
+description: "Different price types in the PBS system — ex-manufacturer, AEMP, DPMQ, reference pricing, and therapeutic group premiums."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Price Types
+
+The PBS uses several distinct price measures throughout the supply chain. Understanding which price applies at each stage is essential for correctly interpreting API data.
+
+## Price Type Reference
+
+| Price Type | What It Represents | Found In API |
+|------------|-------------------|--------------|
+| **Ex-manufacturer price** | Price the manufacturer charges wholesalers | `items` — `manufacturer_ex_price` field |
+| **AEMP** | Government-approved ex-manufacturer price | `items` — pricing fields |
+| **DPMQ** | Total dispensed price for a standard pack | `items` — `dispensed_price` field |
+| **Dispensing fee** | Fee paid to pharmacist for dispensing | `fees` endpoint |
+| **Wholesale markup** | Distribution margin | Calculated from `markup-bands` |
+| **Pharmacy markup** | Retail margin | Calculated from `markup-bands` |
+
+## Ex-Manufacturer Price
+
+The price the manufacturer charges the wholesaler, before any markups or fees are added. This is the starting point for PBS price calculations.
+
+## Approved Ex-Manufacturer Price (AEMP)
+
+The **AEMP** is the government-approved ex-manufacturer price. It may differ from the actual price charged to wholesalers. The AEMP is what the PBS uses as the basis for calculating the dispensed price.
+
+<Aside type="note">
+The AEMP and the actual ex-manufacturer price can diverge, especially after price disclosure cycles reduce the PBS-listed price below what some manufacturers charge.
+</Aside>
+
+## DPMQ — Dispensed Price for Maximum Quantity
+
+The total price for a standard pack as dispensed to the patient. DPMQ includes:
+- Ex-manufacturer price (AEMP)
+- Wholesale markup
+- Pharmacy markup
+- Dispensing fee
+- Container fee
+
+This is the price that determines whether the patient pays a copayment or the full price.
+
+## Reference Pricing
+
+Medicines in the same **therapeutic group** (interchangeable for clinical purposes) are priced relative to the cheapest option in the group. The PBS will subsidize up to the price of the benchmark (lowest-priced) medicine.
+
+- If a patient chooses a medicine priced above the benchmark, they pay the **therapeutic group premium** on top of their copayment
+- This encourages use of lower-cost alternatives within the same therapeutic group
+
+## Therapeutic Group Premiums
+
+When multiple brands or formulations exist in a therapeutic group:
+
+- The PBS sets a **benchmark price** based on the lowest-cost option
+- Brands priced above the benchmark attract a **premium**
+- The patient pays: copayment + therapeutic group premium (if applicable)
+
+<Aside type="tip">
+**Agent tip:** To check if a medicine has a therapeutic group premium, compare its dispensed price against other items with the same drug name or ATC code. The [`items`](/endpoints/items/) endpoint includes pricing fields, and [`item-overview`](/endpoints/item-overview/) provides a consolidated view.
+</Aside>
+
+## Querying Prices via the API
+
+```bash
+# Get item pricing including dispensed price
+curl "https://data-api.health.gov.au/pbs/api/v3/items?schedule_code=2026-02-01&pbs_code=2621B"
+
+# Get fee breakdown for an item
+curl "https://data-api.health.gov.au/pbs/api/v3/fees?schedule_code=2026-02-01&pbs_code=2621B"
+```
+
+## Related Resources
+
+- [Pricing Overview](/pricing/pricing-overview/) — how PBS pricing works end-to-end
+- [Price Disclosure](/pricing/price-disclosure/) — how generic competition reduces prices
+- [`items`](/endpoints/items/) — item-level pricing data
+- [`item-overview`](/endpoints/item-overview/) — consolidated item data including prices
+- [`fees`](/endpoints/fees/) — fee component breakdown

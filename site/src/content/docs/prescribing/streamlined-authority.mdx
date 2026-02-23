@@ -1,0 +1,79 @@
+---
+title: "Streamlined Authority"
+description: "How PBS Streamlined Authority prescribing works — no phone call required, just a 4-digit code on the prescription."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Streamlined Authority
+
+Streamlined Authority is a simplified form of authority prescribing that eliminates the need for prescribers to contact Services Australia. Instead, the prescriber writes a **4-digit streamlined authority code** on the prescription to indicate the approved indication.
+
+## How It Works
+
+1. The prescriber confirms the patient meets the clinical criteria for the specific indication
+2. The prescriber writes the **streamlined authority code** on the prescription
+3. No phone call, no written application, no approval number needed
+4. The pharmacist dispenses the medicine and records the code
+
+The prescriber is trusted to self-assess that the clinical criteria are met. Services Australia may audit streamlined prescriptions retrospectively.
+
+<Aside type="note">
+Although no prior approval is needed, the prescriber must still satisfy all clinical criteria listed in the restriction. Streamlined authority is not the same as unrestricted — the clinical requirements still apply.
+</Aside>
+
+## Streamlined Authority Codes
+
+- Codes are **4-digit numbers** (e.g., `4587`)
+- Each code maps to a specific **indication** (clinical reason for prescribing)
+- A single medicine may have multiple streamlined codes for different indications
+- The code must match the patient's clinical situation
+
+### Common Examples
+
+| Medicine Category | Typical Indications | Example |
+|------------------|-------------------|---------|
+| Statins | Cardiovascular risk reduction | Atorvastatin for hyperlipidaemia |
+| PPIs | Gastro-oesophageal reflux | Esomeprazole for GORD |
+| Antihypertensives | Blood pressure management | Irbesartan for hypertension |
+| Antibiotics | Specific infections | Certain long-course antibiotics |
+
+## Finding Streamlined Codes via the API
+
+To find streamlined authority codes for a PBS item, query the restrictions endpoint and look for streamlined-type restrictions:
+
+```bash
+# Step 1: Get restrictions for the item
+curl "https://data-api.health.gov.au/pbs/api/v3/restrictions?schedule_code=2026-02-01&pbs_code=2621B"
+```
+
+In the response, look for:
+- The `authority_method` field indicating streamlined authority
+- The `restriction_text` which contains the clinical indication and streamlined code
+
+```bash
+# Step 2: Get the full hierarchy for context
+curl "https://data-api.health.gov.au/pbs/api/v3/parameters?schedule_code=2026-02-01&res_code=1234"
+curl "https://data-api.health.gov.au/pbs/api/v3/criteria?schedule_code=2026-02-01&parameter_id=5678"
+```
+
+<Aside type="tip">
+**Agent tip:** Use the [`item-overview`](/endpoints/item-overview/) endpoint to get the entire restriction hierarchy (including streamlined codes) in a single API call, instead of querying `restrictions`, `parameters`, and `criteria` separately.
+</Aside>
+
+## Streamlined vs Other Authority Types
+
+| Feature | Streamlined | Telephone/HPOS | Written |
+|---------|------------|----------------|---------|
+| Prior contact with Services Australia | No | Yes | Yes |
+| Code on prescription | 4-digit streamlined code | Approval number | Approval reference |
+| Processing time | Instant | Minutes | Days to weeks |
+| Audit | Retrospective | Pre-approved | Pre-approved |
+| Common for | High-volume, lower-risk items | Moderate complexity | Complex/expensive items |
+
+## Related Resources
+
+- [Authority Prescribing](/prescribing/authority-prescribing/) — overview of all authority types
+- [Restriction System](/concepts/restriction-system/) — the full restriction hierarchy
+- [Understand Restrictions](/workflows/understand-restrictions/) — workflow for navigating restrictions
+- [`restrictions`](/endpoints/restrictions/) — restriction data per item

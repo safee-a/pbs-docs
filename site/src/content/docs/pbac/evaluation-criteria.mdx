@@ -1,0 +1,102 @@
+---
+title: "PBAC Evaluation Criteria"
+description: "How PBAC evaluates submissions — clinical effectiveness, cost-effectiveness (ICER), budget impact, and equity."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# PBAC Evaluation Criteria
+
+PBAC evaluates every submission against multiple criteria to determine whether a medicine provides sufficient value to justify PBS subsidy. No single criterion is decisive — PBAC weighs all factors together.
+
+## The Six Criteria
+
+### 1. Clinical Effectiveness
+
+PBAC assesses whether the new medicine works better than the **comparator** — the treatment it would replace or supplement in clinical practice.
+
+- Evidence comes from randomised controlled trials and systematic reviews
+- PBAC looks at both efficacy (trial results) and likely effectiveness (real-world impact)
+- The comparator is the most common treatment currently used for the same condition in Australia
+
+<Aside type="note">
+Choosing the right comparator is critical. If the sponsor proposes an inappropriate comparator, PBAC may reject the submission on that basis alone.
+</Aside>
+
+### 2. Cost-Effectiveness
+
+This is often the most influential criterion. PBAC calculates the **incremental cost-effectiveness ratio (ICER):**
+
+```
+ICER = (Cost of new drug - Cost of comparator) / (Health benefit of new - Health benefit of comparator)
+```
+
+The result is expressed as **cost per QALY gained** (Quality-Adjusted Life Year).
+
+- PBAC does not have an official willingness-to-pay threshold
+- In practice, submissions with an ICER under $45,000 per QALY are generally considered acceptable
+- ICERs between $45,000 and $75,000 per QALY may be acceptable with strong justification
+- ICERs above $75,000 per QALY face significant scrutiny
+
+<Aside type="tip">
+**Agent tip:** ICER values and cost-effectiveness assessments are not available in the PBS API. They are published in PBAC Public Summary Documents on [pbac.pbs.gov.au](https://pbac.pbs.gov.au). The API contains the **outcome** of these evaluations (i.e., the listed price and restrictions) but not the evaluation inputs.
+</Aside>
+
+### 3. Budget Impact
+
+PBAC estimates the total cost to the PBS over **5 years** if the medicine is listed. This includes:
+
+- Estimated number of patients who will use the medicine
+- Cost per patient per year
+- Offset savings from reduced use of the comparator
+- Market growth assumptions
+
+Medicines with high budget impact (tens of millions per year) receive extra scrutiny, even if cost-effective per patient.
+
+### 4. Patient Impact
+
+PBAC considers the clinical significance for patients:
+
+- **Severity** of the condition being treated
+- **Unmet need** — are there existing treatments available?
+- **Quality of life** improvement expected
+- **Life expectancy** impact
+
+### 5. Equity and Rule of Rescue
+
+PBAC applies the **Rule of Rescue** in cases where:
+
+- The condition is life-threatening or causes very severe illness
+- There are no alternative treatments available
+- The number of affected patients is small
+- The medicine provides a meaningful clinical benefit
+
+Under Rule of Rescue, PBAC may accept a higher ICER than it normally would.
+
+### 6. Uncertainty
+
+PBAC assesses confidence in the evidence:
+
+- **Quality of trials** — well-designed RCTs vs observational data
+- **Relevance to Australian practice** — are trial populations representative?
+- **Extrapolation** — are long-term benefits being projected from short-term data?
+- **Model assumptions** — how sensitive are cost-effectiveness results to key assumptions?
+
+High uncertainty often leads to **deferred** decisions or **managed-entry schemes** where listing is conditional on further data collection.
+
+## How Criteria Map to API Data
+
+While the evaluation criteria themselves are not in the PBS API, their outcomes are visible:
+
+| Criterion Outcome | Where It Appears in the API |
+|-------------------|-----------------------------|
+| Clinical restrictions from evaluation | [`restrictions`](/endpoints/restrictions/) and [`criteria`](/endpoints/criteria/) |
+| Agreed price after cost-effectiveness review | [`fees`](/endpoints/fees/) endpoint |
+| Budget impact conditions | [`dispensing-rules`](/endpoints/dispensing-rules/) (quantity limits, repeats) |
+| Authority requirements from uncertainty | [`restrictions`](/endpoints/restrictions/) authority method field |
+
+## Related Pages
+
+- [PBAC Overview](/pbac/overview/) — committee structure and meeting schedule
+- [Outcomes and Recommendations](/pbac/outcomes-and-recommendations/) — what happens after evaluation
+- [Submission Types](/pbac/submission-types/) — different application categories

@@ -1,0 +1,98 @@
+---
+title: "PBAC Submission Types"
+description: "Types of submissions to PBAC — major, minor, resubmission, Section 100, and price increase applications."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# PBAC Submission Types
+
+Sponsors submit different types of applications to PBAC depending on whether the medicine is new, already listed, or being resubmitted after a previous decision.
+
+## Submission Categories
+
+| Type | When Used | Evidence Required | Typical Timeline |
+|------|-----------|-------------------|-----------------|
+| **Major** | New medicine or new indication | Full clinical + economic evaluation | 9-17 months |
+| **Minor** | Changes to existing listing | Abbreviated assessment | 6-9 months |
+| **Resubmission** | After rejection or deferral | New or updated evidence | Additional 4-12 months |
+| **Section 100** | Section 100 program listings | Program-specific requirements | Varies |
+| **Price increase** | Request to raise listed price | Strong justification required | 6-12 months |
+
+## Major Submissions
+
+A major submission is required when a sponsor seeks to list a **new medicine** or a **new therapeutic indication** for an already-listed medicine.
+
+Major submissions must include:
+
+- **Clinical evidence** — systematic review of clinical trials comparing the medicine to the appropriate comparator
+- **Economic evaluation** — cost-effectiveness analysis (cost-utility or cost-effectiveness model)
+- **Budget impact analysis** — estimated cost to the PBS over 5 years
+- **Proposed restriction wording** — the clinical criteria for prescribing access
+
+<Aside type="note">
+Major submissions are the most common pathway for new medicines entering the PBS. They receive the most rigorous evaluation from PBAC.
+</Aside>
+
+## Minor Submissions
+
+Minor submissions cover changes to **existing PBS listings** that do not require a full clinical evaluation:
+
+- New dosage form or strength of an already-listed medicine
+- Changes to restriction wording (broadening or narrowing access)
+- Changes to maximum quantities or repeats
+- Voluntary price reductions
+
+These receive a **streamlined assessment** because the clinical evidence base has already been evaluated.
+
+## Resubmissions
+
+When PBAC **defers or rejects** a submission, the sponsor can resubmit. Resubmissions must address the specific concerns raised by PBAC:
+
+- New clinical trial data or longer-term follow-up results
+- Revised economic model addressing PBAC's uncertainty concerns
+- Lower proposed price to improve cost-effectiveness
+- Revised restriction wording to target a more appropriate patient population
+
+<Aside type="tip">
+**Agent tip:** When a previously rejected medicine appears in the [`items`](/endpoints/items/) endpoint for the first time, it means a resubmission was eventually successful. Check the PBAC Public Summary Document on [pbac.pbs.gov.au](https://pbac.pbs.gov.au) for the evaluation history.
+</Aside>
+
+## Section 100 Submissions
+
+Section 100 of the National Health Act covers special supply arrangements. Submissions for Section 100 programs follow a modified process tailored to each program's requirements.
+
+Common Section 100 programs include:
+- Highly Specialised Drugs (HSD)
+- Efficient Funding of Chemotherapy (EFC)
+- Remote Area Aboriginal Health Services
+
+See [PBS Programs](/concepts/pbs-programs/) for details on each Section 100 scheme and how they appear in the API.
+
+## Price Increase Applications
+
+Price increase submissions are **rare** and require strong justification. PBAC will only consider increases when:
+
+- Manufacturing costs have genuinely increased
+- Supply continuity is at risk without a price adjustment
+- The medicine remains cost-effective at the higher price
+
+Most PBS price movements are **downward** due to statutory price reductions, price disclosure, and generic competition.
+
+## How Submission Type Affects API Data
+
+The submission type is not directly visible in the PBS API. However, the outcomes are reflected in different data patterns:
+
+| Submission Type | What Changes in the API |
+|-----------------|------------------------|
+| Major (new medicine) | New `pbs_code` appears in [`items`](/endpoints/items/) |
+| Major (new indication) | New [`restrictions`](/endpoints/restrictions/) added to existing item |
+| Minor (form/strength) | New item entry with same `drug_name`, different `li_form` |
+| Minor (restriction change) | Updated restriction text in [`restrictions`](/endpoints/restrictions/) |
+| Price increase | Higher price values in [`fees`](/endpoints/fees/) |
+
+## Related Pages
+
+- [PBAC Overview](/pbac/overview/) — how PBAC operates
+- [Evaluation Criteria](/pbac/evaluation-criteria/) — how PBAC assesses submissions
+- [PBS Programs](/concepts/pbs-programs/) — Section 100 and other program types

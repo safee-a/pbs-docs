@@ -1,0 +1,101 @@
+---
+title: "PBAC Overview"
+description: "What the Pharmaceutical Benefits Advisory Committee (PBAC) is, how it operates, and its role in PBS listing decisions."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# PBAC Overview
+
+The **Pharmaceutical Benefits Advisory Committee (PBAC)** is the independent statutory body that decides which medicines should be subsidized on the PBS. Its recommendations are the gateway to PBS listing.
+
+## What PBAC Is
+
+- **Statutory committee** established under Section 101 of the National Health Act 1953
+- **Independent from government** — the Health Minister cannot override a negative PBAC recommendation
+- Makes **recommendations** to the Minister on which medicines should be listed
+- All decisions are published as **Public Summary Documents (PSDs)**
+- Website: [pbac.pbs.gov.au](https://pbac.pbs.gov.au)
+
+<Aside type="note">
+PBAC's independence is a key feature of Australia's PBS system. Unlike many other countries, the government cannot unilaterally decide to subsidize a medicine — it must first receive a positive recommendation from PBAC.
+</Aside>
+
+## Committee Composition
+
+PBAC has approximately **18 members** appointed by the Health Minister, including:
+
+| Member Type | Role |
+|-------------|------|
+| Clinicians | Medical expertise across specialties |
+| Health economists | Cost-effectiveness assessment |
+| Pharmacists | Dispensing and pharmaceutical expertise |
+| Consumer representatives | Patient and public perspective |
+| Epidemiologists | Evidence evaluation |
+
+The committee chair is typically a senior clinician. Members serve fixed terms and must declare conflicts of interest.
+
+## What PBAC Evaluates
+
+For each submission, PBAC considers:
+
+1. **Clinical effectiveness** — does the medicine work better than existing treatments?
+2. **Cost-effectiveness** — is the health benefit worth the cost compared to alternatives?
+3. **Budget impact** — what will this cost the government over 5 years?
+4. **Patient need** — how severe is the condition, and are alternatives available?
+5. **Equity considerations** — including the "Rule of Rescue" for life-threatening conditions
+
+See [evaluation criteria](/pbac/evaluation-criteria/) for a detailed breakdown of how PBAC weighs these factors.
+
+## Meeting Schedule
+
+PBAC meets **three times per year**:
+
+| Meeting | Submission Deadline |
+|---------|-------------------|
+| March | ~November (prior year) |
+| July | ~March |
+| November | ~July |
+
+Submissions must be lodged approximately 4 months before the meeting. See [timeline and cycles](/listing-process/timeline-and-cycles/) for detailed scheduling.
+
+## Decision Outcomes
+
+After evaluation, PBAC makes one of four decisions:
+
+- **Recommended** — positive recommendation, proceeds to pricing
+- **Recommended with restrictions** — listed for specific patient groups only
+- **Deferred** — more information requested from sponsor
+- **Not recommended** — rejected, sponsor can resubmit with new evidence
+
+See [outcomes and recommendations](/pbac/outcomes-and-recommendations/) for details on each outcome type.
+
+## Public Summary Documents (PSDs)
+
+PBAC publishes a **Public Summary Document** for every decision, including rejections. PSDs contain:
+
+- The clinical question addressed
+- Summary of evidence considered
+- PBAC's assessment of clinical and cost-effectiveness
+- The committee's recommendation and reasoning
+
+<Aside type="tip">
+**Agent tip:** PSDs are not available through the PBS API. They are published on [pbac.pbs.gov.au](https://pbac.pbs.gov.au). To connect PBAC decisions to API data, match the medicine's drug name or PBS code from the PSD to the [`items`](/endpoints/items/) endpoint.
+</Aside>
+
+## PBAC vs Other Committees
+
+| Committee | Evaluates | Feeds Into |
+|-----------|-----------|------------|
+| **PBAC** | Medicines for PBS subsidy | PBS schedule |
+| **MSAC** | Medical services and procedures | Medicare Benefits Schedule |
+| **ATAGI** | Vaccine recommendations | National Immunisation Program |
+
+Only PBAC decisions are reflected in the PBS API data.
+
+## Related Pages
+
+- [Submission Types](/pbac/submission-types/) — types of applications PBAC evaluates
+- [Evaluation Criteria](/pbac/evaluation-criteria/) — how PBAC assesses cost-effectiveness
+- [Outcomes and Recommendations](/pbac/outcomes-and-recommendations/) — what happens after PBAC decides
+- [Stakeholders](/listing-process/stakeholders/) — all bodies involved in PBS listing

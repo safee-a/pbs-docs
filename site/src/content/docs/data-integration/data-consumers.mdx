@@ -1,0 +1,114 @@
+---
+title: "Data Consumers"
+description: "Who uses PBS data, common integration patterns, and best practices for consuming the PBS API."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Data Consumers
+
+PBS data is used across the Australian healthcare ecosystem. This page describes who consumes PBS data, how they integrate it, and best practices for each pattern.
+
+## Who Uses PBS Data
+
+### Clinical Software Vendors
+
+Integrate PBS data into prescribing decision support. At point of care, clinicians see:
+- Whether a medicine is PBS-listed for the patient's condition
+- Authority requirements and restriction criteria
+- Available brands and substitution options
+
+### Pharmacy Dispensing Systems
+
+Calculate patient copayments, check dispensing rules, and handle brand substitution logic. Key data points: [item-overview](/endpoints/item-overview/) for pricing, [dispensing-rules](/endpoints/dispensing-rules/) for supply limits, and [items](/endpoints/items/) for brand information.
+
+### Hospital Pharmacy Systems
+
+Manage Highly Specialised Drugs (HSD) and chemotherapy medicines under Section 100 programs. Require program-specific data from [programs](/endpoints/programs/) and [program-dispensing-rules](/endpoints/program-dispensing-rules/).
+
+### Health Insurers
+
+Use PBS pricing data as a reference for formulary management and reimbursement calculations.
+
+### Researchers
+
+Conduct pharmaceutical policy analysis, cost-effectiveness studies, and utilization pattern research using historical schedule data.
+
+### Price Comparison Tools
+
+Provide consumer-facing medicine price information, comparing brands and copayment amounts.
+
+### Government Agencies
+
+Budget forecasting, policy impact analysis, and monitoring of PBS expenditure trends across schedules.
+
+## Integration Patterns
+
+### 1. Monthly Bulk Sync (Recommended)
+
+Fetch the full dataset on the 1st of each month and cache locally.
+
+```
+Schedule: 1st of month, after new schedule is published
+1. GET /schedules?get_latest_schedule_only=true → new schedule_code
+2. GET /items?schedule_code={code} → all items (paginate)
+3. GET /item-overview?schedule_code={code} → all pricing
+4. GET /restrictions?schedule_code={code} → all restrictions
+5. Store in local database
+6. Serve all queries from local cache
+```
+
+**Pros:** No rate limit issues during normal operation, fast local queries, full dataset available offline.
+
+**Cons:** Initial fetch takes time (hours with rate limiting), requires storage.
+
+### 2. On-Demand Lookup
+
+Query the API per user request, caching individual responses.
+
+```
+User requests drug info →
+  Check local cache (by schedule_code + pbs_code) →
+  Cache miss? → GET /items?schedule_code={code}&pbs_code={code} →
+  Cache response → Return to user
+```
+
+**Pros:** Simple to implement, minimal storage, always fresh data.
+
+**Cons:** Slow for cache misses (rate limit delays), poor experience under load.
+
+### 3. Hybrid Approach
+
+Bulk sync core reference data monthly, query details on demand.
+
+```
+Monthly: Sync items, programs, copayments, schedules
+On demand: Query restrictions, parameters, criteria for specific items
+```
+
+**Pros:** Balances freshness with performance, reduces bulk fetch volume.
+
+**Cons:** More complex implementation.
+
+<Aside type="tip">
+**Agent tip:** For most integrations, the **monthly bulk sync** pattern is best. PBS data only changes on the 1st of each month, so there is no benefit to real-time querying. Bulk sync avoids rate limit friction entirely during normal operations.
+</Aside>
+
+## Best Practices
+
+- **Cache aggressively** — data is stable within a schedule; cache responses keyed by `schedule_code` plus query parameters
+- **Respect rate limits** — the shared 1 req/20s limit affects all public users (see [rate limiting](/getting-started/rate-limiting/))
+- **Pin to a schedule** — always include `schedule_code` in queries for consistent results
+- **Handle 404s gracefully** — some endpoints like [item-amt](/endpoints/item-amt/) and [atc](/endpoints/atc/) currently return 404
+- **Paginate fully** — large result sets are paginated; follow `_links.next` until exhausted
+- **Monitor schedule changes** — check for a new schedule code periodically to trigger cache refresh
+
+<Aside type="note">
+The rate limit of 1 request per 20 seconds is shared across **all public API users**. During popular fetch windows (1st-3rd of each month), expect congestion. Schedule bulk fetches during off-peak hours if possible.
+</Aside>
+
+## Related Pages
+
+- [Migration guide](/data-integration/migration-guide/) — migrating from XML to the API
+- [Rate limiting](/getting-started/rate-limiting/) — understanding API throttling
+- [API overview](/getting-started/overview/) — authentication and getting started

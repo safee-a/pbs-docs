@@ -1,0 +1,79 @@
+---
+title: "Migration Guide"
+description: "How to migrate from PBS XML and text file downloads to the PBS API v3."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Migration Guide
+
+The Australian Government is retiring legacy PBS data distribution formats. This guide covers how to migrate from XML and text file downloads to the PBS API v3.
+
+## Legacy Data Distribution
+
+Historically, PBS data was distributed as:
+
+- **XML files** — structured data dumps published monthly on pbs.gov.au
+- **Text extracts** — pipe-delimited flat files for specific data subsets
+- **PDF schedules** — human-readable schedule documents
+
+These files were downloaded manually or via scheduled scripts and parsed locally.
+
+<Aside type="note">
+**Deprecation deadline: 1 May 2026.** XML and text file downloads from pbs.gov.au will be discontinued. All PBS data consumers must migrate to the API v3 before this date.
+</Aside>
+
+## Why Migrate
+
+- **Same data, better structure** — every field from XML/text files is available via REST endpoints
+- **Always current** — query live data instead of waiting for file publications
+- **Queryable** — filter by drug name, PBS code, schedule, and more instead of parsing entire files
+- **Stable format** — JSON responses with consistent field naming
+
+## Migration Steps
+
+1. **Audit your current usage** — identify which XML files and text extracts your system consumes, and which fields it reads
+2. **Map fields to API endpoints** — use the [XML to API mapping](/data-integration/xml-to-api-mapping/) table to find the equivalent API endpoint and field name for each XML field
+3. **Implement an API client** — build a client that handles pagination (`_links.next`), the response envelope (`{ _meta, _links, data }`) and error responses
+4. **Handle rate limiting** — the API enforces 1 request per 20 seconds, shared across all public users (see [rate limiting](/getting-started/rate-limiting/))
+5. **Implement caching** — PBS data only changes on the 1st of each month; fetch once and cache locally
+6. **Pin to a schedule** — use `schedule_code` to ensure all queries return data from the same monthly snapshot (see [schedule lifecycle](/concepts/schedule-lifecycle/))
+7. **Validate output** — run the API-based pipeline alongside your XML-based pipeline and compare results
+8. **Parallel run** — operate both systems simultaneously for at least one full schedule cycle before cutover
+
+<Aside type="tip">
+**Agent tip:** Start migration with the [items](/endpoints/items/) endpoint — it contains the core drug listing data that most XML consumers rely on. Once items are working, add [restrictions](/endpoints/restrictions/), [item-overview](/endpoints/item-overview/), and [fees](/endpoints/fees/).
+</Aside>
+
+## Caching Strategy
+
+Since PBS data is updated monthly, the recommended approach is a **monthly bulk sync**:
+
+1. On the 1st of each month, call `GET /schedules?get_latest_schedule_only=true` to detect the new schedule
+2. Fetch the full dataset for each endpoint you need, filtered by the new `schedule_code`
+3. Store responses locally (database, file cache, or in-memory)
+4. Serve all application queries from the local cache until next month
+
+This avoids hitting the shared rate limit during normal operations.
+
+<Aside type="caution">
+**Rate limit warning:** The 1 request per 20 seconds limit is shared across ALL public API users. During monthly bulk fetches, expect slower throughput. Consider fetching during off-peak hours and implementing exponential backoff on 429 responses.
+</Aside>
+
+## Key Differences from XML
+
+| Aspect | XML Files | API v3 |
+|--------|-----------|--------|
+| Field names | UPPERCASE | lowercase |
+| Schedule identifier | Date string (e.g., `2026-02-01`) | Numeric `schedule_code` (e.g., `4604`) |
+| Data access | Download full file | Query with filters |
+| Update frequency | Monthly file publish | Monthly schedule, queryable anytime |
+| Restrictions | Inline in drug XML | Separate [restrictions](/endpoints/restrictions/) endpoint |
+| Pricing | Separate extract file | [item-overview](/endpoints/item-overview/) endpoint |
+
+## Next Steps
+
+- Review the full [XML to API field mapping](/data-integration/xml-to-api-mapping/)
+- Read the [API overview](/getting-started/overview/) to understand authentication and base URL
+- Check [rate limiting](/getting-started/rate-limiting/) for request throttling details
+- Understand the [schedule lifecycle](/concepts/schedule-lifecycle/) for data versioning

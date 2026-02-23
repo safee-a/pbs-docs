@@ -57,6 +57,42 @@ export function generateLlmsTxt(endpoints: Record<PbsEndpointName, EndpointMeta>
     lines.push(`- [${page.title}](/${page.path}): ${page.description}`);
   }
 
+  lines.push("", "## Listing Process", "");
+
+  for (const page of pages.filter((p) => p.path.includes("listing-process/"))) {
+    lines.push(`- [${page.title}](/${page.path}): ${page.description}`);
+  }
+
+  lines.push("", "## PBAC", "");
+
+  for (const page of pages.filter((p) => p.path.includes("pbac/"))) {
+    lines.push(`- [${page.title}](/${page.path}): ${page.description}`);
+  }
+
+  lines.push("", "## Pricing", "");
+
+  for (const page of pages.filter((p) => p.path.includes("pricing/"))) {
+    lines.push(`- [${page.title}](/${page.path}): ${page.description}`);
+  }
+
+  lines.push("", "## Prescribing", "");
+
+  for (const page of pages.filter((p) => p.path.includes("prescribing/"))) {
+    lines.push(`- [${page.title}](/${page.path}): ${page.description}`);
+  }
+
+  lines.push("", "## Data Integration", "");
+
+  for (const page of pages.filter((p) => p.path.includes("data-integration/"))) {
+    lines.push(`- [${page.title}](/${page.path}): ${page.description}`);
+  }
+
+  lines.push("", "## Glossary", "");
+
+  for (const page of pages.filter((p) => p.path.includes("glossary/"))) {
+    lines.push(`- [${page.title}](/${page.path}): ${page.description}`);
+  }
+
   lines.push("", "## Error Reference", "");
 
   for (const page of pages.filter((p) => p.path.includes("errors/"))) {

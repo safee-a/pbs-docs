@@ -1,0 +1,78 @@
+---
+title: "Timeline and Cycles"
+description: "PBAC meeting schedule, submission deadlines, and typical timelines from application to PBS listing."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Timeline and Cycles
+
+The PBS listing process follows a predictable annual cycle driven by PBAC meeting dates. Understanding these timelines helps predict when new listings will appear in the API.
+
+## PBAC Meeting Schedule
+
+PBAC meets **three times per year**. Each meeting evaluates submissions lodged by the corresponding deadline.
+
+| Meeting Month | Approximate Submission Deadline | Results Published |
+|---------------|-------------------------------|-------------------|
+| March | November (prior year) | April-May |
+| July | March | August-September |
+| November | July | December-January |
+
+<Aside type="note">
+Submission deadlines are approximately **4 months** before the meeting. Exact dates vary each year and are published on the PBAC website.
+</Aside>
+
+## Typical Timeline
+
+The end-to-end process from submission to PBS listing has several stages:
+
+| Stage | Duration |
+|-------|----------|
+| PBAC submission to meeting | 4 months |
+| PBAC evaluation and decision | 1-2 months (at meeting) |
+| Post-meeting outcome publication | 1-2 months |
+| PBPA price negotiation | 1-4 months |
+| Minister approval | 1-2 months |
+| Next available schedule update | 1-2 months |
+| **Total (first attempt)** | **6-12 months** |
+
+### If Deferred or Rejected
+
+- **Deferred** — PBAC requests more information. The sponsor provides additional data and the submission is reconsidered at the next meeting. This adds **4-8 months**.
+- **Rejected** — the sponsor must prepare a new submission with additional evidence. Resubmission adds **4-12 months** depending on evidence requirements.
+- **Total with resubmission** — can extend to **17 months or longer**.
+
+## Monthly Schedule Updates
+
+Regardless of when PBAC makes its recommendation, new listings only appear in the PBS on the **1st of each month** when the schedule is updated.
+
+<Aside type="tip">
+**Agent tip:** To detect new listings, compare consecutive schedules using the [`summary-of-changes`](/endpoints/summary-of-changes/) endpoint. Each schedule is identified by its `schedule_code` in `YYYY-MM-01` format.
+</Aside>
+
+## Predicting New Listings
+
+After a positive PBAC recommendation, new listings typically appear **2-4 months later** once pricing is agreed. You can monitor upcoming changes by:
+
+1. Checking PBAC outcome publications on [pbac.pbs.gov.au](https://pbac.pbs.gov.au)
+2. Watching the [`summary-of-changes`](/endpoints/summary-of-changes/) endpoint each month
+3. Comparing [`items`](/endpoints/items/) data between consecutive `schedule_code` values
+
+## Annual Pattern
+
+The annual cycle creates a predictable rhythm:
+
+- **January-February** — November PBAC outcomes finalized, new listings start appearing
+- **March** — first PBAC meeting of the year
+- **April-June** — March PBAC outcomes published, price negotiations active
+- **July** — second PBAC meeting
+- **August-October** — July PBAC outcomes published, new listings appear
+- **November** — third PBAC meeting
+- **December** — November outcomes begin publication
+
+## Related Pages
+
+- [How PBS Listing Works](/listing-process/how-listing-works/) — the full listing pipeline
+- [Schedule Lifecycle](/concepts/schedule-lifecycle/) — how monthly updates work in the API
+- [Track Monthly Changes](/workflows/track-changes/) — workflow for detecting schedule differences

@@ -1,0 +1,87 @@
+---
+title: "AMT Integration"
+description: "How the Australian Medicines Terminology (AMT) relates to PBS data and how to use AMT codes with the API."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# AMT Integration
+
+The **Australian Medicines Terminology (AMT)** is the national standard for identifying medicines in Australian healthcare systems. Understanding AMT is important for integrating PBS data with clinical software.
+
+## What is AMT
+
+AMT is a SNOMED CT-AU based terminology maintained by the **Australian Digital Health Agency**. It provides a standardized hierarchy of medicine identifiers used across:
+
+- Electronic prescribing systems
+- Pharmacy dispensing software
+- Hospital medication management
+- Clinical decision support tools
+- My Health Record
+
+## AMT Concept Hierarchy
+
+AMT organizes medicines into a seven-level hierarchy, from generic substance down to specific packaged product:
+
+| Level | Code | Name | Example |
+|-------|------|------|---------|
+| 1 | MP | Medicinal Product | paracetamol |
+| 2 | MPUU | Medicinal Product Unit of Use | paracetamol 500 mg tablet |
+| 3 | MPP | Medicinal Product Pack | paracetamol 500 mg tablet, 20 |
+| 4 | TP | Trade Product | Panadol |
+| 5 | TPUU | Trade Product Unit of Use | Panadol 500 mg tablet |
+| 6 | TPP | Trade Product Pack | Panadol 500 mg tablet, 20 |
+| 7 | CTPP | Containered Trade Product Pack | Panadol 500 mg tablet, 20, blister pack |
+
+Each level adds specificity. The hierarchy enables clinical systems to match medicines at the appropriate level of detail.
+
+<Aside type="tip">
+**Agent tip:** When integrating with clinical systems, match at the **CTPP** level for dispensing accuracy, or at the **MP** level for therapeutic equivalence checks. The level you need depends on your use case.
+</Aside>
+
+## PBS and AMT Relationship
+
+PBS items map to AMT concepts via the [item-amt](/endpoints/item-amt/) endpoint. This mapping enables:
+
+- **Cross-referencing** PBS listings with AMT codes used in e-prescribing
+- **Medication reconciliation** between PBS claims and clinical records
+- **Formulary checking** against PBS eligibility using AMT identifiers
+
+A single PBS item (identified by `pbs_code`) can map to multiple AMT concepts, typically at the TPP or CTPP level.
+
+<Aside type="note">
+The [item-amt](/endpoints/item-amt/) endpoint is currently returning **404** as of February 2026. The AMT mapping data is not available through the API at this time. Check the endpoint periodically for availability, or source AMT mappings from the Australian Digital Health Agency directly.
+</Aside>
+
+## Using AMT Codes
+
+When the item-amt endpoint becomes available, the typical workflow is:
+
+1. Query [items](/endpoints/items/) to get the PBS item by `pbs_code` or `drug_name`
+2. Query [item-amt](/endpoints/item-amt/) with the `pbs_code` to get linked AMT concept IDs
+3. Use the AMT concept ID in your clinical system for medication matching
+
+### AMT Code Format
+
+AMT codes are SNOMED CT identifiers — long numeric strings (e.g., `21415011000036101`). They are globally unique and never reused.
+
+## Integration Considerations
+
+- **AMT versions change independently of PBS schedules** — a new AMT release may remap concept IDs
+- **Not all PBS items have AMT mappings** — some legacy listings may lack AMT codes
+- **CTPP is the most specific level** — use it when you need to identify the exact packaged product dispensed
+- **MP is the broadest level** — use it when checking therapeutic equivalence or substitution options
+
+## Where AMT Data Comes From
+
+| Source | What it provides |
+|--------|-----------------|
+| PBS API (item-amt endpoint) | PBS-to-AMT mappings per schedule |
+| Australian Digital Health Agency | Full AMT release files (SNOMED RF2 format) |
+| National Clinical Terminology Service (NCTS) | AMT browser and FHIR terminology server |
+
+## Related Pages
+
+- [Item-AMT endpoint](/endpoints/item-amt/) — PBS-to-AMT mapping data (currently unavailable)
+- [Items endpoint](/endpoints/items/) — core PBS item data
+- [Data consumers](/data-integration/data-consumers/) — who uses PBS and AMT data

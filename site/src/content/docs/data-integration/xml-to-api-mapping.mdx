@@ -1,0 +1,81 @@
+---
+title: "XML to API Field Mapping"
+description: "Field-by-field mapping from PBS XML files and text extracts to the PBS API v3 endpoints."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# XML to API Field Mapping
+
+This page provides a field-by-field mapping from legacy PBS XML files and text extracts to the equivalent PBS API v3 endpoints and fields.
+
+## Key Differences
+
+- **Field names:** XML used UPPERCASE (e.g., `DRUG_NAME`), the API uses lowercase (e.g., `drug_name`)
+- **Schedule codes:** XML files used date strings (e.g., `2026-02-01`), the API uses numeric IDs (e.g., `4604`)
+- **Data structure:** XML embedded related data inline; the API separates it into distinct endpoints linked by foreign keys
+
+<Aside type="tip">
+**Agent tip:** To get the current numeric `schedule_code`, call `GET /schedules?get_latest_schedule_only=true`. The response `data` array contains the schedule object with its numeric `schedule_code`.
+</Aside>
+
+## Drug and Item Fields
+
+These fields come from the main `drug.xml` file in the legacy format.
+
+| XML Field | API Endpoint | API Field | Notes |
+|-----------|-------------|-----------|-------|
+| `DRUG_NAME` | [items](/endpoints/items/) | `drug_name` | Case-insensitive search supported |
+| `PBS_CODE` | [items](/endpoints/items/) | `pbs_code` | Unique item identifier |
+| `PROGRAM_CODE` | [items](/endpoints/items/) | `program_code` | Filter by program |
+| `MP_PT` | [items](/endpoints/items/) | `mp_pt` | Preferred term for medicinal product |
+| `SCHEDULE_CODE` | [schedules](/endpoints/schedules/) | `schedule_code` | Use numeric ID in API |
+| `MAX_PRESCRIBABLE_UNIT_OF_USE` | [items](/endpoints/items/) | `max_prescribable_unit_of_use` | Maximum prescribable units |
+| `LI_DRUG_NAME` | [items](/endpoints/items/) | `li_drug_name` | Mixed-case drug name |
+| `ITEM_CODE` | [items](/endpoints/items/) | `item_code` | Alternative item identifier |
+
+## Extract File Fields
+
+These fields come from the legacy text extract files (pipe-delimited flat files).
+
+| XML/Extract Field | API Endpoint | API Field | Notes |
+|-------------------|-------------|-----------|-------|
+| `BRAND_NAME` | [items](/endpoints/items/) | `brand_name` | Commercial brand name |
+| `MANUFACTURER_CODE` | [items](/endpoints/items/) | `manufacturer_code` | Manufacturer identifier |
+| `ATC_CODE` | [items](/endpoints/items/) | `li_atc_code` | Field name differs in API |
+| `RESTRICTION_FLAG` | [restrictions](/endpoints/restrictions/) | — | Query restrictions endpoint separately by `pbs_code` |
+| `DISPENSED_PRICE` | [item-overview](/endpoints/item-overview/) | `dispensed_price` | Pricing data lives in item-overview |
+| `FEE_CODE` | [fees](/endpoints/fees/) | `fee_code` | Fee schedule data |
+| `MARKUP_AMOUNT` | [markup-bands](/endpoints/markup-bands/) | `markup_amount` | Wholesale markup tiers |
+| `COPAYMENT` | [copayments](/endpoints/copayments/) | `patient_charge` | Patient contribution amounts |
+
+## Restriction and Prescribing Fields
+
+| XML Field | API Endpoint | API Field | Notes |
+|-----------|-------------|-----------|-------|
+| `RESTRICTION_TXT` | [restrictions](/endpoints/restrictions/) | `li_html_text` | Restriction text (may contain HTML) |
+| `RES_CODE` | [restrictions](/endpoints/restrictions/) | `res_code` | Links to parameters endpoint |
+| `PRESCRIBER_CODE` | [prescribers](/endpoints/prescribers/) | `prescriber_code` | Prescriber type reference |
+| `AUTHORITY_METHOD` | [restrictions](/endpoints/restrictions/) | `authority_method` | Authority requirement type |
+
+<Aside type="note">
+Not all XML fields have a direct 1:1 mapping. Some XML files combined data that the API separates into multiple endpoints. For example, restriction text, parameters, and criteria are three separate endpoints in the API, whereas XML embedded them together.
+</Aside>
+
+## Mapping Strategy
+
+When migrating, follow this approach:
+
+1. **List every XML field your system reads** — check your parser code for field references
+2. **Find each field in the tables above** — note the API endpoint and field name
+3. **Group by endpoint** — batch your queries to minimize API calls
+4. **Handle missing mappings** — if a field is not listed, check the endpoint documentation pages under [/endpoints/](/endpoints/items/) for the full field list
+5. **Test with real data** — compare API responses against your XML data for the same schedule
+
+## Related Pages
+
+- [Migration guide](/data-integration/migration-guide/) — step-by-step migration process
+- [Items endpoint](/endpoints/items/) — core drug listing data
+- [Item overview endpoint](/endpoints/item-overview/) — pricing and summary data
+- [Schedules endpoint](/endpoints/schedules/) — schedule codes and dates
+- [Restrictions endpoint](/endpoints/restrictions/) — prescribing restrictions

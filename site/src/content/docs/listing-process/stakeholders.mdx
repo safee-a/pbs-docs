@@ -1,0 +1,100 @@
+---
+title: "Stakeholders"
+description: "Key organisations and bodies involved in the PBS listing process — who does what and their roles."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Stakeholders
+
+Multiple government bodies, committees, and industry participants are involved in getting a medicine listed on the PBS. Each plays a distinct role in the process.
+
+## Key Stakeholders
+
+| Stakeholder | Role | Key Output |
+|-------------|------|------------|
+| **TGA** | Regulatory approval (safety, quality, efficacy) | Marketing authorization |
+| **PBAC** | Clinical and cost-effectiveness evaluation | Recommendation to Minister |
+| **PBPA** | Price negotiation with sponsor | Agreed price and conditions |
+| **MSAC** | Evaluates medical devices and procedures | Separate from PBS medicines |
+| **Health Minister** | Final listing decision authority | Listing approval |
+| **Sponsors** | Submit applications, provide evidence, negotiate price | Submissions and evidence |
+| **PBS** | The scheme itself — vehicle for subsidized access | Published schedule |
+
+## Detailed Roles
+
+### TGA (Therapeutic Goods Administration)
+
+The TGA is Australia's regulatory authority for therapeutic goods. Before a medicine can be considered for PBS listing, it must be registered on the **Australian Register of Therapeutic Goods (ARTG)**.
+
+- Evaluates safety, quality, and efficacy
+- Registration is a **prerequisite** for PBS listing
+- Operates independently of the PBS listing process
+
+### PBAC (Pharmaceutical Benefits Advisory Committee)
+
+PBAC is the independent statutory committee that evaluates whether a medicine should be subsidized on the PBS. Established under **Section 101 of the National Health Act 1953**.
+
+- Meets 3 times per year (March, July, November)
+- Assesses clinical effectiveness, cost-effectiveness, and budget impact
+- The Minister **cannot override** a negative PBAC recommendation
+- Publishes all decisions as Public Summary Documents (PSDs)
+
+See [PBAC Overview](/pbac/overview/) for detailed information on how PBAC operates.
+
+### PBPA (Pharmaceutical Benefits Pricing Authority)
+
+After PBAC recommends a medicine, the PBPA negotiates the price with the sponsor.
+
+- Sets the ex-manufacturer price
+- Negotiates risk-sharing arrangements and managed-entry schemes
+- Ensures value for money within PBAC's recommended framework
+
+### MSAC (Medical Services Advisory Committee)
+
+MSAC evaluates medical devices, diagnostic tests, and procedures — not medicines. It is listed here because it is sometimes confused with PBAC.
+
+<Aside type="note">
+MSAC is **not part of the PBS medicines listing process**. It covers the Medicare Benefits Schedule (MBS) for services and procedures. The PBS API does not contain MSAC-related data.
+</Aside>
+
+### Health Minister
+
+The Minister for Health makes the final decision on whether to list a medicine on the PBS.
+
+- Can only approve medicines that PBAC has positively recommended
+- In practice, almost always approves once pricing is agreed
+- Has discretion over timing of listing
+
+### Sponsors (Pharmaceutical Companies)
+
+Sponsors are the pharmaceutical companies that hold TGA registration for a medicine and apply for PBS listing.
+
+- Prepare and submit applications to PBAC
+- Provide clinical trial data and economic models
+- Negotiate pricing with PBPA
+- Can resubmit after rejection with new evidence
+
+<Aside type="tip">
+**Agent tip:** Sponsor information is not directly available through the PBS API. The API focuses on the published schedule data — items, pricing, restrictions, and programs. Sponsor details are found in PBAC Public Summary Documents on [pbac.pbs.gov.au](https://pbac.pbs.gov.au).
+</Aside>
+
+## How Stakeholders Connect
+
+```
+Sponsor → TGA (registration)
+    ↓
+Sponsor → PBAC (submission + evaluation)
+    ↓
+PBPA ↔ Sponsor (price negotiation)
+    ↓
+Minister (final approval)
+    ↓
+PBS Schedule (published monthly)
+```
+
+## Related Pages
+
+- [How PBS Listing Works](/listing-process/how-listing-works/) — the full listing pipeline
+- [PBAC Overview](/pbac/overview/) — detailed guide to how PBAC operates
+- [PBS Programs](/concepts/pbs-programs/) — the different program types in the PBS

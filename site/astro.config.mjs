@@ -32,6 +32,56 @@ export default defineConfig({
           ],
         },
         {
+          label: "Listing Process",
+          items: [
+            { label: "How Listing Works", slug: "listing-process/how-listing-works" },
+            { label: "Timeline & Cycles", slug: "listing-process/timeline-and-cycles" },
+            { label: "Stakeholders", slug: "listing-process/stakeholders" },
+          ],
+        },
+        {
+          label: "PBAC",
+          items: [
+            { label: "Overview", slug: "pbac/overview" },
+            { label: "Submission Types", slug: "pbac/submission-types" },
+            { label: "Evaluation Criteria", slug: "pbac/evaluation-criteria" },
+            { label: "Outcomes", slug: "pbac/outcomes-and-recommendations" },
+          ],
+        },
+        {
+          label: "Pricing",
+          items: [
+            { label: "Pricing Overview", slug: "pricing/pricing-overview" },
+            { label: "Price Types", slug: "pricing/price-types" },
+            { label: "Copayment Structure", slug: "pricing/copayment-structure" },
+            { label: "Price Disclosure", slug: "pricing/price-disclosure" },
+          ],
+        },
+        {
+          label: "Prescribing",
+          items: [
+            { label: "Authority Prescribing", slug: "prescribing/authority-prescribing" },
+            { label: "Streamlined Authority", slug: "prescribing/streamlined-authority" },
+            { label: "Section 100", slug: "prescribing/section-100" },
+          ],
+        },
+        {
+          label: "Data Integration",
+          items: [
+            { label: "Migration Guide", slug: "data-integration/migration-guide" },
+            { label: "XML to API Mapping", slug: "data-integration/xml-to-api-mapping" },
+            { label: "AMT Integration", slug: "data-integration/amt-integration" },
+            { label: "Data Consumers", slug: "data-integration/data-consumers" },
+          ],
+        },
+        {
+          label: "Glossary",
+          items: [
+            { label: "Terms", slug: "glossary/terms" },
+            { label: "Acronyms", slug: "glossary/acronyms" },
+          ],
+        },
+        {
           label: "Workflows",
           items: [
             { label: "Find a Medicine", slug: "workflows/find-medicine" },

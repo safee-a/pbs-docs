@@ -1,0 +1,73 @@
+---
+title: "Pricing Overview"
+description: "How PBS pricing works — government subsidies, DPMQ, price components, and markup bands."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Pricing Overview
+
+The PBS subsidizes the cost of prescription medicines for Australian residents. The government pays the difference between what the patient contributes (the copayment) and the total dispensed price of the medicine.
+
+## How the Subsidy Works
+
+1. A medicine has a **total dispensed price** (DPMQ)
+2. The patient pays a **copayment** (capped amount based on their category)
+3. The government pays everything above the copayment
+
+If the dispensed price is below the copayment threshold, the patient pays the full price and the government pays nothing.
+
+<Aside type="tip">
+**Agent tip:** To calculate what a patient actually pays, you need data from three endpoints: [`copayments`](/endpoints/copayments/) for thresholds, [`items`](/endpoints/items/) for dispensed prices, and [`fees`](/endpoints/fees/) for fee breakdowns. See the [calculate cost workflow](/workflows/calculate-cost/) for step-by-step instructions.
+</Aside>
+
+## DPMQ — Dispensed Price for Maximum Quantity
+
+The **DPMQ** (Dispensed Price for Maximum Quantity) is the total price for a standard pack of medicine as dispensed to the patient. This is the headline price you see in the PBS schedule and is the basis for calculating the government subsidy.
+
+## Price Components
+
+The dispensed price is built up from several components:
+
+| Component | Description |
+|-----------|-------------|
+| **Ex-manufacturer price** | What the manufacturer charges the wholesaler |
+| **Wholesale markup** | Percentage markup for distribution |
+| **Pharmacy markup** | Percentage markup for the dispensing pharmacy |
+| **Dispensing fee** | Fixed fee paid to the pharmacist for dispensing |
+| **Container fee** | Small fee for the container/packaging |
+
+Use the [`fees`](/endpoints/fees/) endpoint to retrieve the specific fee components for any PBS item.
+
+## Markup Bands
+
+Different percentage markups apply at different price points. Lower-priced medicines attract a higher markup percentage than expensive ones. The [`markup-bands`](/endpoints/markup-bands/) endpoint returns the current thresholds and percentages.
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/markup-bands?schedule_code=2026-02-01"
+```
+
+## How Prices Are Set
+
+1. The **PBAC** (Pharmaceutical Benefits Advisory Committee) recommends a medicine for listing
+2. The **PBPA** (Pharmaceutical Benefits Pricing Authority) negotiates the price with the sponsor (manufacturer)
+3. The agreed price is published in the next PBS schedule
+4. Prices are reviewed and may change in subsequent schedules
+
+<Aside type="note">
+Prices are published monthly as part of each schedule. A medicine's price can change between schedules due to price disclosure cycles, indexation, or renegotiation. Always query the current schedule for up-to-date pricing.
+</Aside>
+
+## Price Types
+
+The PBS uses several different price measures beyond DPMQ, including ex-manufacturer price, AEMP, and reference pricing. See [Price Types](/pricing/price-types/) for a full breakdown.
+
+## Related Resources
+
+- [Price Types](/pricing/price-types/) — detailed breakdown of each price measure
+- [Copayment Structure](/pricing/copayment-structure/) — how patient copayments work
+- [Price Disclosure](/pricing/price-disclosure/) — how generic competition drives prices down
+- [Calculate Patient Cost](/workflows/calculate-cost/) — step-by-step cost calculation workflow
+- [`fees`](/endpoints/fees/) — fee components per item
+- [`markup-bands`](/endpoints/markup-bands/) — markup percentage thresholds
+- [`copayments`](/endpoints/copayments/) — current copayment amounts

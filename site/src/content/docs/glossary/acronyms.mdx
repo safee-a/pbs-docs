@@ -1,0 +1,61 @@
+---
+title: "PBS Acronyms"
+description: "Quick reference for acronyms used in the Australian Pharmaceutical Benefits Scheme and related systems."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# PBS Acronyms
+
+Quick reference table for acronyms found in PBS documentation, API responses, and related healthcare systems.
+
+<Aside type="tip">
+**Agent tip:** Use this table for fast acronym resolution. For full definitions and context, see the [PBS glossary](/glossary/terms/).
+</Aside>
+
+| Acronym | Full Name | Description |
+|---------|-----------|-------------|
+| AEMP | Approved Ex-Manufacturer Price | Government-approved price the manufacturer charges before markups |
+| AMT | Australian Medicines Terminology | SNOMED CT-AU based terminology for identifying medicines. See [AMT integration](/data-integration/amt-integration/) |
+| ATC | Anatomical Therapeutic Chemical | WHO classification system that groups medicines by organ system and therapeutic purpose |
+| CTPP | Containered Trade Product Pack | AMT concept — the most specific level, identifying the exact packaged product |
+| DPMQ | Dispensed Price for Maximum Quantity | Total price as dispensed to the patient, including markup and fees |
+| DVA | Department of Veterans' Affairs | Administers the Repatriation PBS (RPBS) for eligible veterans |
+| EFC | Efficient Funding of Chemotherapy | Section 100 program for hospital-administered chemotherapy medicines |
+| HPOS | Health Professional Online Services | Online portal where prescribers submit authority requests to Services Australia |
+| HSD | Highly Specialised Drugs | Section 100 program for medicines dispensed through hospital pharmacies |
+| ICER | Incremental Cost-Effectiveness Ratio | Cost per QALY gained; the primary metric PBAC uses to assess value for money |
+| LEMI | Lowest Expected Market Indicator | Reference price benchmark derived from price disclosure data |
+| MP | Medicinal Product | AMT concept — generic substance level (e.g., paracetamol) |
+| MPCPP | Maximum Premium Claimable by Premium-Free Pharmacists | Markup limit for certain pharmacy categories |
+| MPP | Medicinal Product Pack | AMT concept — generic medicine at pack level (e.g., paracetamol 500 mg tablet, 20) |
+| MPUU | Medicinal Product Unit of Use | AMT concept — generic medicine at unit level (e.g., paracetamol 500 mg tablet) |
+| MSAC | Medical Services Advisory Committee | Evaluates medical devices and procedures (parallel body to PBAC) |
+| PBAC | Pharmaceutical Benefits Advisory Committee | Independent body that evaluates and recommends medicines for PBS listing |
+| PBPA | Pharmaceutical Benefits Pricing Authority | Negotiates PBS medicine prices with pharmaceutical companies |
+| PBS | Pharmaceutical Benefits Scheme | Australia's national medicine subsidy program under the National Health Act 1953 |
+| PSD | Public Summary Document | Published rationale for PBAC's recommendation on each medicine listing |
+| QALY | Quality-Adjusted Life Year | Health outcome measure combining survival duration and quality of life |
+| RPBS | Repatriation Pharmaceutical Benefits Scheme | PBS program for veterans and war widows, administered by DVA |
+| TGA | Therapeutic Goods Administration | Australian regulatory authority for medicine safety, quality, and efficacy |
+| TP | Trade Product | AMT concept — branded medicine name (e.g., Panadol) |
+| TPP | Trade Product Pack | AMT concept — branded medicine at pack level (e.g., Panadol 500 mg tablet, 20) |
+| TPUU | Trade Product Unit of Use | AMT concept — branded medicine at unit level (e.g., Panadol 500 mg tablet) |
+| WADP | Weighted Average Disclosed Price | Average real transaction price reported by manufacturers under the price disclosure policy |
+
+## AMT Concept Hierarchy
+
+The AMT acronyms above form a hierarchy from generic to specific:
+
+```
+MP → MPUU → MPP        (generic path)
+TP → TPUU → TPP → CTPP (branded path)
+```
+
+For more detail on how AMT concepts relate to PBS data, see [AMT integration](/data-integration/amt-integration/).
+
+## Related Pages
+
+- [PBS glossary](/glossary/terms/) — full definitions for key PBS terms
+- [AMT integration](/data-integration/amt-integration/) — using AMT codes with PBS data
+- [API overview](/getting-started/overview/) — getting started with the PBS API
