@@ -1,0 +1,77 @@
+---
+title: "Check if a Medicine is PBS-Listed"
+description: "How to determine whether a specific medicine is currently listed on the PBS."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Check if a Medicine is PBS-Listed
+
+Determine whether a medicine is currently subsidized under the PBS.
+
+## Goal
+
+Given a medicine name, confirm whether it appears in the current PBS schedule and under what conditions.
+
+### 1. Get the Current Schedule
+
+**Endpoint:** [`schedules`](/endpoints/schedules/)
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/schedules?get_latest_schedule_only=true"
+```
+
+### 2. Search for the Medicine
+
+**Endpoint:** [`items`](/endpoints/items/)
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/items?schedule_code=2026-02-01&drug_name=semaglutide"
+```
+
+### 3. Interpret the Result
+
+- **Empty array `[]`** → The medicine is **not PBS-listed** in the current schedule
+- **Results returned** → The medicine **is listed**. Check the fields:
+  - `PROGRAM_CODE` — which program(s) it's listed under
+  - `RESTRICTION_FLAG` — whether prescribing restrictions apply
+
+### 4. Check Restrictions (if applicable)
+
+**Endpoint:** [`restrictions`](/endpoints/restrictions/)
+
+If the item has restrictions, find out what they are:
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/restrictions?schedule_code=2026-02-01&pbs_code=12345A"
+```
+
+## Interpreting Listing Status
+
+| Scenario | What it means |
+|----------|---------------|
+| No results for `drug_name` | Not PBS-listed (may still be available privately) |
+| Results with no restrictions | Listed — any prescriber can prescribe |
+| Results with restrictions | Listed but limited to specific conditions |
+| Results under HB program only | Listed but only via hospital pharmacies |
+
+## Complete Example
+
+Checking if ozempic (semaglutide) is PBS-listed:
+
+```bash
+# Search by brand
+curl ".../items?schedule_code=2026-02-01&brand_name=Ozempic"
+
+# Or by active ingredient
+curl ".../items?schedule_code=2026-02-01&drug_name=semaglutide"
+```
+
+If results are returned, the medicine is PBS-listed. Check `RESTRICTION_FLAG` and `AUTHORITY_METHOD` to understand prescribing conditions.
+
+## Common Pitfalls
+
+- **Brand vs generic name** — A medicine might be listed under a different brand name. Search by `drug_name` (active ingredient) for comprehensive results.
+- **Not listed ≠ not available** — Medicines not on the PBS can still be prescribed privately at full cost.
+- **Program-specific** — A drug listed under `HB` (Highly Specialised) is only available through hospital pharmacies, not community pharmacies.
+- **Indication-specific** — A drug may be PBS-listed only for specific conditions. Check restrictions to understand for which indications it's subsidized.

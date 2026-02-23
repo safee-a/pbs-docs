@@ -1,0 +1,22 @@
+{
+  "name": "health-docs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agent-optimized documentation for Australian healthcare data APIs",
+  "scripts": {
+    "fetch": "pnpm --filter pbs-fetcher run fetch",
+    "generate": "pnpm --filter content-generator run generate",
+    "build:site": "pnpm --filter site run build",
+    "build": "pnpm run fetch && pnpm run generate && pnpm run build:site",
+    "dev": "pnpm --filter site run dev"
+  },
+  "engines": {
+    "node": ">=18.20.8"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  }
+}

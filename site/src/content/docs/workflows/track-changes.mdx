@@ -1,0 +1,99 @@
+---
+title: "Track What Changed This Month"
+description: "How to use the summary-of-changes endpoint to monitor monthly PBS updates."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Track What Changed This Month
+
+Monitor monthly PBS updates to stay current with new listings, delistings, and price changes.
+
+## Goal
+
+Determine what changed in the latest PBS schedule compared to the previous month.
+
+### 1. Get the Latest Schedule
+
+**Endpoint:** [`schedules`](/endpoints/schedules/)
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/schedules?get_latest_schedule_only=true"
+```
+
+### 2. Fetch the Summary of Changes
+
+**Endpoint:** [`summary-of-changes`](/endpoints/summary-of-changes/)
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/summary-of-changes?schedule_code=2026-02-01"
+```
+
+This returns all changes that took effect in the February 2026 schedule.
+
+### 3. Filter by Change Type
+
+The response includes a `CHANGE_TYPE` field. Filter client-side for specific change types:
+
+- **New listings** — medicines added to the PBS
+- **Delistings** — medicines removed
+- **Price changes** — updated pricing
+- **Restriction changes** — modified prescribing criteria
+
+### 4. Get Details for Changed Items
+
+For any changed item of interest, fetch its full details:
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/item-overview?schedule_code=2026-02-01&pbs_code=XXXXX"
+```
+
+## Setting Up Monthly Monitoring
+
+For automated monitoring, set up a cron job or scheduled task:
+
+```javascript
+async function checkMonthlyChanges() {
+  // 1. Get latest schedule
+  const schedules = await fetch(".../schedules?get_latest_schedule_only=true").then(r => r.json());
+  const code = schedules[0].SCHEDULE_CODE;
+
+  // 2. Check if we've already processed this schedule
+  if (code === lastProcessedSchedule) return;
+
+  // 3. Fetch changes
+  const changes = await fetch(`.../summary-of-changes?schedule_code=${code}`).then(r => r.json());
+
+  // 4. Process changes (notify stakeholders, update cache, etc.)
+  for (const change of changes) {
+    console.log(`${change.CHANGE_TYPE}: ${change.DRUG_NAME} (${change.PBS_CODE})`);
+  }
+
+  lastProcessedSchedule = code;
+}
+```
+
+<Aside type="tip">
+Run this on the 2nd of each month (not the 1st) to ensure the new schedule has been published and propagated.
+</Aside>
+
+## Complete Example
+
+Tracking February 2026 changes:
+
+```bash
+# Get changes for the current schedule
+curl ".../summary-of-changes?schedule_code=2026-02-01"
+
+# Example response might include:
+# - New listing: semaglutide 2mg injection (PBS_CODE: XXXXX)
+# - Price reduction: atorvastatin 40mg (PBS_CODE: 8747L)
+# - Restriction change: adalimumab (PBS_CODE: 11388F)
+```
+
+## Common Pitfalls
+
+- **Changes reference the NEW schedule** — The `schedule_code` filter gets changes that are IN that schedule (i.e., changes from the previous month).
+- **Not all changes are in summary** — Some minor administrative changes may not appear. For complete comparison, you'd need to diff entire datasets.
+- **Rate limit applies** — If you need details on many changed items, plan for 20s per call. Consider fetching only the most relevant changes.
+- **Check on the 2nd** — Schedule updates are published on the 1st, but there may be slight delays. Check on the 2nd to be safe.

@@ -1,0 +1,109 @@
+---
+title: "{{meta.name}}"
+description: "{{meta.description}}"
+pbsEndpoint: "{{meta.name}}"
+pbsVersion: "3.6.5"
+lastFetched: "{{schema.fetchedAt}}"
+---
+
+import { Aside, Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+
+# {{meta.name}}
+
+{{meta.description}}
+
+<Aside type="tip" title="Agent Quick Summary">
+{{meta.agentDescription}}
+</Aside>
+
+## Endpoint
+
+```
+GET /pbs/api/v3/{{meta.name}}{{#if queryExample}}?{{{queryExample}}}{{/if}}
+```
+
+**Base URL:** `https://data-api.health.gov.au`
+
+**Response size:** <Badge text="{{meta.typicalResponseSize}}" variant="{{sizeVariant}}" />
+
+## Parameters
+
+| Parameter | Description |
+|-----------|-------------|
+{{#each meta.filterableFields}}
+| `{{this}}` | Filter by {{this}} |
+{{/each}}
+| `limit` | Maximum number of records to return |
+| `schedule_code` | PBS schedule code (e.g., `2026-02-01`) — **always include this** |
+
+## Response Fields
+
+| Field | Type | Nullable | Example |
+|-------|------|----------|---------|
+{{#each schema.fields}}
+| `{{name}}` | `{{type}}` | {{#if nullable}}Yes{{else}}No{{/if}} | {{#if exampleValues.length}}`{{firstExample exampleValues}}`{{else}}—{{/if}} |
+{{/each}}
+
+{{#if nestedKeys.length}}
+## Nested Structures
+
+{{#each nestedKeys}}
+### `{{this}}`
+
+| Field | Type | Example |
+|-------|------|---------|
+{{#each (lookupNested ../schema.nestedStructures this)}}
+| `{{name}}` | `{{type}}` | {{#if exampleValues.length}}`{{firstExample exampleValues}}`{{else}}—{{/if}} |
+{{/each}}
+
+{{/each}}
+{{/if}}
+
+## Relationships
+
+{{#if relationships.length}}
+| Related Endpoint | Join Field | Cardinality | Description |
+|-----------------|------------|-------------|-------------|
+{{#each relationships}}
+| [`{{otherEndpoint}}`](/endpoints/{{otherEndpoint}}) | `{{joinField}}` | {{cardinality}} | {{description}} |
+{{/each}}
+{{else}}
+No direct relationships documented for this endpoint.
+{{/if}}
+
+## Example Request
+
+<Tabs>
+<TabItem label="curl">
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/{{meta.name}}?schedule_code={{schema.scheduleCode}}&limit=5" \
+  -H "Accept: application/json"
+```
+</TabItem>
+<TabItem label="JavaScript">
+```javascript
+const response = await fetch(
+  "https://data-api.health.gov.au/pbs/api/v3/{{meta.name}}?schedule_code={{schema.scheduleCode}}&limit=5",
+  { headers: { Accept: "application/json" } }
+);
+const data = await response.json();
+```
+</TabItem>
+</Tabs>
+
+## Example Response
+
+```json
+{{{exampleResponse}}}
+```
+
+## Agent Tips
+
+<Aside type="caution">
+{{#each meta.gotchas}}
+- {{this}}
+{{/each}}
+</Aside>
+
+- **Rate limit:** 1 request per 20 seconds shared across all public API users. Cache aggressively.
+- **Related endpoints:** {{#each meta.relatedEndpoints}}[`{{this}}`](/endpoints/{{this}}){{#unless @last}}, {{/unless}}{{/each}}

@@ -1,0 +1,81 @@
+---
+title: "Compare Brand vs Generic"
+description: "How to find and compare brand-name and generic versions of a PBS-listed medicine."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Compare Brand vs Generic
+
+Find all brand-name and generic versions of a medicine and check if brand substitution is permitted.
+
+## Goal
+
+Given a drug name, list all available brands and generics on the PBS, compare their pricing, and determine if a pharmacist can substitute between them.
+
+### 1. Get Current Schedule
+
+**Endpoint:** [`schedules`](/endpoints/schedules/)
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/schedules?get_latest_schedule_only=true"
+```
+
+### 2. Search by Active Ingredient
+
+**Endpoint:** [`items`](/endpoints/items/)
+
+Search by `drug_name` to get ALL brands and generics:
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/items?schedule_code=2026-02-01&drug_name=atorvastatin"
+```
+
+This returns every listing — different brands, strengths, and pack sizes. Look at `BRAND_NAME` to distinguish them.
+
+### 3. Check Brand Substitution Rules
+
+**Endpoint:** [`dispensing-rules`](/endpoints/dispensing-rules/)
+
+For each item, check if the pharmacist can substitute:
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/dispensing-rules?schedule_code=2026-02-01&pbs_code=8747L"
+```
+
+Check the `BRAND_SUBSTITUTION_PERMITTED` field:
+- `Y` — pharmacist can substitute a different brand
+- `N` — must dispense the prescribed brand
+
+### 4. Compare Pricing
+
+The `items` response includes pricing fields. Key fields to compare:
+- `MANUFACTURER_EX_PRICE` — what the manufacturer charges
+- `DISPENSED_PRICE` — total dispensed price
+- `MAX_PATIENT_COPAYMENT` — what the patient pays (if applicable)
+
+## Complete Example
+
+Comparing atorvastatin brands:
+
+```bash
+# Get all atorvastatin 40mg tablets
+curl ".../items?schedule_code=2026-02-01&drug_name=atorvastatin"
+
+# Response includes:
+# - Lipitor 40mg (brand) - PBS_CODE: XXXX
+# - Atorvastatin Sandoz 40mg (generic) - PBS_CODE: YYYY
+# - Atorvastatin Apotex 40mg (generic) - PBS_CODE: ZZZZ
+# etc.
+```
+
+<Aside type="tip">
+For a complete comparison, use `item-overview` for each PBS_CODE to get pricing, dispensing rules, and restrictions in one call per item.
+</Aside>
+
+## Common Pitfalls
+
+- **Same drug, many PBS codes** — Each brand × strength × pack size is a separate PBS item with its own PBS_CODE.
+- **Brand substitution varies** — Some items allow substitution, others don't. Always check `dispensing-rules`.
+- **Price differences may be small** — Under the PBS, the patient copayment is often the same regardless of brand (government absorbs the difference).
+- **Filter by strength** — When comparing, make sure you're comparing the same strength (e.g., all 40mg tablets, not mixing 20mg and 40mg).

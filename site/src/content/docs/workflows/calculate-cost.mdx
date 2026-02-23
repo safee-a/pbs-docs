@@ -1,0 +1,94 @@
+---
+title: "Calculate What a Patient Pays"
+description: "How to determine the patient copayment for a PBS medicine using the copayments and fees endpoints."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Calculate What a Patient Pays
+
+Determine how much a patient pays out-of-pocket for a PBS prescription.
+
+## Goal
+
+Given a PBS item and patient category (general or concessional), calculate the patient's copayment amount.
+
+## Background
+
+Under the PBS, patients pay a **copayment** that depends on:
+1. **Patient category** — General or Concessional (pensioners, healthcare card holders)
+2. **Safety net status** — Whether the patient has reached the annual Safety Net threshold
+3. **Medicine price** — The dispensed price of the specific item
+
+### 1. Get Current Copayment Amounts
+
+**Endpoint:** [`copayments`](/endpoints/copayments/)
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/copayments?schedule_code=2026-02-01"
+```
+
+This returns the current copayment amounts and safety net thresholds for each patient category.
+
+### 2. Get the Item's Pricing
+
+**Endpoint:** [`items`](/endpoints/items/) or [`item-overview`](/endpoints/item-overview/)
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/item-overview?schedule_code=2026-02-01&pbs_code=2621B"
+```
+
+Key pricing fields:
+- `DISPENSED_PRICE` — total price as dispensed
+- `MANUFACTURER_EX_PRICE` — ex-manufacturer price
+
+### 3. Get Fee Components
+
+**Endpoint:** [`fees`](/endpoints/fees/)
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/fees?schedule_code=2026-02-01&pbs_code=2621B"
+```
+
+### 4. Calculate the Copayment
+
+The patient pays the **lesser** of:
+- The applicable copayment amount (from step 1), OR
+- The dispensed price (if lower than the copayment)
+
+## Copayment Categories
+
+| Category | Description | Typical copayment |
+|----------|-------------|-------------------|
+| **General** | Standard PBS patients | ~$31 (changes annually) |
+| **Concessional** | Pensioners, healthcare card holders | ~$7.70 (changes annually) |
+| **General Safety Net** | After threshold reached | Reduced rate |
+| **Concessional Safety Net** | After threshold reached | Free |
+
+<Aside type="note">
+Exact copayment amounts change with each schedule. Always fetch current values from the `copayments` endpoint rather than hardcoding.
+</Aside>
+
+## Complete Example
+
+What does a general patient pay for atorvastatin 40mg?
+
+```bash
+# 1. Get copayment amounts
+curl ".../copayments?schedule_code=2026-02-01"
+# → General copayment: $31.60 (example)
+
+# 2. Get item pricing
+curl ".../item-overview?schedule_code=2026-02-01&pbs_code=8747L"
+# → DISPENSED_PRICE: $15.50 (example)
+
+# 3. Patient pays: min($31.60, $15.50) = $15.50
+# (Dispensed price is less than copayment, so patient pays the full dispensed price)
+```
+
+## Common Pitfalls
+
+- **Don't hardcode copayments** — They change with each schedule. Always fetch current values.
+- **Below-copayment items** — If the dispensed price is below the copayment, the patient pays the full dispensed price (no government subsidy needed).
+- **Brand premiums** — If a patient requests a specific brand when cheaper generics exist, they may pay a brand premium on top of the copayment.
+- **Safety net tracking** — The API doesn't track individual patient safety net status. Your application needs to track prescriptions dispensed to determine if the threshold has been reached.

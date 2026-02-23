@@ -1,0 +1,76 @@
+---
+title: "Find a Medicine by Name"
+description: "Step-by-step workflow to search for a medicine in the PBS by drug name or brand name."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Find a Medicine by Name
+
+Search for a medicine on the PBS using its drug name (active ingredient) or brand name.
+
+## Goal
+
+Given a medicine name, find all PBS listings for that medicine including PBS codes, pricing, and available forms/strengths.
+
+### 1. Get the Current Schedule Code
+
+**Endpoint:** [`schedules`](/endpoints/schedules/)
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/schedules?get_latest_schedule_only=true"
+```
+
+Save the `SCHEDULE_CODE` from the response (e.g., `2026-02-01`).
+
+### 2. Search by Drug Name
+
+**Endpoint:** [`items`](/endpoints/items/)
+
+Search using the active ingredient name:
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/items?schedule_code=2026-02-01&drug_name=paracetamol"
+```
+
+<Aside type="note">
+`drug_name` search is **case-insensitive** and matches the full DRUG_NAME field. Use `li_drug_name` for mixed-case display names.
+</Aside>
+
+### 3. Or Search by Brand Name
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/items?schedule_code=2026-02-01&brand_name=Panadol"
+```
+
+### 4. Get Full Details for a Specific Item
+
+**Endpoint:** [`item-overview`](/endpoints/item-overview/)
+
+Once you have a `PBS_CODE`, get complete details:
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/item-overview?schedule_code=2026-02-01&pbs_code=2621B"
+```
+
+## Complete Example
+
+Finding all PBS listings for atorvastatin (a cholesterol-lowering statin):
+
+```bash
+# 1. Get schedule (20s)
+curl ".../schedules?get_latest_schedule_only=true"
+# → SCHEDULE_CODE: "2026-02-01"
+
+# 2. Search items (20s wait, then fetch)
+curl ".../items?schedule_code=2026-02-01&drug_name=atorvastatin"
+# → Returns multiple items: different strengths (10mg, 20mg, 40mg, 80mg)
+#   and brands (Lipitor, generic brands)
+```
+
+## Common Pitfalls
+
+- **Spelling matters** — `drug_name` must match exactly. If unsure, search by the first few letters and filter client-side.
+- **Multiple listings** — One drug typically has multiple PBS codes (different forms, strengths, pack sizes, brands).
+- **Program variants** — The same drug may appear under different programs (GE, RP) with different conditions.
+- **Don't forget schedule_code** — Without it, you get results from up to 13 months of data.

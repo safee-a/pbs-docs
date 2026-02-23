@@ -1,0 +1,68 @@
+---
+title: "Overview"
+description: "What the PBS is, what the API provides, and who this documentation is for."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# PBS API Overview
+
+The **Pharmaceutical Benefits Scheme (PBS)** is the Australian Government program that subsidizes the cost of prescription medicines. The PBS lists approximately 5,000+ medicines available at a government-subsidized price to Australian residents.
+
+## What the API Provides
+
+The **PBS API v3** (`https://data-api.health.gov.au/pbs/api/v3`) provides programmatic access to:
+
+- **Drug listings** — every medicine listed on the PBS with names, forms, strengths, and pack sizes
+- **Pricing** — manufacturer prices, dispensed prices, copayments, and fee schedules
+- **Prescribing restrictions** — authority required, restricted benefit, and streamlined rules
+- **Dispensing rules** — maximum quantities, repeats, brand substitution
+- **Program information** — General Schedule, Repatriation, Section 100 schemes
+- **AMT mappings** — links to Australian Medicines Terminology (SNOMED CT-AU)
+- **ATC classification** — WHO Anatomical Therapeutic Chemical codes
+- **Monthly changes** — what was added, removed, or modified each month
+
+## API Basics
+
+| Property | Value |
+|----------|-------|
+| Base URL | `https://data-api.health.gov.au/pbs/api/v3` |
+| Version | 3.6.5 |
+| Auth | None required for public API |
+| Rate limit | 1 request per 20 seconds (shared) |
+| Formats | JSON (default), CSV |
+| Data retention | Current schedule + past 12 months |
+| Update frequency | Monthly on the 1st |
+
+## Who This Documentation Is For
+
+This documentation is designed for:
+
+- **AI agents and LLMs** that need to query PBS data programmatically
+- **Developers** building healthcare applications that integrate with the PBS
+- **MCP server authors** creating tools for AI assistants to access PBS data
+- **Data analysts** exploring PBS data for research or reporting
+
+<Aside type="tip">
+If you're an AI agent, start with [llms.txt](/llms.txt) for a complete map of all documentation, or load the [OpenAPI schema](/schemas/pbs-api-tools.json) for machine-readable endpoint definitions.
+</Aside>
+
+## Key Concepts
+
+Before diving into the API, understand these core concepts:
+
+1. **Schedule** — PBS data is versioned monthly. Each month has a `SCHEDULE_CODE` (e.g., `2026-02-01`). Always filter by schedule code.
+2. **PBS Code** — Each item has a unique `PBS_CODE` that identifies a specific drug+form+strength listing.
+3. **Programs** — Items are listed under programs like General Schedule (GE), Repatriation (RP), or Section 100 schemes.
+4. **Restrictions** — Many items require authority or have clinical criteria. The hierarchy is: restriction → parameters → criteria.
+
+## 17 API Endpoints
+
+The PBS API provides 17 endpoints. Here's a decision tree:
+
+- **Starting a new query?** → Call `schedules` first to get the current schedule code
+- **Looking for a drug?** → Use `items` filtered by `drug_name` or `brand_name`
+- **Need full detail on one item?** → Use `item-overview` (combines data from multiple endpoints)
+- **Checking what a patient pays?** → Use `copayments` + `fees`
+- **Understanding prescribing rules?** → Use `restrictions` → `parameters` → `criteria`
+- **Tracking changes?** → Use `summary-of-changes`

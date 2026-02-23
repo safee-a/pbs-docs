@@ -1,0 +1,98 @@
+---
+title: "Understand Restrictions for a Medicine"
+description: "How to navigate the restriction hierarchy to understand prescribing requirements for a PBS medicine."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Understand Restrictions for a Medicine
+
+Navigate the restriction → parameters → criteria hierarchy to understand when and how a PBS medicine can be prescribed.
+
+## Goal
+
+Given a PBS item, determine what prescribing restrictions apply, what clinical criteria must be met, and what type of authority is required.
+
+### 1. Get the Item's Overview
+
+**Endpoint:** [`item-overview`](/endpoints/item-overview/)
+
+The fastest approach — get everything in one call:
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/item-overview?schedule_code=2026-02-01&pbs_code=12345A"
+```
+
+The response includes nested restriction data. If you need to query step-by-step instead, continue below.
+
+### 2. Get Restrictions for the Item
+
+**Endpoint:** [`restrictions`](/endpoints/restrictions/)
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/restrictions?schedule_code=2026-02-01&pbs_code=12345A"
+```
+
+Each restriction record includes:
+- `RES_CODE` — restriction identifier
+- `RESTRICTION_TEXT` — human-readable description
+- `AUTHORITY_METHOD` — `STREAMLINED`, `PHONE`, `WRITTEN`, or `ELECTRONIC`
+
+### 3. Get Parameters for Each Restriction
+
+**Endpoint:** [`parameters`](/endpoints/parameters/)
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/parameters?schedule_code=2026-02-01&res_code=1234"
+```
+
+Parameters group related conditions. Check `PARAMETER_SEQUENCE` for ordering.
+
+### 4. Get Criteria for Each Parameter
+
+**Endpoint:** [`criteria`](/endpoints/criteria/)
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/criteria?schedule_code=2026-02-01&parameter_id=5678"
+```
+
+Criteria are the specific clinical requirements (e.g., "Patient must have failed first-line therapy").
+
+## Understanding Authority Methods
+
+| Method | What it means for prescribers |
+|--------|------------------------------|
+| **Streamlined** | Pre-approved for listed indications. Prescriber notes the streamlined code on the script. No phone call needed. |
+| **Phone** | Prescriber calls Services Australia to get real-time approval before writing the script. |
+| **Written** | Prescriber submits a written application. Used for complex or ongoing treatments. |
+| **Electronic** | Electronic request via approved prescribing software. |
+
+## Complete Example
+
+Understanding restrictions for a biologic medicine:
+
+```bash
+# Step 1: Get item (includes restriction flag)
+curl ".../items?schedule_code=2026-02-01&pbs_code=11388F"
+
+# Step 2: Get full restrictions
+curl ".../restrictions?schedule_code=2026-02-01&pbs_code=11388F"
+# → May return multiple restrictions for different indications
+
+# Step 3: For each restriction, get parameters
+curl ".../parameters?schedule_code=2026-02-01&res_code=9876"
+
+# Step 4: For each parameter, get criteria
+curl ".../criteria?schedule_code=2026-02-01&parameter_id=4321"
+```
+
+<Aside type="tip">
+**Prefer `item-overview` for single items.** It returns the entire hierarchy nested in one response, saving 3+ API calls (60+ seconds of rate-limited waiting).
+</Aside>
+
+## Common Pitfalls
+
+- **Multiple restrictions** — One item can have many restrictions, each for a different clinical indication. Don't assume there's only one.
+- **Hierarchy matters** — Always traverse restriction → parameters → criteria in order. Criteria without their parent parameter context may be misleading.
+- **Large datasets** — The criteria endpoint is very large. Never fetch without `parameter_id` or `res_code` filters.
+- **Restriction text** — `RESTRICTION_TEXT` can be very long and contains detailed clinical information. It's intended for healthcare professionals.

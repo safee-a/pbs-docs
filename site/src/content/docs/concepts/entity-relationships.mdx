@@ -1,0 +1,73 @@
+---
+title: "Entity Relationships"
+description: "Machine-readable table of all entity relationships in the PBS API data model."
+---
+
+# Entity Relationships
+
+This page provides a complete, machine-readable reference of relationships between PBS API endpoints.
+
+## Relationship Table
+
+| From Endpoint | From Field | To Endpoint | To Field | Cardinality | Description |
+|--------------|------------|-------------|----------|-------------|-------------|
+| `schedules` | `SCHEDULE_CODE` | `items` | `SCHEDULE_CODE` | 1:M | A schedule contains many items |
+| `schedules` | `SCHEDULE_CODE` | `summary-of-changes` | `SCHEDULE_CODE` | 1:M | Each schedule has a changelog |
+| `schedules` | `SCHEDULE_CODE` | `copayments` | `SCHEDULE_CODE` | 1:M | Copayment amounts per schedule |
+| `schedules` | `SCHEDULE_CODE` | `markup-bands` | `SCHEDULE_CODE` | 1:M | Markup tiers per schedule |
+| `items` | `PBS_CODE` | `dispensing-rules` | `PBS_CODE` | 1:M | Item dispensing constraints |
+| `items` | `PBS_CODE` | `fees` | `PBS_CODE` | 1:M | Item fee schedule |
+| `items` | `PBS_CODE` | `restrictions` | `PBS_CODE` | 1:M | Item prescribing restrictions |
+| `items` | `PBS_CODE` | `item-overview` | `PBS_CODE` | 1:1 | Comprehensive item detail (nested) |
+| `items` | `PBS_CODE` | `item-amt` | `PBS_CODE` | 1:M | AMT concept mappings |
+| `items` | `PROGRAM_CODE` | `programs` | `PROGRAM_CODE` | M:1 | Item belongs to a program |
+| `items` | `ATC_CODE` | `atc` | `ATC_CODE` | M:1 | Item's therapeutic classification |
+| `restrictions` | `RES_CODE` | `parameters` | `RES_CODE` | 1:M | Restriction condition groups |
+| `parameters` | `PARAMETER_ID` | `criteria` | `PARAMETER_ID` | 1:M | Specific requirement criteria |
+| `restrictions` | `PRESCRIBER_CODE` | `prescribers` | `PRESCRIBER_CODE` | M:1 | Authorized prescriber types |
+| `programs` | `PROGRAM_CODE` | `program-dispensing-rules` | `PROGRAM_CODE` | 1:M | Program-wide dispensing rules |
+
+## Key Identifiers
+
+| Field | Description | Found In |
+|-------|-------------|----------|
+| `SCHEDULE_CODE` | Monthly schedule identifier (e.g., `2026-02-01`) | All endpoints |
+| `PBS_CODE` | Unique PBS item identifier | `items`, `fees`, `dispensing-rules`, `restrictions`, `item-overview`, `item-amt` |
+| `ITEM_CODE` | Alternative item identifier | `items` |
+| `PROGRAM_CODE` | PBS program identifier (e.g., `GE`, `RP`) | `items`, `programs`, `program-dispensing-rules` |
+| `ATC_CODE` | WHO ATC classification code | `items`, `atc` |
+| `RES_CODE` | Restriction identifier | `restrictions`, `parameters` |
+| `PARAMETER_ID` | Restriction parameter identifier | `parameters`, `criteria` |
+| `CRITERIA_ID` | Restriction criteria identifier | `criteria` |
+| `PRESCRIBER_CODE` | Prescriber type code | `prescribers`, `restrictions` |
+
+## Join Patterns
+
+### Direct Foreign Key
+
+Most relationships are direct foreign key joins. The field name matches exactly between endpoints:
+
+```
+items.PBS_CODE = dispensing-rules.PBS_CODE
+items.PROGRAM_CODE = programs.PROGRAM_CODE
+restrictions.RES_CODE = parameters.RES_CODE
+```
+
+### Hierarchical Navigation
+
+The restriction system follows a strict hierarchy. Always traverse top-down:
+
+```
+restrictions (filter by PBS_CODE)
+  → parameters (filter by RES_CODE)
+    → criteria (filter by PARAMETER_ID)
+```
+
+### Composite Keys
+
+Some relationships require multiple fields for uniqueness:
+
+```
+items: SCHEDULE_CODE + PBS_CODE (unique item in a schedule)
+restrictions: SCHEDULE_CODE + RES_CODE (unique restriction in a schedule)
+```

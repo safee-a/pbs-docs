@@ -1,0 +1,76 @@
+---
+title: "Error Codes"
+description: "PBS API error codes, what they mean, and how to handle them."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Error Codes & Troubleshooting
+
+The PBS API returns standard HTTP status codes. Here's how to handle each one.
+
+## Error Reference
+
+| Status | Name | Cause | Action |
+|--------|------|-------|--------|
+| `400` | Bad Request | Invalid query parameter or value | Check parameter names and values against the endpoint docs |
+| `401` | Unauthorized | Invalid or missing subscription key (embargo API) | Verify your subscription key header |
+| `403` | Forbidden | Subscription key lacks access to this resource | Check your API subscription tier |
+| `404` | Not Found | Endpoint doesn't exist or no data matches filters | Verify endpoint path and filter values |
+| `415` | Unsupported Media Type | Invalid `Accept` header value | Use `application/json` or `text/csv` |
+| `429` | Too Many Requests | Rate limit exceeded (1 req/20s) | Wait at least 20 seconds and retry |
+| `500` | Internal Server Error | Server-side issue | Retry after 30 seconds; if persistent, report |
+
+## Common Issues
+
+### "No data returned" (empty array)
+
+An empty `[]` response is not an error — it means no records match your filters.
+
+**Common causes:**
+- `schedule_code` is wrong or refers to an expired schedule
+- `drug_name` spelling doesn't match (try partial match or check spelling)
+- `pbs_code` doesn't exist in the specified schedule
+- Filters are too restrictive
+
+**Fix:** Remove filters one at a time to identify which filter is excluding results.
+
+### Rate Limit Errors (429)
+
+<Aside type="caution">
+The rate limit is **shared across all public API users**. You may get 429 even when respecting the 20-second interval if other users are also making requests.
+</Aside>
+
+**Fix:**
+1. Wait at least 25 seconds (20s limit + buffer)
+2. Cache all responses aggressively — PBS data only changes monthly
+3. Use `item-overview` to reduce the number of calls needed
+4. See [Rate Limiting strategies](/getting-started/rate-limiting/)
+
+### Unsupported Media Type (415)
+
+The API only accepts two formats via the `Accept` header:
+- `application/json` (default)
+- `text/csv`
+
+Any other value returns 415.
+
+### item-overview Returns Nothing
+
+The `item-overview` endpoint **requires** a `pbs_code` filter. Unlike other endpoints, it cannot list all items.
+
+```bash
+# Wrong — returns nothing or error
+curl ".../item-overview?schedule_code=2026-02-01"
+
+# Correct — returns detail for one item
+curl ".../item-overview?schedule_code=2026-02-01&pbs_code=2621B"
+```
+
+## Debugging Tips
+
+1. **Start simple** — test with just `schedule_code` and `limit=1` to verify the endpoint works
+2. **Check the schedule** — ensure your `schedule_code` is a current, valid schedule
+3. **Use JSON format** — JSON responses include more structured error information than CSV
+4. **Inspect response headers** — rate limit information may be in response headers
+5. **Log the full URL** — copy-paste into a browser or curl to test independently

@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.env
+*.tsbuildinfo
+
+# Cached PBS API responses
+packages/pbs-fetcher/data/cache/
+
+# Generated content (reproducible from source)
+packages/pbs-fetcher/data/schemas/
+packages/pbs-fetcher/data/relationships.json
+site/src/content/docs/endpoints/
+site/public/llms.txt
+site/public/llms-full.txt
+site/public/schemas/pbs-api-tools.json
+
+# Astro build output
+site/.astro/
+site/dist/

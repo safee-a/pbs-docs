@@ -1,0 +1,55 @@
+---
+title: "Authentication"
+description: "How to authenticate with the PBS API — public access requires no key, embargo access needs a client secret."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Authentication
+
+## Public API (No Auth Required)
+
+The PBS public API requires **no authentication** for basic access. You can start making requests immediately:
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/schedules?get_latest_schedule_only=true" \
+  -H "Accept: application/json"
+```
+
+<Aside type="tip">
+Most use cases only need the public API. Skip straight to the [endpoint reference](/endpoints/schedules/) if you don't need embargo data.
+</Aside>
+
+## Subscription Key (Optional)
+
+You can optionally include a subscription key in requests. This doesn't unlock additional data but identifies your application:
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/items?schedule_code=2026-02-01&limit=5" \
+  -H "Accept: application/json" \
+  -H "subscription-key: YOUR_KEY_HERE"
+```
+
+The key goes in the `subscription-key` header.
+
+## Embargo API (Restricted)
+
+The Embargo API provides access to upcoming PBS schedule data **before** it's publicly released (typically 2 weeks early). This is intended for:
+
+- Pharmacy dispensing software vendors
+- Hospital pharmacy systems
+- Health fund providers
+
+To access the Embargo API:
+
+1. Register at the [Health Professional Portal (HPP)](https://health.gov.au)
+2. Request Embargo API access
+3. You'll receive a client secret for OAuth 2.0 authentication
+
+<Aside type="caution">
+Embargo data is embargoed — you must not publish or redistribute it before the public release date. Violation may result in access revocation.
+</Aside>
+
+## Rate Limiting
+
+Both public and authenticated requests share the same rate limit: **1 request per 20 seconds**, shared across all public API users. See [Rate Limiting](/getting-started/rate-limiting/) for strategies.

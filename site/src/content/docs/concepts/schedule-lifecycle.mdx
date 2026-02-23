@@ -1,0 +1,91 @@
+---
+title: "Schedule Lifecycle"
+description: "How PBS schedules work — monthly updates, schedule codes, and data retention."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Schedule Lifecycle
+
+PBS data is organized into monthly **schedules**. Understanding the schedule lifecycle is essential for working with the API.
+
+## Monthly Update Cycle
+
+1. **1st of each month** — a new PBS schedule becomes effective
+2. **Schedule code** — formatted as `YYYY-MM-01` (e.g., `2026-02-01`)
+3. **Data retention** — the API retains the current schedule plus the **past 12 months**
+4. **Embargo** — upcoming schedule data may be available ~2 weeks early via the Embargo API
+
+## Working with Schedules
+
+### Get the Current Schedule
+
+Always start by fetching the latest schedule code:
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/schedules?get_latest_schedule_only=true"
+```
+
+Response:
+```json
+[
+  {
+    "SCHEDULE_CODE": "2026-02-01",
+    "EFFECTIVE_DATE": "2026-02-01T00:00:00",
+    "DESCRIPTION": "February 2026 PBS Schedule"
+  }
+]
+```
+
+### Filter All Queries by Schedule
+
+<Aside type="caution">
+**Always include `schedule_code` in every query.** Without it, endpoints return data across all retained schedules (up to 13 months), which means duplicate items with different pricing and massive response sizes.
+</Aside>
+
+```bash
+# Good: filtered to current schedule
+curl ".../items?schedule_code=2026-02-01&drug_name=paracetamol"
+
+# Bad: returns paracetamol listings from the last 13 months
+curl ".../items?drug_name=paracetamol"
+```
+
+### List All Available Schedules
+
+To see all retained schedules:
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/schedules"
+```
+
+This returns 12-13 schedule records, oldest to newest.
+
+## What Changes Monthly
+
+Each schedule may include:
+- **New listings** — medicines added to the PBS
+- **Delistings** — medicines removed from the PBS
+- **Price changes** — updated manufacturer or dispensed prices
+- **Restriction changes** — modified prescribing criteria
+- **Fee updates** — adjusted dispensing fees or copayments
+
+Use the [`summary-of-changes`](/endpoints/summary-of-changes/) endpoint to see exactly what changed in a given schedule.
+
+## Schedule Code Format
+
+| Example | Meaning |
+|---------|---------|
+| `2026-02-01` | February 2026 schedule |
+| `2026-01-01` | January 2026 schedule |
+| `2025-03-01` | March 2025 schedule (oldest retained as of Feb 2026) |
+
+The day is always `01` — schedules are always effective from the 1st of the month.
+
+## Caching Strategy
+
+Since data only changes monthly, you can safely cache API responses for the duration of a schedule:
+
+- **Cache key:** `{endpoint}_{schedule_code}_{params}`
+- **TTL:** Until the next schedule (1st of next month)
+- **Invalidation:** Fetch new data when `get_latest_schedule_only` returns a new code

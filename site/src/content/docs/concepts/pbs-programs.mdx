@@ -1,0 +1,89 @@
+---
+title: "PBS Programs"
+description: "Understanding PBS program types — General Schedule, Repatriation, Section 100, and other schemes."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# PBS Programs
+
+PBS items are listed under specific **programs** that determine how they are subsidized, dispensed, and accessed. Each item's `PROGRAM_CODE` links to the `programs` endpoint.
+
+## Major Programs
+
+### General Schedule (GE)
+
+The main PBS listing. Most medicines fall under the General Schedule and are available from community pharmacies.
+
+- **Access:** Any approved pharmacy
+- **Prescriber:** Medical practitioners, dentists (limited)
+- **Most common program** — majority of PBS items
+
+### Repatriation Schedule (RP)
+
+Medicines subsidized under the Repatriation Pharmaceutical Benefits Scheme for eligible veterans and their dependants.
+
+- **Access:** Community pharmacies
+- **Prescriber:** Medical practitioners
+- **Eligibility:** Department of Veterans' Affairs (DVA) card holders
+- **Often mirrors GE** but may have different pricing or restrictions
+
+### Highly Specialised Drugs (HB)
+
+Medicines for complex or rare conditions, typically dispensed through hospital pharmacies.
+
+- **Access:** Approved hospital pharmacies only
+- **Prescriber:** Specialists at approved hospitals
+- **Examples:** Biologics, oncology drugs, immunosuppressants
+
+### Chemotherapy (CA)
+
+Chemotherapy agents and supportive medicines for cancer treatment.
+
+- **Access:** Hospital pharmacies and day oncology units
+- **Prescriber:** Oncologists and haematologists
+
+### Section 100 Schemes
+
+Various programs under Section 100 of the National Health Act:
+
+| Code | Scheme | Description |
+|------|--------|-------------|
+| Various | Remote Area Aboriginal Health Services | PBS access in remote communities |
+| Various | Efficient Funding of Chemotherapy | Hospital chemotherapy funding |
+| Various | Opiate Dependence Treatment | Methadone and buprenorphine programs |
+| Various | Growth Hormone Program | Subsidized growth hormone |
+| Various | IVF/GIFT Program | Fertility treatment medicines |
+
+## Using Programs in the API
+
+### List All Programs
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/programs?schedule_code=2026-02-01"
+```
+
+### Filter Items by Program
+
+```bash
+# Get all Highly Specialised Drugs
+curl "https://data-api.health.gov.au/pbs/api/v3/items?schedule_code=2026-02-01&program_code=HB"
+```
+
+### Program-Level Dispensing Rules
+
+Some programs have dispensing rules that apply to **all items** in the program:
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/program-dispensing-rules?schedule_code=2026-02-01&program_code=GE"
+```
+
+<Aside type="note">
+When checking dispensing rules for an item, check both the item-level rules (`dispensing-rules`) and the program-level rules (`program-dispensing-rules`). Program rules may set defaults that item-level rules override.
+</Aside>
+
+## Items in Multiple Programs
+
+Some medicines appear under multiple programs with different conditions. For example, a drug might be listed under both GE (General Schedule) and RP (Repatriation) with different restriction levels or pricing.
+
+When querying items, the `PROGRAM_CODE` field tells you which program listing you're looking at. To see all listings for a drug across programs, search by `drug_name` without filtering by `program_code`.

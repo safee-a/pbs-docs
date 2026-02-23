@@ -1,0 +1,49 @@
+---
+title: "{{title}}"
+description: "{{description}}"
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# {{title}}
+
+{{description}}
+
+## Goal
+
+{{goal}}
+
+## Steps
+
+{{#each steps}}
+### {{@indexPlusOne}}. {{title}}
+
+**Endpoint:** [`{{endpoint}}`](/endpoints/{{endpoint}})
+
+**Parameters:**
+{{#each params}}
+- `{{name}}`: {{description}}
+{{/each}}
+
+```bash
+curl "https://data-api.health.gov.au/pbs/api/v3/{{endpoint}}?{{queryString}}" \
+  -H "Accept: application/json"
+```
+
+{{#if note}}
+<Aside type="note">
+{{note}}
+</Aside>
+{{/if}}
+
+{{/each}}
+
+## Complete Example
+
+{{{completeExample}}}
+
+## Common Pitfalls
+
+{{#each pitfalls}}
+- {{this}}
+{{/each}}

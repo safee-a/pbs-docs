@@ -1,0 +1,119 @@
+---
+title: "Restriction System"
+description: "How PBS prescribing restrictions work — the hierarchy of restrictions, parameters, and criteria."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Restriction System
+
+Many PBS items have **prescribing restrictions** that define when and how a medicine can be prescribed under the PBS. Understanding the restriction hierarchy is essential for applications that need to display or check prescribing rules.
+
+## Restriction Levels
+
+PBS items fall into three categories:
+
+| Level | Description | Authority Required? |
+|-------|-------------|-------------------|
+| **Unrestricted** | Can be prescribed without special conditions | No |
+| **Restricted** | Can only be prescribed for specific therapeutic uses | No (but must meet criteria) |
+| **Authority Required** | Prescriber must obtain approval before prescribing | Yes |
+
+## Authority Methods
+
+For Authority Required items, prescribers obtain approval via:
+
+| Method | Code | Description |
+|--------|------|-------------|
+| Streamlined | `STREAMLINED` | Pre-approved for listed indications, no phone call needed |
+| Telephone | `PHONE` | Prescriber calls Services Australia for real-time approval |
+| Written | `WRITTEN` | Written application submitted (for complex cases) |
+| Electronic | `ELECTRONIC` | Electronic request via prescribing software |
+
+## The Three-Level Hierarchy
+
+Restrictions are structured as a strict hierarchy:
+
+```
+Restriction (top level)
+├── Parameter (condition group)
+│   ├── Criteria (specific requirement)
+│   ├── Criteria
+│   └── Criteria
+├── Parameter
+│   ├── Criteria
+│   └── Criteria
+└── Parameter
+    └── Criteria
+```
+
+### 1. Restriction
+
+The top-level rule linked to a PBS item. Contains:
+- `RES_CODE` — unique identifier
+- `RESTRICTION_TEXT` — human-readable description of when this restriction applies
+- `AUTHORITY_METHOD` — how authority is obtained (if applicable)
+
+### 2. Parameter
+
+Groups of conditions within a restriction. Parameters define logical groupings of criteria that must be satisfied. Contains:
+- `PARAMETER_ID` — unique identifier
+- `RES_CODE` — link to parent restriction
+- `PARAMETER_TEXT` — description of this condition group
+- `PARAMETER_SEQUENCE` — ordering within the restriction
+
+### 3. Criteria
+
+The leaf-level requirements. Each criterion is a specific condition that must be met. Contains:
+- `CRITERIA_ID` — unique identifier
+- `PARAMETER_ID` — link to parent parameter
+- `CRITERIA_TEXT` — the actual clinical requirement (e.g., "Patient has tried and failed first-line therapy")
+
+## Querying Restrictions
+
+### Get Restrictions for an Item
+
+```bash
+# Step 1: Get restrictions for a PBS item
+curl ".../restrictions?schedule_code=2026-02-01&pbs_code=12345A"
+```
+
+### Navigate the Hierarchy
+
+```bash
+# Step 2: Get parameters for a restriction
+curl ".../parameters?schedule_code=2026-02-01&res_code=1234"
+
+# Step 3: Get criteria for a parameter
+curl ".../criteria?schedule_code=2026-02-01&parameter_id=5678"
+```
+
+### Use item-overview for Complete Data
+
+<Aside type="tip">
+The `item-overview` endpoint returns the **entire restriction hierarchy** nested in a single response. Use it instead of making 3 separate calls:
+
+```bash
+curl ".../item-overview?schedule_code=2026-02-01&pbs_code=12345A"
+```
+</Aside>
+
+## Multiple Restrictions Per Item
+
+A single item can have **multiple restrictions**, each representing a different clinical indication. For example, a drug might have:
+
+- Restriction A: For treatment of condition X (Streamlined authority)
+- Restriction B: For treatment of condition Y (Written authority required)
+- Restriction C: For use in patients who failed first-line therapy (Phone authority)
+
+Each restriction has its own set of parameters and criteria. When displaying restriction information, show all applicable restrictions and let the user/prescriber identify the relevant one.
+
+## Prescriber Types
+
+Restrictions may specify which **prescriber types** are authorized:
+
+```bash
+curl ".../prescribers?schedule_code=2026-02-01"
+```
+
+The `PRESCRIBER_CODE` in restrictions links to this endpoint to determine if a specific prescriber type (e.g., GP, specialist, dentist) can prescribe under that restriction.

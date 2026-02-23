@@ -1,0 +1,50 @@
+---
+title: HealthDocs.ai
+description: Agent-optimized documentation for Australian healthcare data APIs, starting with PBS.
+template: splash
+hero:
+  tagline: Agent-optimized documentation for the Australian Pharmaceutical Benefits Scheme (PBS) API
+  actions:
+    - text: Getting Started
+      link: /getting-started/overview/
+      icon: right-arrow
+    - text: API Endpoints
+      link: /endpoints/schedules/
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Why HealthDocs.ai?
+
+The PBS API v3 is becoming the **sole data source** for PBS data by May 2026, replacing deprecated XML and text downloads. But the official documentation is fragmented across multiple domains with no entity-relationship documentation.
+
+HealthDocs.ai provides **agent-optimized** documentation that goes beyond standard API docs:
+
+<CardGrid>
+  <Card title="Which endpoint?" icon="magnifier">
+    Workflow guides map common tasks to the exact sequence of API calls needed.
+  </Card>
+  <Card title="How does data connect?" icon="puzzle">
+    Every endpoint page documents foreign keys and relationships to other endpoints.
+  </Card>
+  <Card title="Real examples" icon="document">
+    Example responses from actual API calls, not fabricated samples.
+  </Card>
+  <Card title="Agent-ready" icon="rocket">
+    llms.txt entry point, OpenAPI schemas, and imperative agent tips on every page.
+  </Card>
+</CardGrid>
+
+## Quick Start
+
+1. **No auth required** — the public PBS API needs no API key
+2. **Get the current schedule:** `GET /schedules?get_latest_schedule_only=true`
+3. **Search items:** `GET /items?schedule_code={code}&drug_name={name}`
+4. **Respect the rate limit:** 1 request per 20 seconds, shared across all users
+
+## For AI Agents
+
+- **[llms.txt](/llms.txt)** — Lightweight navigation index (under 10KB)
+- **[llms-full.txt](/llms-full.txt)** — Complete documentation in plain text
+- **[OpenAPI Schema](/schemas/pbs-api-tools.json)** — Machine-readable endpoint definitions

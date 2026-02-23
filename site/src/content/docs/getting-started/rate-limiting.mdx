@@ -1,0 +1,104 @@
+---
+title: "Rate Limiting"
+description: "Understanding the PBS API's 1 request per 20 second rate limit and strategies for working within it."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Rate Limiting
+
+The PBS API enforces a strict rate limit that applies globally across all public API users.
+
+## The Constraint
+
+| Property | Value |
+|----------|-------|
+| Rate | **1 request per 20 seconds** |
+| Scope | **Shared** across ALL public API users |
+| Enforcement | Server-side, returns `429 Too Many Requests` |
+
+<Aside type="caution">
+This is a **shared** rate limit. Your requests compete with every other public API user. Build your application assuming you may occasionally get 429 errors even when respecting the 20-second interval.
+</Aside>
+
+## Strategies
+
+### 1. Cache Aggressively
+
+PBS data only changes monthly (on the 1st). Once you've fetched data for a schedule, cache it:
+
+```javascript
+// Cache key: endpoint + schedule_code + params
+const cacheKey = `items_2026-02-01_drug_name=paracetamol`;
+
+// Check cache before making API calls
+if (cache.has(cacheKey)) {
+  return cache.get(cacheKey);
+}
+
+// Fetch and cache
+const data = await fetchFromPbs("/items", params);
+cache.set(cacheKey, data, { ttl: "30d" }); // Safe to cache for a month
+```
+
+### 2. Use `item-overview` Instead of Multiple Calls
+
+Instead of calling `items`, then `restrictions`, then `fees`, then `dispensing-rules` separately (4 calls = 80 seconds minimum), use `item-overview`:
+
+```bash
+# One call gets everything about an item
+curl "https://data-api.health.gov.au/pbs/api/v3/item-overview?schedule_code=2026-02-01&pbs_code=1234A"
+```
+
+This returns nested data from all related endpoints in a single response.
+
+### 3. Plan Your Request Sequence
+
+When building a workflow, minimize the number of API calls:
+
+| Task | Naive approach | Optimized approach |
+|------|---------------|-------------------|
+| Full item detail | 5 calls (100s) | 1 call to `item-overview` (20s) |
+| All items in a class | 1 `items` call + N `item-overview` calls | 1 `items` call with `atc_code` filter |
+| Monthly changes | Multiple endpoint checks | 1 `summary-of-changes` call |
+
+### 4. Batch on Schedule Updates
+
+Run a monthly batch job on the 1st to fetch and cache all data you need:
+
+```
+# ~6 minutes to fetch samples from all 17 endpoints
+17 endpoints x 20 seconds = 340 seconds = ~6 minutes
+```
+
+### 5. Handle 429 Gracefully
+
+```javascript
+async function fetchWithRetry(url, maxRetries = 3) {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    const response = await fetch(url);
+
+    if (response.status === 429) {
+      // Wait longer than 20s to be safe
+      await sleep(25000);
+      continue;
+    }
+
+    return response;
+  }
+  throw new Error("Rate limit exceeded after retries");
+}
+```
+
+## Response Format
+
+Request JSON or CSV via the `Accept` header:
+
+| Format | Header | Use case |
+|--------|--------|----------|
+| JSON | `Accept: application/json` (default) | API integration, agents |
+| CSV | `Accept: text/csv` | Data analysis, spreadsheets |
+
+<Aside type="note">
+If you send an unsupported Accept header, the API returns `415 Unsupported Media Type`.
+</Aside>
