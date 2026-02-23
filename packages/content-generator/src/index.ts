@@ -66,11 +66,27 @@ async function main() {
   console.log("\nStep 4: Generating OpenAPI schema...");
   generateOpenApiSchema(PBS_ENDPOINTS, schemas);
 
+  // Step 5: Copy PBAC index to static site (if available)
+  const pbacIndexSrc = path.resolve(__dirname, "../../pbac-scraper/data/pbac-index.json");
+  if (fs.existsSync(pbacIndexSrc)) {
+    console.log("\nStep 5: Copying PBAC index to site/public/pbac/...");
+    const pbacDestDir = path.resolve(__dirname, "../../../site/public/pbac");
+    fs.mkdirSync(pbacDestDir, { recursive: true });
+    fs.copyFileSync(pbacIndexSrc, path.join(pbacDestDir, "index.json"));
+    const sizeKB = (fs.statSync(pbacIndexSrc).size / 1024).toFixed(0);
+    console.log(`  Copied: pbac/index.json (${sizeKB}KB)`);
+  } else {
+    console.log("\nStep 5: Skipping PBAC index (not found — run 'pnpm run scrape:pbac' to generate)");
+  }
+
   console.log("\nDone! Generated artifacts:");
   console.log("  - site/src/content/docs/endpoints/*.mdx (endpoint reference pages)");
   console.log("  - site/public/llms.txt (agent navigation index)");
   console.log("  - site/public/llms-full.txt (complete docs for agents)");
   console.log("  - site/public/schemas/pbs-api-tools.json (OpenAPI schema)");
+  if (fs.existsSync(pbacIndexSrc)) {
+    console.log("  - site/public/pbac/index.json (PBAC PSD index)");
+  }
 }
 
 main().catch((err) => {

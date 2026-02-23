@@ -7,7 +7,8 @@ HealthDocs.ai — agent-optimized documentation for Australian healthcare data A
 **Monorepo structure** (pnpm workspaces):
 - `packages/pbs-fetcher` — Fetches + analyzes PBS API data, outputs JSON schemas and relationship map
 - `packages/content-generator` — Generates MDX docs, llms.txt, and OpenAPI schema from fetcher output
-- `packages/mcp-server` — (Phase 4, not yet implemented) MCP server for doc search
+- `packages/pbac-scraper` — Scrapes PBAC Public Summary Documents from pbs.gov.au, builds searchable index
+- `packages/mcp-server` — MCP server with tools: search_pbac_decisions, get_pbac_decision, search_pbs_docs
 - `site` — Astro + Starlight static docs site
 - `scripts` — Orchestration scripts for the build pipeline
 
@@ -16,6 +17,7 @@ HealthDocs.ai — agent-optimized documentation for Australian healthcare data A
 ```bash
 pnpm run fetch          # Fetch from real PBS API (~6 min, results cached in packages/pbs-fetcher/data/cache/)
 pnpm run fetch -- --skip-fetch  # Rebuild schemas/relationships from cached data (instant)
+pnpm run scrape:pbac    # Scrape PBAC PSD index from pbs.gov.au (~95 meeting pages)
 pnpm run generate       # Generate docs from schemas → site/src/content/docs/endpoints/, site/public/
 pnpm run build:site     # Build Astro static site → site/dist/
 pnpm run build          # Full pipeline: fetch → generate → build:site
@@ -44,6 +46,16 @@ PBS API → pbs-fetcher (analyze) → data/schemas/*.json + data/relationships.j
                                                 → site/public/schemas/pbs-api-tools.json
                                         ↓
                                   Astro build → site/dist/ (static HTML)
+
+PBS Website → pbac-scraper → data/pbac-index.json (~500KB, all PSD metadata)
+                                   ↓
+                         content-generator → site/public/pbac/index.json (copy)
+                                           → llms.txt (PBAC Decisions section)
+
+MCP Server (on-demand, stdio transport):
+  Tool: search_pbac_decisions — search the PBAC PSD index (fast, local JSON)
+  Tool: get_pbac_decision — fetch + parse a specific PSD .docx (slow, 3 HTTP requests)
+  Tool: search_pbs_docs — search the static documentation via llms.txt
 ```
 
 ## Generated vs Hand-Written Content
@@ -52,7 +64,9 @@ PBS API → pbs-fetcher (analyze) → data/schemas/*.json + data/relationships.j
 - `site/src/content/docs/endpoints/*.mdx` — one per PBS endpoint
 - `site/public/llms.txt`, `llms-full.txt` — agent navigation files
 - `site/public/schemas/pbs-api-tools.json` — OpenAPI 3.1 schema
+- `site/public/pbac/index.json` — PBAC PSD index (copied from pbac-scraper)
 - `packages/pbs-fetcher/data/schemas/`, `data/cache/`, `data/relationships.json`
+- `packages/pbac-scraper/data/pbac-index.json` — full PBAC PSD index
 
 **Hand-written** (committed to git):
 - `site/src/content/docs/getting-started/` — overview, auth, rate limiting

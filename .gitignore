@@ -13,6 +13,12 @@ site/src/content/docs/endpoints/
 site/public/llms.txt
 site/public/llms-full.txt
 site/public/schemas/pbs-api-tools.json
+site/public/pbac/
+
+# Generated PBAC scraper output
+packages/pbac-scraper/data/pbac-index.json
+packages/pbac-scraper/data/prototype-results.json
+packages/pbac-scraper/data/docx/
 
 # Astro build output
 site/.astro/

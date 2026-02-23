@@ -8,7 +8,8 @@
     "generate": "pnpm --filter content-generator run generate",
     "build:site": "pnpm --filter site run build",
     "build": "pnpm run fetch && pnpm run generate && pnpm run build:site",
-    "dev": "pnpm --filter site run dev"
+    "dev": "pnpm --filter site run dev",
+    "scrape:pbac": "pnpm --filter pbac-scraper run scrape"
   },
   "engines": {
     "node": ">=18.20.8"

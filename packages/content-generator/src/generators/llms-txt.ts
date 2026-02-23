@@ -102,6 +102,20 @@ export function generateLlmsTxt(endpoints: Record<PbsEndpointName, EndpointMeta>
   lines.push("", "## Schemas", "");
   lines.push("- [PBS API OpenAPI Schema](/schemas/pbs-api-tools.json): Machine-readable OpenAPI 3.1 schema for all PBS API endpoints");
 
+  // PBAC Decisions section (from pbac-scraper index, if available)
+  const pbacIndexPath = path.resolve(__dirname, "../../../../packages/pbac-scraper/data/pbac-index.json");
+  if (fs.existsSync(pbacIndexPath)) {
+    const pbacIndex = JSON.parse(fs.readFileSync(pbacIndexPath, "utf-8"));
+    const recentMeeting = pbacIndex.meetings?.[0];
+    lines.push("", "## PBAC Decisions", "");
+    lines.push(`> ${pbacIndex.totalPsds} Public Summary Documents (PSDs) indexed from ${pbacIndex.totalMeetings} PBAC meetings.`);
+    if (recentMeeting) {
+      lines.push(`> Most recent meeting: ${recentMeeting.date} (${recentMeeting.psdCount} PSDs).`);
+    }
+    lines.push(`> Full searchable index: [PBAC PSD Index](/pbac/index.json)`);
+    lines.push("> Use the HealthDocs MCP server for search_pbac_decisions and get_pbac_decision tools.");
+  }
+
   const content = lines.join("\n");
   const outPath = path.join(SITE_PUBLIC_DIR, "llms.txt");
   fs.writeFileSync(outPath, content, "utf-8");
