@@ -11,6 +11,7 @@
     "dev": "pnpm --filter site run dev",
     "scrape:pbac": "pnpm --filter pbac-scraper run scrape"
   },
+  "packageManager": "pnpm@10.30.1",
   "engines": {
     "node": ">=18.20.8"
   },
