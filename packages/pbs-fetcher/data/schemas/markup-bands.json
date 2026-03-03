@@ -1,0 +1,138 @@
+{
+  "endpoint": "markup-bands",
+  "scheduleCode": "4604",
+  "fetchedAt": "2026-02-23T03:13:04.103Z",
+  "recordCount": 100,
+  "fields": [
+    {
+      "name": "program_code",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "CA",
+        "CT",
+        "DB",
+        "EP",
+        "GE"
+      ]
+    },
+    {
+      "name": "dispensing_rule_mnem",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "s90-cp-s100",
+        "s94-private-s100",
+        "s94-public-s100",
+        "s90-cp",
+        "combined"
+      ]
+    },
+    {
+      "name": "markup_band_code",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "A",
+        "D",
+        "C",
+        "W",
+        "E"
+      ]
+    },
+    {
+      "name": "limit",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        0.01,
+        40.01,
+        100.01,
+        1000.01,
+        100
+      ]
+    },
+    {
+      "name": "variable",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        0,
+        10,
+        4,
+        5,
+        7.52
+      ]
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        0,
+        -100
+      ]
+    },
+    {
+      "name": "fixed",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        0,
+        4,
+        40,
+        4.91,
+        99.91
+      ]
+    },
+    {
+      "name": "schedule_code",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        4604
+      ]
+    }
+  ],
+  "nestedStructures": {},
+  "sampleRecords": [
+    {
+      "program_code": "CA",
+      "dispensing_rule_mnem": "s90-cp-s100",
+      "markup_band_code": "A",
+      "limit": 0.01,
+      "variable": 0,
+      "offset": 0,
+      "fixed": 0,
+      "schedule_code": 4604
+    },
+    {
+      "program_code": "CA",
+      "dispensing_rule_mnem": "s90-cp-s100",
+      "markup_band_code": "D",
+      "limit": 0.01,
+      "variable": 10,
+      "offset": 0,
+      "fixed": 0,
+      "schedule_code": 4604
+    },
+    {
+      "program_code": "CA",
+      "dispensing_rule_mnem": "s90-cp-s100",
+      "markup_band_code": "D",
+      "limit": 40.01,
+      "variable": 0,
+      "offset": 0,
+      "fixed": 4,
+      "schedule_code": 4604
+    }
+  ]
+}

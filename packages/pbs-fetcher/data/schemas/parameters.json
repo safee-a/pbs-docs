@@ -1,0 +1,73 @@
+{
+  "endpoint": "parameters",
+  "scheduleCode": "4604",
+  "fetchedAt": "2026-02-23T03:12:01.347Z",
+  "recordCount": 100,
+  "fields": [
+    {
+      "name": "assessment_type",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "IMMEDIATE"
+      ]
+    },
+    {
+      "name": "parameter_prescribing_txt_id",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        7600,
+        7602,
+        7612,
+        7646,
+        7700
+      ]
+    },
+    {
+      "name": "parameter_type",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "CLINICAL_PATIENT",
+        "CLINICAL_TREATMENT",
+        "CLINICAL_CONDITION",
+        "TREATMENT_PRESCRIBER",
+        "TREATMENT_CARE_TYPE"
+      ]
+    },
+    {
+      "name": "schedule_code",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        4604
+      ]
+    }
+  ],
+  "nestedStructures": {},
+  "sampleRecords": [
+    {
+      "assessment_type": "IMMEDIATE",
+      "parameter_prescribing_txt_id": 7600,
+      "parameter_type": "CLINICAL_PATIENT",
+      "schedule_code": 4604
+    },
+    {
+      "assessment_type": "IMMEDIATE",
+      "parameter_prescribing_txt_id": 7602,
+      "parameter_type": "CLINICAL_TREATMENT",
+      "schedule_code": 4604
+    },
+    {
+      "assessment_type": "IMMEDIATE",
+      "parameter_prescribing_txt_id": 7612,
+      "parameter_type": "CLINICAL_PATIENT",
+      "schedule_code": 4604
+    }
+  ]
+}

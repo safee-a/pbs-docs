@@ -1,0 +1,244 @@
+{
+  "endpoint": "restrictions",
+  "scheduleCode": "4604",
+  "fetchedAt": "2026-02-23T03:11:40.403Z",
+  "recordCount": 100,
+  "fields": [
+    {
+      "name": "res_code",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "10041_6898_R",
+        "10045_10033_R",
+        "10046_10021_R",
+        "10058_10051_R",
+        "10059_10020_R"
+      ]
+    },
+    {
+      "name": "treatment_phase",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.63,
+      "exampleValues": [
+        "Initial treatment",
+        "Continuing treatment, trial of dose reduction or cessation of treatment",
+        "Continuing treatment",
+        "Initial treatment 2",
+        "3 weekly treatment regimen"
+      ]
+    },
+    {
+      "name": "authority_method",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.95,
+      "exampleValues": [
+        "STREAMLINED",
+        "AUTHORITY_REQUIRED",
+        "RESTRICTED"
+      ]
+    },
+    {
+      "name": "treatment_of_code",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.95,
+      "exampleValues": [
+        6898,
+        10033,
+        10021,
+        10051,
+        10020
+      ]
+    },
+    {
+      "name": "restriction_number",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.95,
+      "exampleValues": [
+        10041,
+        10045,
+        10046,
+        10058,
+        10059
+      ]
+    },
+    {
+      "name": "li_html_text",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.95,
+      "exampleValues": [
+        "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Severe behavioural disturbances</p><br/><p>Patient must have autism spectrum disorder; AND</p> <p>The treatment must be under the supervision of a paediatrician or psychiatrist; AND</p> <p>The treatment must be in combination with non-pharmacological measures; AND</p> <p>Patient must be under 18 years of age.</p> <p align=\"justify\">Behaviour disturbances are defined as severe aggression and injuries to self or others where non-pharmacological methods alone have been unsuccessful.</p> <p align=\"justify\">The diagnosis of autism spectrum disorder must be made based on the Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-V) or ICD-10 international classification of mental and behavioural disorders.</p>",
+        "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Unresectable Stage III or Stage IV malignant melanoma</p><br/><p>Initial treatment</p><br/><p>Patient must be receiving PBS subsidised vemurafenib concomitantly for this condition.</p>",
+        "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Behavioural disturbances</p><br/><p>Continuing treatment, trial of dose reduction or cessation of treatment</p><br/><p>The condition must be characterised by psychotic symptoms and aggression; AND</p> <p>Patient must have dementia of the Alzheimer type; AND</p> <p>Patient must have responded to an initial course of treatment with this drug for this condition; AND</p> <p>Patient must have failed to respond to non-pharmacological methods of treatment; AND</p> <p>The treatment must be for dose tapering purposes as part of a trial of treatment reduction or cessation; or</p> <p>Patient must have trialled a period of treatment reduction or cessation with this drug for this condition and experienced worsening or re-emergence of symptoms during this trial, and retrials are considered periodically; AND</p> <p>Patient must be optimised on non-pharmacological methods of treatment.</p> <p align=\"justify\">The patient&apos;s response to treatment and a trial of treatment reduction or cessation must be discussed formally with a psychiatrist or geriatrician or in a documented clinical review process involving a least one other medical practitioner, or be reviewed by a psychiatrist or geriatrician.</p> <p align=\"justify\">Response to treatment is defined as a significant reduction in symptoms of psychosis or aggression.</p> <p align=\"justify\">Patients must cease treatment if there is no improvement in symptoms of psychosis and aggression, or worsening of symptoms with therapy.</p> <p align=\"justify\">Patients must be monitored for adverse effects such as falls, drowsiness leading to reduced self-care, incontinence, reduced nutrition, reduced ability to communicate needs/wishes and take part in activities. Therapy must be ceased if harms of therapy outweigh benefits.</p> <p align=\"justify\">Trials of reduction or cessation of therapy should be considered periodically with the intention of maintaining symptom control through non-pharmacological measures wherever possible and/or lowest effective dose therapy.</p> <p align=\"justify\">Evidence of patient benefit from therapy, failure of non-pharmacological approaches to manage symptoms in the absence of therapy, and recurrence of symptoms following reduction or cessation of therapy, trialled on at least 1 occasion, must be documented in the patient&apos;s medical records.</p>",
+        "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Unresectable Stage III or Stage IV malignant melanoma</p><br/><p>Initial treatment</p><br/><p>Patient must be receiving PBS-subsidised dabrafenib concomitantly for this condition.</p>",
+        "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Behavioural disturbances</p><br/><p>Initial treatment</p><br/><p>The condition must be characterised by psychotic symptoms and aggression; AND</p> <p>Patient must have dementia of the Alzheimer type; AND</p> <p>Patient must have failed to respond to non-pharmacological methods of treatment; AND</p> <p>Patient must not receive more than 12 weeks of treatment under this restriction.</p> <p align=\"justify\">A patient may only qualify for 12 weeks of PBS-subsidised treatment under this restriction once in a 12 month period.</p>"
+      ]
+    },
+    {
+      "name": "schedule_html_text",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Severe behavioural disturbances</p><br/><p>Patient must have autism spectrum disorder; AND</p> <p>The treatment must be under the supervision of a paediatrician or psychiatrist; AND</p> <p>The treatment must be in combination with non-pharmacological measures; AND</p> <p>Patient must be under 18 years of age.</p> <p align=\"justify\">Behaviour disturbances are defined as severe aggression and injuries to self or others where non-pharmacological methods alone have been unsuccessful.</p> <p align=\"justify\">The diagnosis of autism spectrum disorder must be made based on the Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-V) or ICD-10 international classification of mental and behavioural disorders.</p>",
+        "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Unresectable Stage III or Stage IV malignant melanoma</p><br/><p>Initial treatment</p><br/><p>Patient must be receiving PBS subsidised vemurafenib concomitantly for this condition.</p>",
+        "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Behavioural disturbances</p><br/><p>Continuing treatment, trial of dose reduction or cessation of treatment</p><br/><p>The condition must be characterised by psychotic symptoms and aggression; AND</p> <p>Patient must have dementia of the Alzheimer type; AND</p> <p>Patient must have responded to an initial course of treatment with this drug for this condition; AND</p> <p>Patient must have failed to respond to non-pharmacological methods of treatment; AND</p> <p>The treatment must be for dose tapering purposes as part of a trial of treatment reduction or cessation; or</p> <p>Patient must have trialled a period of treatment reduction or cessation with this drug for this condition and experienced worsening or re-emergence of symptoms during this trial, and retrials are considered periodically; AND</p> <p>Patient must be optimised on non-pharmacological methods of treatment.</p> <p align=\"justify\">The patient&apos;s response to treatment and a trial of treatment reduction or cessation must be discussed formally with a psychiatrist or geriatrician or in a documented clinical review process involving a least one other medical practitioner, or be reviewed by a psychiatrist or geriatrician.</p> <p align=\"justify\">Response to treatment is defined as a significant reduction in symptoms of psychosis or aggression.</p> <p align=\"justify\">Patients must cease treatment if there is no improvement in symptoms of psychosis and aggression, or worsening of symptoms with therapy.</p> <p align=\"justify\">Patients must be monitored for adverse effects such as falls, drowsiness leading to reduced self-care, incontinence, reduced nutrition, reduced ability to communicate needs/wishes and take part in activities. Therapy must be ceased if harms of therapy outweigh benefits.</p> <p align=\"justify\">Trials of reduction or cessation of therapy should be considered periodically with the intention of maintaining symptom control through non-pharmacological measures wherever possible and/or lowest effective dose therapy.</p> <p align=\"justify\">Evidence of patient benefit from therapy, failure of non-pharmacological approaches to manage symptoms in the absence of therapy, and recurrence of symptoms following reduction or cessation of therapy, trialled on at least 1 occasion, must be documented in the patient&apos;s medical records.</p>",
+        "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Unresectable Stage III or Stage IV malignant melanoma</p><br/><p>Initial treatment</p><br/><p>Patient must be receiving PBS-subsidised dabrafenib concomitantly for this condition.</p>",
+        "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Behavioural disturbances</p><br/><p>Initial treatment</p><br/><p>The condition must be characterised by psychotic symptoms and aggression; AND</p> <p>Patient must have dementia of the Alzheimer type; AND</p> <p>Patient must have failed to respond to non-pharmacological methods of treatment; AND</p> <p>Patient must not receive more than 12 weeks of treatment under this restriction.</p> <p align=\"justify\">A patient may only qualify for 12 weeks of PBS-subsidised treatment under this restriction once in a 12 month period.</p>"
+      ]
+    },
+    {
+      "name": "note_indicator",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N",
+        "Y"
+      ]
+    },
+    {
+      "name": "caution_indicator",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "complex_authority_rqrd_ind",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N",
+        "Y"
+      ]
+    },
+    {
+      "name": "assessment_type_code",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.95,
+      "exampleValues": [
+        "IMMEDIATE",
+        "FULL"
+      ]
+    },
+    {
+      "name": "criteria_relationship",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.95,
+      "exampleValues": [
+        "ALL"
+      ]
+    },
+    {
+      "name": "variation_rule_applied",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N",
+        "Y"
+      ]
+    },
+    {
+      "name": "first_listing_date",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "2020-01-01",
+        "2020-02-01",
+        "2020-03-01",
+        "2014-04-01",
+        "2020-04-01"
+      ]
+    },
+    {
+      "name": "written_authority_required",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N",
+        "Y"
+      ]
+    },
+    {
+      "name": "schedule_code",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        4604
+      ]
+    }
+  ],
+  "nestedStructures": {},
+  "sampleRecords": [
+    {
+      "res_code": "10041_6898_R",
+      "treatment_phase": null,
+      "authority_method": "STREAMLINED",
+      "treatment_of_code": 6898,
+      "restriction_number": 10041,
+      "li_html_text": "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Severe behavioural disturbances</p><br/><p>Patient must have autism spectrum disorder; AND</p> <p>The treatment must be under the supervision of a paediatrician or psychiatrist; AND</p> <p>The treatment must be in combination with non-pharmacological measures; AND</p> <p>Patient must be under 18 years of age.</p> <p align=\"justify\">Behaviour disturbances are defined as severe aggression and injuries to self or others where non-pharmacological methods alone have been unsuccessful.</p> <p align=\"justify\">The diagnosis of autism spectrum disorder must be made based on the Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-V) or ICD-10 international classification of mental and behavioural disorders.</p>",
+      "schedule_html_text": "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Severe behavioural disturbances</p><br/><p>Patient must have autism spectrum disorder; AND</p> <p>The treatment must be under the supervision of a paediatrician or psychiatrist; AND</p> <p>The treatment must be in combination with non-pharmacological measures; AND</p> <p>Patient must be under 18 years of age.</p> <p align=\"justify\">Behaviour disturbances are defined as severe aggression and injuries to self or others where non-pharmacological methods alone have been unsuccessful.</p> <p align=\"justify\">The diagnosis of autism spectrum disorder must be made based on the Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-V) or ICD-10 international classification of mental and behavioural disorders.</p>",
+      "note_indicator": "N",
+      "caution_indicator": "N",
+      "complex_authority_rqrd_ind": "N",
+      "assessment_type_code": "IMMEDIATE",
+      "criteria_relationship": "ALL",
+      "variation_rule_applied": "N",
+      "first_listing_date": "2020-01-01",
+      "written_authority_required": "N",
+      "schedule_code": 4604
+    },
+    {
+      "res_code": "10045_10033_R",
+      "treatment_phase": "Initial treatment",
+      "authority_method": "STREAMLINED",
+      "treatment_of_code": 10033,
+      "restriction_number": 10045,
+      "li_html_text": "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Unresectable Stage III or Stage IV malignant melanoma</p><br/><p>Initial treatment</p><br/><p>Patient must be receiving PBS subsidised vemurafenib concomitantly for this condition.</p>",
+      "schedule_html_text": "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Unresectable Stage III or Stage IV malignant melanoma</p><br/><p>Initial treatment</p><br/><p>Patient must be receiving PBS subsidised vemurafenib concomitantly for this condition.</p>",
+      "note_indicator": "N",
+      "caution_indicator": "N",
+      "complex_authority_rqrd_ind": "N",
+      "assessment_type_code": "IMMEDIATE",
+      "criteria_relationship": "ALL",
+      "variation_rule_applied": "N",
+      "first_listing_date": "2020-01-01",
+      "written_authority_required": "N",
+      "schedule_code": 4604
+    },
+    {
+      "res_code": "10046_10021_R",
+      "treatment_phase": "Continuing treatment, trial of dose reduction or cessation of treatment",
+      "authority_method": "AUTHORITY_REQUIRED",
+      "treatment_of_code": 10021,
+      "restriction_number": 10046,
+      "li_html_text": "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Behavioural disturbances</p><br/><p>Continuing treatment, trial of dose reduction or cessation of treatment</p><br/><p>The condition must be characterised by psychotic symptoms and aggression; AND</p> <p>Patient must have dementia of the Alzheimer type; AND</p> <p>Patient must have responded to an initial course of treatment with this drug for this condition; AND</p> <p>Patient must have failed to respond to non-pharmacological methods of treatment; AND</p> <p>The treatment must be for dose tapering purposes as part of a trial of treatment reduction or cessation; or</p> <p>Patient must have trialled a period of treatment reduction or cessation with this drug for this condition and experienced worsening or re-emergence of symptoms during this trial, and retrials are considered periodically; AND</p> <p>Patient must be optimised on non-pharmacological methods of treatment.</p> <p align=\"justify\">The patient&apos;s response to treatment and a trial of treatment reduction or cessation must be discussed formally with a psychiatrist or geriatrician or in a documented clinical review process involving a least one other medical practitioner, or be reviewed by a psychiatrist or geriatrician.</p> <p align=\"justify\">Response to treatment is defined as a significant reduction in symptoms of psychosis or aggression.</p> <p align=\"justify\">Patients must cease treatment if there is no improvement in symptoms of psychosis and aggression, or worsening of symptoms with therapy.</p> <p align=\"justify\">Patients must be monitored for adverse effects such as falls, drowsiness leading to reduced self-care, incontinence, reduced nutrition, reduced ability to communicate needs/wishes and take part in activities. Therapy must be ceased if harms of therapy outweigh benefits.</p> <p align=\"justify\">Trials of reduction or cessation of therapy should be considered periodically with the intention of maintaining symptom control through non-pharmacological measures wherever possible and/or lowest effective dose therapy.</p> <p align=\"justify\">Evidence of patient benefit from therapy, failure of non-pharmacological approaches to manage symptoms in the absence of therapy, and recurrence of symptoms following reduction or cessation of therapy, trialled on at least 1 occasion, must be documented in the patient&apos;s medical records.</p>",
+      "schedule_html_text": "<h1>Listing of Pharmaceutical Benefits (NHL) - Schedule 4 part 1</h1><p>Behavioural disturbances</p><br/><p>Continuing treatment, trial of dose reduction or cessation of treatment</p><br/><p>The condition must be characterised by psychotic symptoms and aggression; AND</p> <p>Patient must have dementia of the Alzheimer type; AND</p> <p>Patient must have responded to an initial course of treatment with this drug for this condition; AND</p> <p>Patient must have failed to respond to non-pharmacological methods of treatment; AND</p> <p>The treatment must be for dose tapering purposes as part of a trial of treatment reduction or cessation; or</p> <p>Patient must have trialled a period of treatment reduction or cessation with this drug for this condition and experienced worsening or re-emergence of symptoms during this trial, and retrials are considered periodically; AND</p> <p>Patient must be optimised on non-pharmacological methods of treatment.</p> <p align=\"justify\">The patient&apos;s response to treatment and a trial of treatment reduction or cessation must be discussed formally with a psychiatrist or geriatrician or in a documented clinical review process involving a least one other medical practitioner, or be reviewed by a psychiatrist or geriatrician.</p> <p align=\"justify\">Response to treatment is defined as a significant reduction in symptoms of psychosis or aggression.</p> <p align=\"justify\">Patients must cease treatment if there is no improvement in symptoms of psychosis and aggression, or worsening of symptoms with therapy.</p> <p align=\"justify\">Patients must be monitored for adverse effects such as falls, drowsiness leading to reduced self-care, incontinence, reduced nutrition, reduced ability to communicate needs/wishes and take part in activities. Therapy must be ceased if harms of therapy outweigh benefits.</p> <p align=\"justify\">Trials of reduction or cessation of therapy should be considered periodically with the intention of maintaining symptom control through non-pharmacological measures wherever possible and/or lowest effective dose therapy.</p> <p align=\"justify\">Evidence of patient benefit from therapy, failure of non-pharmacological approaches to manage symptoms in the absence of therapy, and recurrence of symptoms following reduction or cessation of therapy, trialled on at least 1 occasion, must be documented in the patient&apos;s medical records.</p>",
+      "note_indicator": "N",
+      "caution_indicator": "N",
+      "complex_authority_rqrd_ind": "N",
+      "assessment_type_code": "IMMEDIATE",
+      "criteria_relationship": "ALL",
+      "variation_rule_applied": "N",
+      "first_listing_date": "2020-01-01",
+      "written_authority_required": "N",
+      "schedule_code": 4604
+    }
+  ]
+}

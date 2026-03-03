@@ -1,0 +1,83 @@
+{
+  "endpoint": "schedules",
+  "scheduleCode": "4604",
+  "fetchedAt": "2026-02-23T03:08:31.713Z",
+  "recordCount": 1,
+  "fields": [
+    {
+      "name": "revision_number",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        4
+      ]
+    },
+    {
+      "name": "start_tsp",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "2026-02-01T00:00:00.000+11:00"
+      ]
+    },
+    {
+      "name": "effective_date",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "2026-02-01"
+      ]
+    },
+    {
+      "name": "effective_month",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "FEBRUARY"
+      ]
+    },
+    {
+      "name": "effective_year",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        2026
+      ]
+    },
+    {
+      "name": "publication_status",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "PUBLISHED"
+      ]
+    },
+    {
+      "name": "schedule_code",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        4604
+      ]
+    }
+  ],
+  "nestedStructures": {},
+  "sampleRecords": [
+    {
+      "revision_number": 4,
+      "start_tsp": "2026-02-01T00:00:00.000+11:00",
+      "effective_date": "2026-02-01",
+      "effective_month": "FEBRUARY",
+      "effective_year": 2026,
+      "publication_status": "PUBLISHED",
+      "schedule_code": 4604
+    }
+  ]
+}

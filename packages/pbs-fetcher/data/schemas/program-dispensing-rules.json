@@ -1,0 +1,74 @@
+{
+  "endpoint": "program-dispensing-rules",
+  "scheduleCode": "4604",
+  "fetchedAt": "2026-02-23T03:14:28.134Z",
+  "recordCount": 32,
+  "fields": [
+    {
+      "name": "program_code",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "CA",
+        "CT",
+        "DB",
+        "EP",
+        "GE"
+      ]
+    },
+    {
+      "name": "dispensing_rule_mnem",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "s90-cp-s100",
+        "s94-private-s100",
+        "s94-public-s100",
+        "s90-cp",
+        "combined"
+      ]
+    },
+    {
+      "name": "default_indicator",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Y",
+        "N"
+      ]
+    },
+    {
+      "name": "schedule_code",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        4604
+      ]
+    }
+  ],
+  "nestedStructures": {},
+  "sampleRecords": [
+    {
+      "program_code": "CA",
+      "dispensing_rule_mnem": "s90-cp-s100",
+      "default_indicator": "Y",
+      "schedule_code": 4604
+    },
+    {
+      "program_code": "CA",
+      "dispensing_rule_mnem": "s94-private-s100",
+      "default_indicator": "N",
+      "schedule_code": 4604
+    },
+    {
+      "program_code": "CA",
+      "dispensing_rule_mnem": "s94-public-s100",
+      "default_indicator": "N",
+      "schedule_code": 4604
+    }
+  ]
+}

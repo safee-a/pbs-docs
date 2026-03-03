@@ -1,0 +1,261 @@
+{
+  "endpoint": "fees",
+  "scheduleCode": "4604",
+  "fetchedAt": "2026-02-23T03:10:58.325Z",
+  "recordCount": 17,
+  "fields": [
+    {
+      "name": "program_code",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "CA",
+        "CT",
+        "DB",
+        "EP",
+        "GE"
+      ]
+    },
+    {
+      "name": "dispensing_fee_ready_prepared",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.7058823529411765,
+      "exampleValues": [
+        8.88
+      ]
+    },
+    {
+      "name": "dispensing_fee_dangerous_drug",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.5882352941176471,
+      "exampleValues": [
+        5.5
+      ]
+    },
+    {
+      "name": "dispensing_fee_extra",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.29411764705882354,
+      "exampleValues": [
+        2.79
+      ]
+    },
+    {
+      "name": "dispensing_fee_extemporaneous",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.6470588235294118,
+      "exampleValues": [
+        2.04
+      ]
+    },
+    {
+      "name": "safety_net_recording_fee_ep",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.8823529411764706,
+      "exampleValues": [
+        1.9100000000000001
+      ]
+    },
+    {
+      "name": "safety_net_recording_fee_rp",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.8235294117647058,
+      "exampleValues": [
+        1.48
+      ]
+    },
+    {
+      "name": "dispensing_fee_water_added",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.5882352941176471,
+      "exampleValues": [
+        1.12
+      ]
+    },
+    {
+      "name": "container_fee_injectable",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.23529411764705882,
+      "exampleValues": [
+        0.81
+      ]
+    },
+    {
+      "name": "container_fee_other",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.23529411764705882,
+      "exampleValues": [
+        0.32
+      ]
+    },
+    {
+      "name": "gnrl_copay_discount_general",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        0
+      ]
+    },
+    {
+      "name": "gnrl_copay_discount_hospital",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        20
+      ]
+    },
+    {
+      "name": "con_copay_discount_general",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        0.6000000000000001
+      ]
+    },
+    {
+      "name": "con_copay_discount_hospital",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        7.7
+      ]
+    },
+    {
+      "name": "efc_diluent_fee",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.11764705882352941,
+      "exampleValues": [
+        6.08
+      ]
+    },
+    {
+      "name": "efc_preparation_fee",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.23529411764705882,
+      "exampleValues": [
+        91.23
+      ]
+    },
+    {
+      "name": "efc_distribution_fee",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.11764705882352941,
+      "exampleValues": [
+        30.71
+      ]
+    },
+    {
+      "name": "acss_imdq60_payment",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.23529411764705882,
+      "exampleValues": [
+        4.91
+      ]
+    },
+    {
+      "name": "acss_payment",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.23529411764705882,
+      "exampleValues": [
+        1.21
+      ]
+    },
+    {
+      "name": "schedule_code",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        4604
+      ]
+    }
+  ],
+  "nestedStructures": {},
+  "sampleRecords": [
+    {
+      "program_code": "CA",
+      "dispensing_fee_ready_prepared": 8.88,
+      "dispensing_fee_dangerous_drug": 5.5,
+      "dispensing_fee_extra": null,
+      "dispensing_fee_extemporaneous": 2.04,
+      "safety_net_recording_fee_ep": 1.9100000000000001,
+      "safety_net_recording_fee_rp": 1.48,
+      "dispensing_fee_water_added": 1.12,
+      "container_fee_injectable": null,
+      "container_fee_other": null,
+      "gnrl_copay_discount_general": 0,
+      "gnrl_copay_discount_hospital": 20,
+      "con_copay_discount_general": 0.6000000000000001,
+      "con_copay_discount_hospital": 7.7,
+      "efc_diluent_fee": null,
+      "efc_preparation_fee": null,
+      "efc_distribution_fee": null,
+      "acss_imdq60_payment": null,
+      "acss_payment": null,
+      "schedule_code": 4604
+    },
+    {
+      "program_code": "CT",
+      "dispensing_fee_ready_prepared": null,
+      "dispensing_fee_dangerous_drug": null,
+      "dispensing_fee_extra": null,
+      "dispensing_fee_extemporaneous": null,
+      "safety_net_recording_fee_ep": 1.9100000000000001,
+      "safety_net_recording_fee_rp": 1.48,
+      "dispensing_fee_water_added": null,
+      "container_fee_injectable": null,
+      "container_fee_other": null,
+      "gnrl_copay_discount_general": 0,
+      "gnrl_copay_discount_hospital": 20,
+      "con_copay_discount_general": 0.6000000000000001,
+      "con_copay_discount_hospital": 7.7,
+      "efc_diluent_fee": null,
+      "efc_preparation_fee": null,
+      "efc_distribution_fee": null,
+      "acss_imdq60_payment": null,
+      "acss_payment": null,
+      "schedule_code": 4604
+    },
+    {
+      "program_code": "DB",
+      "dispensing_fee_ready_prepared": 8.88,
+      "dispensing_fee_dangerous_drug": 5.5,
+      "dispensing_fee_extra": null,
+      "dispensing_fee_extemporaneous": 2.04,
+      "safety_net_recording_fee_ep": null,
+      "safety_net_recording_fee_rp": null,
+      "dispensing_fee_water_added": 1.12,
+      "container_fee_injectable": 0.81,
+      "container_fee_other": 0.32,
+      "gnrl_copay_discount_general": 0,
+      "gnrl_copay_discount_hospital": 20,
+      "con_copay_discount_general": 0.6000000000000001,
+      "con_copay_discount_hospital": 7.7,
+      "efc_diluent_fee": null,
+      "efc_preparation_fee": null,
+      "efc_distribution_fee": null,
+      "acss_imdq60_payment": null,
+      "acss_payment": null,
+      "schedule_code": 4604
+    }
+  ]
+}

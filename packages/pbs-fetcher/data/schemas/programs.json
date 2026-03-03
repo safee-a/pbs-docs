@@ -1,0 +1,61 @@
+{
+  "endpoint": "programs",
+  "scheduleCode": "4604",
+  "fetchedAt": "2026-02-23T03:13:25.341Z",
+  "recordCount": 17,
+  "fields": [
+    {
+      "name": "program_code",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "CA",
+        "CT",
+        "DB",
+        "EP",
+        "GE"
+      ]
+    },
+    {
+      "name": "program_title",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Section 100 (Highly Specialised Drugs) - Community Access",
+        "Section 100 (Efficient Funding of Chemotherapy) - Related Benefits",
+        "Prescriber Bag (Dr Bag)",
+        "Extemporaneous Preparations",
+        "General Schedule"
+      ]
+    },
+    {
+      "name": "schedule_code",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        4604
+      ]
+    }
+  ],
+  "nestedStructures": {},
+  "sampleRecords": [
+    {
+      "program_code": "CA",
+      "program_title": "Section 100 (Highly Specialised Drugs) - Community Access",
+      "schedule_code": 4604
+    },
+    {
+      "program_code": "CT",
+      "program_title": "Section 100 (Efficient Funding of Chemotherapy) - Related Benefits",
+      "schedule_code": 4604
+    },
+    {
+      "program_code": "DB",
+      "program_title": "Prescriber Bag (Dr Bag)",
+      "schedule_code": 4604
+    }
+  ]
+}

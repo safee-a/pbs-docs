@@ -1,0 +1,90 @@
+{
+  "endpoint": "dispensing-rules",
+  "scheduleCode": "4604",
+  "fetchedAt": "2026-02-23T03:11:19.071Z",
+  "recordCount": 17,
+  "fields": [
+    {
+      "name": "dispensing_rule_mnem",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "combined",
+        "s90-cp",
+        "s90-cp-sa",
+        "s94-private",
+        "s94-private-sa"
+      ]
+    },
+    {
+      "name": "dispensing_rule_reference",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "ep-combined",
+        "in-s90-cp",
+        "in-s90-cp-sa",
+        "in-s94-private",
+        "in-s94-private-sa"
+      ]
+    },
+    {
+      "name": "dispensing_rule_title",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Extemporaneous",
+        "Community Pharmacy",
+        "Community Pharmacy Special Access",
+        "Private Hospital",
+        "Private Hospital Special Access"
+      ]
+    },
+    {
+      "name": "community_pharmacy_indicator",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "false",
+        "true"
+      ]
+    },
+    {
+      "name": "schedule_code",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        4604
+      ]
+    }
+  ],
+  "nestedStructures": {},
+  "sampleRecords": [
+    {
+      "dispensing_rule_mnem": "combined",
+      "dispensing_rule_reference": "ep-combined",
+      "dispensing_rule_title": "Extemporaneous",
+      "community_pharmacy_indicator": "false",
+      "schedule_code": 4604
+    },
+    {
+      "dispensing_rule_mnem": "s90-cp",
+      "dispensing_rule_reference": "in-s90-cp",
+      "dispensing_rule_title": "Community Pharmacy",
+      "community_pharmacy_indicator": "true",
+      "schedule_code": 4604
+    },
+    {
+      "dispensing_rule_mnem": "s90-cp-sa",
+      "dispensing_rule_reference": "in-s90-cp-sa",
+      "dispensing_rule_title": "Community Pharmacy Special Access",
+      "community_pharmacy_indicator": "true",
+      "schedule_code": 4604
+    }
+  ]
+}

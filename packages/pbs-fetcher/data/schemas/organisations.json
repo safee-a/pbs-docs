@@ -1,0 +1,167 @@
+{
+  "endpoint": "organisations",
+  "scheduleCode": "4604",
+  "fetchedAt": "2026-02-23T03:10:36.947Z",
+  "recordCount": 100,
+  "fields": [
+    {
+      "name": "organisation_id",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        3,
+        4,
+        5,
+        7,
+        10
+      ]
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Australian Pharmaceutical Industries Pty Ltd",
+        "Professional Compounding Chemists of Australia Pty Ltd",
+        "Probiotec Limited",
+        "Galderma Australia Pty Ltd",
+        "Merck Sharp & Dohme (Australia) Pty Ltd"
+      ]
+    },
+    {
+      "name": "abn",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.92,
+      "exampleValues": [
+        "91 075 170 151",
+        "12 003 976 930",
+        "14 000 173 508",
+        "14 106 340 667",
+        "16 120 092 408"
+      ]
+    },
+    {
+      "name": "street_address",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.98,
+      "exampleValues": [
+        "83 Cherry Lane",
+        "L 18 1 Denison St",
+        "Level 1 Building A 26-38 Talavera Road",
+        "PO Box 9004",
+        "Suite 3.03 Level 3 390 St Kilda Road"
+      ]
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.98,
+      "exampleValues": [
+        "LAVERTON NORTH",
+        "NORTH SYDNEY",
+        "Macquarie Park",
+        "SCORESBY",
+        "Melbourne"
+      ]
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.98,
+      "exampleValues": [
+        "VIC",
+        "NSW",
+        "WA",
+        "SA",
+        "QLD"
+      ]
+    },
+    {
+      "name": "postcode",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.98,
+      "exampleValues": [
+        "3026",
+        "2060",
+        "2113",
+        "3179",
+        "3004"
+      ]
+    },
+    {
+      "name": "telephone_number",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.98,
+      "exampleValues": [
+        "+61 (0)3 9278 7555",
+        "1800 800 765",
+        "+61 (0)2 8988 8000",
+        "+61 (0)3 9547 1888",
+        "1800 733 397"
+      ]
+    },
+    {
+      "name": "facsimile_number",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "schedule_code",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        4604
+      ]
+    }
+  ],
+  "nestedStructures": {},
+  "sampleRecords": [
+    {
+      "organisation_id": 3,
+      "name": "Australian Pharmaceutical Industries Pty Ltd",
+      "abn": null,
+      "street_address": null,
+      "city": null,
+      "state": null,
+      "postcode": null,
+      "telephone_number": null,
+      "facsimile_number": null,
+      "schedule_code": 4604
+    },
+    {
+      "organisation_id": 4,
+      "name": "Professional Compounding Chemists of Australia Pty Ltd",
+      "abn": null,
+      "street_address": null,
+      "city": null,
+      "state": null,
+      "postcode": null,
+      "telephone_number": null,
+      "facsimile_number": null,
+      "schedule_code": 4604
+    },
+    {
+      "organisation_id": 5,
+      "name": "Probiotec Limited",
+      "abn": "91 075 170 151",
+      "street_address": "83 Cherry Lane",
+      "city": "LAVERTON NORTH",
+      "state": "VIC",
+      "postcode": "3026",
+      "telephone_number": "+61 (0)3 9278 7555",
+      "facsimile_number": null,
+      "schedule_code": 4604
+    }
+  ]
+}

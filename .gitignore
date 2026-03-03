@@ -6,17 +6,14 @@ dist/
 # Cached PBS API responses
 packages/pbs-fetcher/data/cache/
 
-# Generated content (reproducible from source)
-packages/pbs-fetcher/data/schemas/
-packages/pbs-fetcher/data/relationships.json
+# Generated site content (reproducible from source via `pnpm run generate`)
 site/src/content/docs/endpoints/
 site/public/llms.txt
 site/public/llms-full.txt
 site/public/schemas/pbs-api-tools.json
 site/public/pbac/
 
-# Generated PBAC scraper output
-packages/pbac-scraper/data/pbac-index.json
+# PBAC scraper temp files
 packages/pbac-scraper/data/prototype-results.json
 packages/pbac-scraper/data/docx/
 

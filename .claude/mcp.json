@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "healthdocs": {
+      "command": "npx",
+      "args": ["tsx", "packages/mcp-server/src/index.ts"]
+    }
+  }
+}

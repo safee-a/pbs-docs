@@ -1,0 +1,93 @@
+{
+  "endpoint": "copayments",
+  "scheduleCode": "4604",
+  "fetchedAt": "2026-02-23T03:12:43.098Z",
+  "recordCount": 1,
+  "fields": [
+    {
+      "name": "general",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        25
+      ]
+    },
+    {
+      "name": "concessional",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        7.7
+      ]
+    },
+    {
+      "name": "safety_net_general",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        1748.2
+      ]
+    },
+    {
+      "name": "safety_net_concessional",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        277.2
+      ]
+    },
+    {
+      "name": "safety_net_card_issue",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        12.780000000000001
+      ]
+    },
+    {
+      "name": "increased_discount_limit",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        51.1
+      ]
+    },
+    {
+      "name": "safety_net_ctg_contribution",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        42.5
+      ]
+    },
+    {
+      "name": "schedule_code",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        4604
+      ]
+    }
+  ],
+  "nestedStructures": {},
+  "sampleRecords": [
+    {
+      "general": 25,
+      "concessional": 7.7,
+      "safety_net_general": 1748.2,
+      "safety_net_concessional": 277.2,
+      "safety_net_card_issue": 12.780000000000001,
+      "increased_discount_limit": 51.1,
+      "safety_net_ctg_contribution": 42.5,
+      "schedule_code": 4604
+    }
+  ]
+}

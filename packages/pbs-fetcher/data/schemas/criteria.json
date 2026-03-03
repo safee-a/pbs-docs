@@ -1,0 +1,71 @@
+{
+  "endpoint": "criteria",
+  "scheduleCode": "4604",
+  "fetchedAt": "2026-02-23T03:12:21.968Z",
+  "recordCount": 100,
+  "fields": [
+    {
+      "name": "criteria_prescribing_txt_id",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        7601,
+        7603,
+        7613,
+        7701,
+        7705
+      ]
+    },
+    {
+      "name": "criteria_type",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "CLINICAL",
+        "TREATMENT",
+        "POPULATION"
+      ]
+    },
+    {
+      "name": "parameter_relationship",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "ANY"
+      ]
+    },
+    {
+      "name": "schedule_code",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        4604
+      ]
+    }
+  ],
+  "nestedStructures": {},
+  "sampleRecords": [
+    {
+      "criteria_prescribing_txt_id": 7601,
+      "criteria_type": "CLINICAL",
+      "parameter_relationship": "ANY",
+      "schedule_code": 4604
+    },
+    {
+      "criteria_prescribing_txt_id": 7603,
+      "criteria_type": "CLINICAL",
+      "parameter_relationship": "ANY",
+      "schedule_code": 4604
+    },
+    {
+      "criteria_prescribing_txt_id": 7613,
+      "criteria_type": "CLINICAL",
+      "parameter_relationship": "ANY",
+      "schedule_code": 4604
+    }
+  ]
+}

@@ -17,7 +17,8 @@ HealthDocs.ai — agent-optimized documentation for Australian healthcare data A
 ```bash
 pnpm run fetch          # Fetch from real PBS API (~6 min, results cached in packages/pbs-fetcher/data/cache/)
 pnpm run fetch -- --skip-fetch  # Rebuild schemas/relationships from cached data (instant)
-pnpm run scrape:pbac    # Scrape PBAC PSD index from pbs.gov.au (~95 meeting pages)
+pnpm run scrape:pbac    # Scrape PBAC PSD index from pbs.gov.au (~50 meeting pages, ~1500 PSDs)
+pnpm run scrape:pbac -- --test  # Test mode: scrape 3 PSDs from latest meeting only
 pnpm run generate       # Generate docs from schemas → site/src/content/docs/endpoints/, site/public/
 pnpm run build:site     # Build Astro static site → site/dist/
 pnpm run build          # Full pipeline: fetch → generate → build:site
@@ -47,7 +48,7 @@ PBS API → pbs-fetcher (analyze) → data/schemas/*.json + data/relationships.j
                                         ↓
                                   Astro build → site/dist/ (static HTML)
 
-PBS Website → pbac-scraper → data/pbac-index.json (~500KB, all PSD metadata)
+PBS Website → pbac-scraper → data/pbac-index.json (~400KB, all PSD metadata)
                                    ↓
                          content-generator → site/public/pbac/index.json (copy)
                                            → llms.txt (PBAC Decisions section)
@@ -67,6 +68,8 @@ MCP Server (on-demand, stdio transport):
 - `site/public/pbac/index.json` — PBAC PSD index (copied from pbac-scraper)
 - `packages/pbs-fetcher/data/schemas/`, `data/cache/`, `data/relationships.json`
 - `packages/pbac-scraper/data/pbac-index.json` — full PBAC PSD index
+- `packages/pbac-scraper/data/prototype-results.json` — test mode output
+- `packages/pbac-scraper/data/docx/` — downloaded PSD .docx files
 
 **Hand-written** (committed to git):
 - `site/src/content/docs/getting-started/` — overview, auth, rate limiting
@@ -80,6 +83,22 @@ MCP Server (on-demand, stdio transport):
 - `site/src/content/docs/workflows/` — 6 recipe guides (find medicine, check listing, compare brands, etc.)
 - `site/src/content/docs/errors/` — error codes and troubleshooting
 - `packages/content-generator/src/templates/` — Handlebars templates for doc generation
+
+## PBAC Scraper Details
+
+- Scrapes `pbs.gov.au` for PBAC Public Summary Documents (PSDs)
+- PSD `.docx` parsing uses `_Toc` anchor markers (Word table-of-contents) to identify section boundaries
+- Uses `mammoth` library for .docx → HTML conversion, then extracts 23 canonical section names
+- Index builder runs with concurrency limit of 5 parallel meeting page fetches
+- pbac-scraper exports modules via package.json `exports` field (used by mcp-server as workspace dependency)
+
+## MCP Server Details
+
+- Uses `@modelcontextprotocol/sdk` (v1 API) with stdio transport
+- Start: `pnpm --filter healthdocs-mcp-server run dev` (or `node packages/mcp-server/dist/index.js` after build)
+- `search_pbac_decisions` — fast, searches local JSON index only
+- `get_pbac_decision` — slow (~3-5s), fetches landing page + downloads .docx + parses on demand
+- `search_pbs_docs` — fast, searches `llms.txt` entries with term-matching relevance scoring
 
 ## Code Conventions
 

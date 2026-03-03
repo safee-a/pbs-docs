@@ -1,0 +1,73 @@
+{
+  "endpoint": "prescribers",
+  "scheduleCode": "4604",
+  "fetchedAt": "2026-02-23T03:10:16.585Z",
+  "recordCount": 100,
+  "fields": [
+    {
+      "name": "pbs_code",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "10001J",
+        "10003L",
+        "10004M",
+        "10005N",
+        "10007Q"
+      ]
+    },
+    {
+      "name": "prescriber_code",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "M",
+        "N",
+        "O"
+      ]
+    },
+    {
+      "name": "prescriber_type",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Medical Practitioners",
+        "Nurse Practitioners",
+        "Optometrist"
+      ]
+    },
+    {
+      "name": "schedule_code",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        4604
+      ]
+    }
+  ],
+  "nestedStructures": {},
+  "sampleRecords": [
+    {
+      "pbs_code": "10001J",
+      "prescriber_code": "M",
+      "prescriber_type": "Medical Practitioners",
+      "schedule_code": 4604
+    },
+    {
+      "pbs_code": "10001J",
+      "prescriber_code": "N",
+      "prescriber_type": "Nurse Practitioners",
+      "schedule_code": 4604
+    },
+    {
+      "pbs_code": "10003L",
+      "prescriber_code": "M",
+      "prescriber_type": "Medical Practitioners",
+      "schedule_code": 4604
+    }
+  ]
+}

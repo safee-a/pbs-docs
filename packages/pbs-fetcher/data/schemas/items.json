@@ -1,0 +1,999 @@
+{
+  "endpoint": "items",
+  "scheduleCode": "4604",
+  "fetchedAt": "2026-02-23T03:08:52.666Z",
+  "recordCount": 100,
+  "fields": [
+    {
+      "name": "li_item_id",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "10001J_14023_31078_31081_31083",
+        "10003L_13467_29812_29815_29817",
+        "10004M_7501_1327_5783_52398",
+        "10004M_7501_1327_5783_7045",
+        "10005N_14031_31172_31177_31179"
+      ]
+    },
+    {
+      "name": "drug_name",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Rifaximin",
+        "Dabrafenib",
+        "Sunitinib",
+        "Olmesartan + amlodipine + hydrochlorothiazide",
+        "fluticasone propionate + formoterol"
+      ]
+    },
+    {
+      "name": "li_drug_name",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Rifaximin",
+        "Dabrafenib",
+        "Sunitinib",
+        "Olmesartan with amlodipine and hydrochlorothiazide",
+        "Fluticasone propionate with formoterol"
+      ]
+    },
+    {
+      "name": "li_form",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Tablet 550 mg",
+        "Capsule 75 mg (as mesilate)",
+        "Capsule 12.5 mg",
+        "Tablet containing olmesartan medoxomil 20 mg with amlodipine 5 mg (as besilate) and hydrochlorothiazide 12.5 mg",
+        "Pressurised inhalation containing fluticasone propionate 125 micrograms with formoterol fumarate dihydrate 5 micrograms per dose, 120 doses"
+      ]
+    },
+    {
+      "name": "schedule_form",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "rifaximin 550 mg tablet, 56",
+        "dabrafenib 75 mg capsule, 120",
+        "sunitinib 12.5 mg capsule, 28",
+        "olmesartan medoxomil 20 mg + amlodipine 5 mg + hydrochlorothiazide 12.5 mg tablet, 30",
+        "fluticasone propionate 125 microgram/actuation + formoterol fumarate dihydrate 5 microgram/actuation inhalation, 120 actuations"
+      ]
+    },
+    {
+      "name": "brand_name",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Xifaxan",
+        "Tafinlar",
+        "Sunitinib Sandoz",
+        "Sutent",
+        "Sevikar HCT 20/5/12.5"
+      ]
+    },
+    {
+      "name": "program_code",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "GE",
+        "R1",
+        "HB",
+        "HS"
+      ]
+    },
+    {
+      "name": "pbs_code",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "10001J",
+        "10003L",
+        "10004M",
+        "10005N",
+        "10007Q"
+      ]
+    },
+    {
+      "name": "benefit_type_code",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "A",
+        "S",
+        "R",
+        "U"
+      ]
+    },
+    {
+      "name": "caution_indicator",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "note_indicator",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Y",
+        "N"
+      ]
+    },
+    {
+      "name": "manner_of_administration",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "ORAL",
+        "INHALATION_BY_MOUTH",
+        "FOR_EXTERNAL_USE",
+        "APPLICATION_TO_THE_EYE",
+        "RECTAL"
+      ]
+    },
+    {
+      "name": "moa_preferred_term",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Oral",
+        "Inhalation by mouth",
+        "For external use",
+        "Application to the eye",
+        "Rectal"
+      ]
+    },
+    {
+      "name": "maximum_prescribable_pack",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        1,
+        2,
+        4,
+        5,
+        3
+      ]
+    },
+    {
+      "name": "maximum_quantity_units",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        56,
+        120,
+        28,
+        30,
+        1
+      ]
+    },
+    {
+      "name": "number_of_repeats",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        5,
+        2,
+        3,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "organisation_id",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        122,
+        25,
+        90,
+        69,
+        142
+      ]
+    },
+    {
+      "name": "manufacturer_code",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "NE",
+        "NV",
+        "SZ",
+        "PF",
+        "AF"
+      ]
+    },
+    {
+      "name": "pack_size",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        56,
+        120,
+        28,
+        30,
+        1
+      ]
+    },
+    {
+      "name": "pricing_quantity",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        56,
+        120,
+        28,
+        30,
+        1
+      ]
+    },
+    {
+      "name": "pack_not_to_be_broken_ind",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N",
+        "Y"
+      ]
+    },
+    {
+      "name": "claimed_price",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        394.14,
+        6995.2300000000005,
+        513.55,
+        9.290000000000001,
+        5.57
+      ]
+    },
+    {
+      "name": "determined_price",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        394.14,
+        6995.2300000000005,
+        513.55,
+        5.57,
+        24.54
+      ]
+    },
+    {
+      "name": "determined_qty",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "safety_net_resupply_rule_days",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        20,
+        4
+      ]
+    },
+    {
+      "name": "safety_net_resup_rule_cnt_ind",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Y",
+        "N"
+      ]
+    },
+    {
+      "name": "extemporaneous_indicator",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "extemporaneous_standard",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "doctors_bag_group_id",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "section100_only_indicator",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "doctors_bag_only_indicator",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "brand_substitution_group_id",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.71,
+      "exampleValues": [
+        25573,
+        23701,
+        25574,
+        25555,
+        22577
+      ]
+    },
+    {
+      "name": "brand_substitution_group_code",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.71,
+      "exampleValues": [
+        "a"
+      ]
+    },
+    {
+      "name": "supply_only_indicator",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "supply_only_date",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "non_effective_date",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.04,
+      "exampleValues": [
+        "2026-03-01",
+        "2026-04-01"
+      ]
+    },
+    {
+      "name": "weighted_avg_disclosed_price",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "originator_brand_indicator",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N",
+        "Y"
+      ]
+    },
+    {
+      "name": "paper_med_chart_eligible_ind",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N",
+        "Y"
+      ]
+    },
+    {
+      "name": "elect_med_chart_eligible_ind",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Y",
+        "N"
+      ]
+    },
+    {
+      "name": "hsptl_med_chart_eligible_ind",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Y"
+      ]
+    },
+    {
+      "name": "paper_med_chart_duration",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.8,
+      "exampleValues": [
+        4
+      ]
+    },
+    {
+      "name": "elect_med_chart_duration",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.91,
+      "exampleValues": [
+        6
+      ]
+    },
+    {
+      "name": "hsptl_chart_acute_duration",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        12
+      ]
+    },
+    {
+      "name": "hsptl_chart_sub_acute_duration",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        12
+      ]
+    },
+    {
+      "name": "hsptl_chart_chronic_duration",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        12
+      ]
+    },
+    {
+      "name": "pack_content",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "vial_content",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "infusible_indicator",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "unit_of_measure",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "continued_dispensing_flag",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N",
+        "Y"
+      ]
+    },
+    {
+      "name": "continued_dispensing_emergency",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "maximum_amount",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "formulary",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.96,
+      "exampleValues": [
+        "F1",
+        "F2",
+        "CDL"
+      ]
+    },
+    {
+      "name": "water_added_ind",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "section_19a_expiry_date",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "container_fee_type",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.9,
+      "exampleValues": [
+        "other",
+        "injectable"
+      ]
+    },
+    {
+      "name": "policy_applied_imdq60_base_flag",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N",
+        "Y"
+      ]
+    },
+    {
+      "name": "policy_applied_imdq60_flag",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "policy_applied_bio_sim_up_flag",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "policy_applied_indig_phar_flag",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "therapeutic_exemption_indicator",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "premium_exemption_group_id",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "doctors_bag_group_title",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "therapeutic_group_id",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "therapeutic_group_title",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "advanced_notice_date",
+      "type": "string",
+      "nullable": true,
+      "presence": 0.04,
+      "exampleValues": [
+        "2025-12-01",
+        "2026-01-01"
+      ]
+    },
+    {
+      "name": "supply_only_end_date",
+      "type": "null",
+      "nullable": true,
+      "presence": 0,
+      "exampleValues": []
+    },
+    {
+      "name": "first_listed_date",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "2013-12-01",
+        "2021-10-01",
+        "2020-04-01",
+        "2023-03-01",
+        "2022-09-01"
+      ]
+    },
+    {
+      "name": "legal_unar_ind",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N"
+      ]
+    },
+    {
+      "name": "legal_car_ind",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "N",
+        "Y"
+      ]
+    },
+    {
+      "name": "proportional_price",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        394.14,
+        6995.23,
+        513.55,
+        5.57,
+        24.54
+      ]
+    },
+    {
+      "name": "li_substitution_group_id",
+      "type": "number",
+      "nullable": true,
+      "presence": 0.71,
+      "exampleValues": [
+        25517,
+        23646,
+        25520,
+        22540,
+        24730
+      ]
+    },
+    {
+      "name": "innovator_indicator",
+      "type": "string",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        "Y",
+        "N"
+      ]
+    },
+    {
+      "name": "schedule_code",
+      "type": "number",
+      "nullable": false,
+      "presence": 1,
+      "exampleValues": [
+        4604
+      ]
+    }
+  ],
+  "nestedStructures": {},
+  "sampleRecords": [
+    {
+      "li_item_id": "10001J_14023_31078_31081_31083",
+      "drug_name": "Rifaximin",
+      "li_drug_name": "Rifaximin",
+      "li_form": "Tablet 550 mg",
+      "schedule_form": "rifaximin 550 mg tablet, 56",
+      "brand_name": "Xifaxan",
+      "program_code": "GE",
+      "pbs_code": "10001J",
+      "benefit_type_code": "A",
+      "caution_indicator": "N",
+      "note_indicator": "Y",
+      "manner_of_administration": "ORAL",
+      "moa_preferred_term": "Oral",
+      "maximum_prescribable_pack": 1,
+      "maximum_quantity_units": 56,
+      "number_of_repeats": 5,
+      "organisation_id": 122,
+      "manufacturer_code": "NE",
+      "pack_size": 56,
+      "pricing_quantity": 56,
+      "pack_not_to_be_broken_ind": "N",
+      "claimed_price": 394.14,
+      "determined_price": 394.14,
+      "determined_qty": "N",
+      "safety_net_resupply_rule_days": 20,
+      "safety_net_resup_rule_cnt_ind": "Y",
+      "extemporaneous_indicator": "N",
+      "extemporaneous_standard": null,
+      "doctors_bag_group_id": null,
+      "section100_only_indicator": "N",
+      "doctors_bag_only_indicator": "N",
+      "brand_substitution_group_id": null,
+      "brand_substitution_group_code": null,
+      "supply_only_indicator": "N",
+      "supply_only_date": null,
+      "non_effective_date": null,
+      "weighted_avg_disclosed_price": null,
+      "originator_brand_indicator": "N",
+      "paper_med_chart_eligible_ind": "N",
+      "elect_med_chart_eligible_ind": "Y",
+      "hsptl_med_chart_eligible_ind": "Y",
+      "paper_med_chart_duration": null,
+      "elect_med_chart_duration": 6,
+      "hsptl_chart_acute_duration": 12,
+      "hsptl_chart_sub_acute_duration": 12,
+      "hsptl_chart_chronic_duration": 12,
+      "pack_content": null,
+      "vial_content": null,
+      "infusible_indicator": "N",
+      "unit_of_measure": null,
+      "continued_dispensing_flag": "N",
+      "continued_dispensing_emergency": "N",
+      "maximum_amount": null,
+      "formulary": "F1",
+      "water_added_ind": "N",
+      "section_19a_expiry_date": null,
+      "container_fee_type": "other",
+      "policy_applied_imdq60_base_flag": "N",
+      "policy_applied_imdq60_flag": "N",
+      "policy_applied_bio_sim_up_flag": "N",
+      "policy_applied_indig_phar_flag": "N",
+      "therapeutic_exemption_indicator": "N",
+      "premium_exemption_group_id": null,
+      "doctors_bag_group_title": null,
+      "therapeutic_group_id": null,
+      "therapeutic_group_title": null,
+      "advanced_notice_date": null,
+      "supply_only_end_date": null,
+      "first_listed_date": "2013-12-01",
+      "legal_unar_ind": "N",
+      "legal_car_ind": "N",
+      "proportional_price": 394.14,
+      "li_substitution_group_id": null,
+      "innovator_indicator": "Y",
+      "schedule_code": 4604
+    },
+    {
+      "li_item_id": "10003L_13467_29812_29815_29817",
+      "drug_name": "Dabrafenib",
+      "li_drug_name": "Dabrafenib",
+      "li_form": "Capsule 75 mg (as mesilate)",
+      "schedule_form": "dabrafenib 75 mg capsule, 120",
+      "brand_name": "Tafinlar",
+      "program_code": "GE",
+      "pbs_code": "10003L",
+      "benefit_type_code": "S",
+      "caution_indicator": "N",
+      "note_indicator": "Y",
+      "manner_of_administration": "ORAL",
+      "moa_preferred_term": "Oral",
+      "maximum_prescribable_pack": 1,
+      "maximum_quantity_units": 120,
+      "number_of_repeats": 5,
+      "organisation_id": 25,
+      "manufacturer_code": "NV",
+      "pack_size": 120,
+      "pricing_quantity": 120,
+      "pack_not_to_be_broken_ind": "N",
+      "claimed_price": 6995.2300000000005,
+      "determined_price": 6995.2300000000005,
+      "determined_qty": "N",
+      "safety_net_resupply_rule_days": 20,
+      "safety_net_resup_rule_cnt_ind": "N",
+      "extemporaneous_indicator": "N",
+      "extemporaneous_standard": null,
+      "doctors_bag_group_id": null,
+      "section100_only_indicator": "N",
+      "doctors_bag_only_indicator": "N",
+      "brand_substitution_group_id": null,
+      "brand_substitution_group_code": null,
+      "supply_only_indicator": "N",
+      "supply_only_date": null,
+      "non_effective_date": null,
+      "weighted_avg_disclosed_price": null,
+      "originator_brand_indicator": "N",
+      "paper_med_chart_eligible_ind": "Y",
+      "elect_med_chart_eligible_ind": "Y",
+      "hsptl_med_chart_eligible_ind": "Y",
+      "paper_med_chart_duration": 4,
+      "elect_med_chart_duration": 6,
+      "hsptl_chart_acute_duration": 12,
+      "hsptl_chart_sub_acute_duration": 12,
+      "hsptl_chart_chronic_duration": 12,
+      "pack_content": null,
+      "vial_content": null,
+      "infusible_indicator": "N",
+      "unit_of_measure": null,
+      "continued_dispensing_flag": "N",
+      "continued_dispensing_emergency": "N",
+      "maximum_amount": null,
+      "formulary": "F1",
+      "water_added_ind": "N",
+      "section_19a_expiry_date": null,
+      "container_fee_type": "other",
+      "policy_applied_imdq60_base_flag": "N",
+      "policy_applied_imdq60_flag": "N",
+      "policy_applied_bio_sim_up_flag": "N",
+      "policy_applied_indig_phar_flag": "N",
+      "therapeutic_exemption_indicator": "N",
+      "premium_exemption_group_id": null,
+      "doctors_bag_group_title": null,
+      "therapeutic_group_id": null,
+      "therapeutic_group_title": null,
+      "advanced_notice_date": null,
+      "supply_only_end_date": null,
+      "first_listed_date": "2013-12-01",
+      "legal_unar_ind": "N",
+      "legal_car_ind": "N",
+      "proportional_price": 6995.23,
+      "li_substitution_group_id": null,
+      "innovator_indicator": "Y",
+      "schedule_code": 4604
+    },
+    {
+      "li_item_id": "10004M_7501_1327_5783_52398",
+      "drug_name": "Sunitinib",
+      "li_drug_name": "Sunitinib",
+      "li_form": "Capsule 12.5 mg",
+      "schedule_form": "sunitinib 12.5 mg capsule, 28",
+      "brand_name": "Sunitinib Sandoz",
+      "program_code": "GE",
+      "pbs_code": "10004M",
+      "benefit_type_code": "A",
+      "caution_indicator": "N",
+      "note_indicator": "Y",
+      "manner_of_administration": "ORAL",
+      "moa_preferred_term": "Oral",
+      "maximum_prescribable_pack": 1,
+      "maximum_quantity_units": 28,
+      "number_of_repeats": 2,
+      "organisation_id": 90,
+      "manufacturer_code": "SZ",
+      "pack_size": 28,
+      "pricing_quantity": 28,
+      "pack_not_to_be_broken_ind": "N",
+      "claimed_price": 513.55,
+      "determined_price": 513.55,
+      "determined_qty": "N",
+      "safety_net_resupply_rule_days": 20,
+      "safety_net_resup_rule_cnt_ind": "Y",
+      "extemporaneous_indicator": "N",
+      "extemporaneous_standard": null,
+      "doctors_bag_group_id": null,
+      "section100_only_indicator": "N",
+      "doctors_bag_only_indicator": "N",
+      "brand_substitution_group_id": 25573,
+      "brand_substitution_group_code": "a",
+      "supply_only_indicator": "N",
+      "supply_only_date": null,
+      "non_effective_date": null,
+      "weighted_avg_disclosed_price": null,
+      "originator_brand_indicator": "N",
+      "paper_med_chart_eligible_ind": "N",
+      "elect_med_chart_eligible_ind": "Y",
+      "hsptl_med_chart_eligible_ind": "Y",
+      "paper_med_chart_duration": null,
+      "elect_med_chart_duration": 6,
+      "hsptl_chart_acute_duration": 12,
+      "hsptl_chart_sub_acute_duration": 12,
+      "hsptl_chart_chronic_duration": 12,
+      "pack_content": null,
+      "vial_content": null,
+      "infusible_indicator": "N",
+      "unit_of_measure": null,
+      "continued_dispensing_flag": "N",
+      "continued_dispensing_emergency": "N",
+      "maximum_amount": null,
+      "formulary": "F2",
+      "water_added_ind": "N",
+      "section_19a_expiry_date": null,
+      "container_fee_type": "other",
+      "policy_applied_imdq60_base_flag": "N",
+      "policy_applied_imdq60_flag": "N",
+      "policy_applied_bio_sim_up_flag": "N",
+      "policy_applied_indig_phar_flag": "N",
+      "therapeutic_exemption_indicator": "N",
+      "premium_exemption_group_id": null,
+      "doctors_bag_group_title": null,
+      "therapeutic_group_id": null,
+      "therapeutic_group_title": null,
+      "advanced_notice_date": null,
+      "supply_only_end_date": null,
+      "first_listed_date": "2021-10-01",
+      "legal_unar_ind": "N",
+      "legal_car_ind": "N",
+      "proportional_price": 513.55,
+      "li_substitution_group_id": 25517,
+      "innovator_indicator": "N",
+      "schedule_code": 4604
+    }
+  ]
+}
