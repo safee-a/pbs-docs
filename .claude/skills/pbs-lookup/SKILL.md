@@ -1,3 +1,8 @@
+---
+description: Look up a medicine on the Australian PBS — pricing, restrictions, copayments
+user-invocable: true
+---
+
 Look up the medicine "$ARGUMENTS" on the Australian PBS (Pharmaceutical Benefits Scheme).
 
 ## Instructions

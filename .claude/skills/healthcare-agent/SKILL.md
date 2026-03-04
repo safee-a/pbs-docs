@@ -1,3 +1,8 @@
+---
+description: Build a custom healthcare data agent from a description
+user-invocable: true
+---
+
 Build a custom healthcare data agent based on this description: "$ARGUMENTS"
 
 ## Instructions
@@ -40,7 +45,7 @@ Additionally:
 ### Step 3: Write the implementation
 
 Choose the output format based on the user's needs:
-- **Claude Code skill** (`.claude/commands/*.md`) — if they want a reusable slash command
+- **Claude Code skill** (`.claude/skills/*/SKILL.md`) — if they want a reusable slash command
 - **Node.js script** — if they want a standalone tool
 - **Shell script** — if they want something quick with `curl`
 

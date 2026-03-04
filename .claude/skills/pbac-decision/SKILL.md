@@ -1,3 +1,8 @@
+---
+description: Fetch and summarise a PBAC Public Summary Document
+user-invocable: true
+---
+
 Fetch and summarise the PBAC Public Summary Document (PSD) for "$ARGUMENTS".
 
 ## Instructions

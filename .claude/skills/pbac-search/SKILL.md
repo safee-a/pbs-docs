@@ -1,3 +1,8 @@
+---
+description: Search PBAC decisions by drug or brand name
+user-invocable: true
+---
+
 Search PBAC (Pharmaceutical Benefits Advisory Committee) decisions for "$ARGUMENTS".
 
 ## Instructions

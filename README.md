@@ -109,7 +109,7 @@ packages/
 site/                 # Astro + Starlight docs site
 scripts/              # Build orchestration
 .claude/
-  commands/           # Claude Code slash-command skills
+  skills/             # Claude Code slash-command skills
   mcp.json            # MCP server config (auto-loaded by Claude Code)
 ```
 

@@ -1,3 +1,8 @@
+---
+description: Show the latest PBS schedule changes — new listings, delistings, price changes
+user-invocable: true
+---
+
 Show the latest PBS schedule changes.
 
 ## Instructions

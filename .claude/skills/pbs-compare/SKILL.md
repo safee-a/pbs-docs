@@ -1,3 +1,8 @@
+---
+description: Compare brand vs generic versions of a medicine on the PBS
+user-invocable: true
+---
+
 Compare brand vs generic versions of "$ARGUMENTS" on the PBS.
 
 ## Instructions
